@@ -3,5 +3,7 @@
 {% block body %}
     <h2>Active Listings</h2>
 
-    TODO
+    {% for List in Listings %}
+    <li>Flight {{ flight.id }}: {{ flight.origin }} to {{ flight.destination }}</li>
+{% endfor %}
 {% endblock %}

@@ -6,10 +6,12 @@ from django.db import models
 class User(AbstractUser):
     pass
 
-Category_Choices = ((("Cars", "Cars"), ("Appliances", "Appliances"), ("Sports", "Sports")))
+
+Category_Choices = (
+    (("Cars", "Cars"), ("Appliances", "Appliances"), ("Sports", "Sports")))
 
 
-class Listing(models.Model):
+class Listings(models.Model):
 
     creator = models.ForeignKey(
         User, on_delete=models.PROTECT, related_name="get_creator_listings", blank=False)
@@ -34,7 +36,7 @@ class Listing(models.Model):
 
 class Bids(models.Model):
     auction = models.ForeignKey(
-        Listing, on_delete=models.CASCADE, related_name="get_auction_listings")
+        Listings, on_delete=models.CASCADE, related_name="get_auction_listings")
     # must be at least as high as the starting bid.  Is there a point to this one?
     currentBid = models.FloatField(blank=True, null=True)
     # bid at which the offer was accepted and the listing is now closed and inactive.
@@ -55,7 +57,7 @@ class Comments(models.Model):
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="get_user_comments")
     listing = models.ForeignKey(
-        Listing, on_delete=models.CASCADE, related_name="get_comments")
+        Listings, on_delete=models.CASCADE, related_name="get_comments")
 
     def __str__(self) -> str:
         return f"User: {self.user} - Comment: {self.comment} - Listing: {self.listing}"
