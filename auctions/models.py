@@ -6,6 +6,8 @@ from django.db import models
 class User(AbstractUser):
     pass
 
+Category_Choices = ((("Cars", "Cars"), ("Appliances", "Appliances"), ("Sports", "Sports")))
+
 
 class Listing(models.Model):
 
@@ -23,12 +25,8 @@ class Listing(models.Model):
     startingBid = models.FloatField(max_length=64)
     # blank = true means the field is not required.
     url = models.CharField(max_length=128, blank=True)
-    Clothes = 'Clothes'
-    Cars = 'Cars'
-    Houses = 'Houses'
-    Categories = [Clothes, 'Clothes', Cars, 'Cars', Houses, 'Houses']
     category = models.CharField(
-        max_length=64, choices=Categories, default=Clothes)
+        max_length=64, choices=Category_Choices, default=1)
 
     def __str__(self) -> str:
         return f"{self.title} - {self.startingBid}"
@@ -40,14 +38,14 @@ class Bids(models.Model):
     # must be at least as high as the starting bid.
     currentBid = models.FloatField(blank=True, null=True)
     # bid at which the offer was accepted and the listing is now closed and inactive.
-    offeringBid = models.FloatField()
+    bidAmount = models.FloatField()
     # If a user is deleted, all bids associated with that user should also be deleted.
-    user = models.ForeignKey(
+    user_bidder = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="get_user_bids")
     date = models.DateTimeField(auto_now=True)
 
     def __str__(self) -> str:
-        return f"{self.user} - {self.offeringBid}"
+        return f"{self.user_bidder} - {self.bidAmount}"
 
 
 class Comments(models.Model):
