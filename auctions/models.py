@@ -12,9 +12,9 @@ Category_Choices = ((("Cars", "Cars"), ("Appliances", "Appliances"), ("Sports", 
 class Listing(models.Model):
 
     creator = models.ForeignKey(
-        User, on_delete=models.PROTECT, related_name="get_creator_listings")
+        User, on_delete=models.PROTECT, related_name="get_creator_listings", blank=False)
     buyer = models.ForeignKey(
-        User, null=True, on_delete=models.PROTECT, related_name="get_buyer_listings")
+        User, blank=True, null=True, on_delete=models.PROTECT, related_name="get_buyer_listings")
     watchers = models.ManyToManyField(
         User, blank=True, related_name="get_watched_listings")
     # TODO: Not sure how to handle this date.
@@ -26,16 +26,16 @@ class Listing(models.Model):
     # blank = true means the field is not required.
     url = models.CharField(max_length=128, blank=True)
     category = models.CharField(
-        max_length=64, choices=Category_Choices, default=1)
+        max_length=64, choices=Category_Choices, default="Cars")
 
     def __str__(self) -> str:
-        return f"{self.title} - {self.startingBid}"
+        return f"Listing Title: {self.title} - Starting bid: {self.startingBid}"
 
 
 class Bids(models.Model):
     auction = models.ForeignKey(
         Listing, on_delete=models.CASCADE, related_name="get_auction_listings")
-    # must be at least as high as the starting bid.
+    # must be at least as high as the starting bid.  Is there a point to this one?
     currentBid = models.FloatField(blank=True, null=True)
     # bid at which the offer was accepted and the listing is now closed and inactive.
     bidAmount = models.FloatField()
@@ -45,7 +45,7 @@ class Bids(models.Model):
     date = models.DateTimeField(auto_now=True)
 
     def __str__(self) -> str:
-        return f"{self.user_bidder} - {self.bidAmount}"
+        return f"User that bid: {self.user_bidder} - Bid amount: {self.bidAmount}"
 
 
 class Comments(models.Model):
@@ -58,4 +58,4 @@ class Comments(models.Model):
         Listing, on_delete=models.CASCADE, related_name="get_comments")
 
     def __str__(self) -> str:
-        return f"{self.user} - {self.comment} - {self.listing}"
+        return f"User: {self.user} - Comment: {self.comment} - Listing: {self.listing}"
