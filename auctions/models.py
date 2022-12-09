@@ -1,4 +1,5 @@
 from datetime import timezone
+from django.utils.timezone import now
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
@@ -20,7 +21,7 @@ class Listings(models.Model):
     watchers = models.ManyToManyField(
         User, blank=True, related_name="get_watched_listings")
     # TODO: Not sure how to handle this date.
-    createdDate = models.DateTimeField(auto_now=True)
+    createdDate = models.DateTimeField(auto_now_add=True)
     active = models.BooleanField(default=True)
     title = models.CharField(max_length=64)
     description = models.CharField(max_length=300)
