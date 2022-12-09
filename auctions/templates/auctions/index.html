@@ -1,10 +1,46 @@
 {% extends "auctions/layout.html" %}
+{% load static %}
+
 
 {% block body %}
-    <h2>Active Listings</h2>
-<!-- "listings" is the queryset that you return.  "listing" is just one object in the queryset. -->
-    {% for listing in listings %}
-    <li>Title: {{ listing.title}}</li>
-    <!-- <li>Test {{ active.title }}: {{ flight.origin }} to {{ flight.destination }}</li> -->
+
+<h2>Active Listings</h2>
+
+{% for listing in listings %}
+
+<div>
+    <p><!-- <img src="{{ listing.url}}" alt="" width="200" height="200"/> -->
+        <img src="{% static 'auctions/car.jpeg' %}" alt="" width="200" height="200" />
+    </p>
+
+</div>
+
+<div>
+    <ul>
+
+
+        <!-- "listings" is the queryset that you return.  "listing" is just one object in the queryset. -->
+
+
+        <li>
+            <h5>Listing: {{ listing.title}}</h5>
+        </li>
+        <li>{{ listing.description}}</li>
+
+
+
+        <!-- <p>
+
+
+    </p> -->
+
+    </ul>
+</div>
+
+
+
+
+
+
 {% endfor %}
 {% endblock %}
