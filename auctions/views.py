@@ -19,8 +19,12 @@ def activeListings(request):
     })
 
 
-def index(request):
-    return render(request, "auctions/index.html")
+# def index(request):
+#     return render(request, "auctions/index.html")
+
+def listings(request):
+    return HttpResponse("Listings page!")
+
 
 
 def login_view(request):

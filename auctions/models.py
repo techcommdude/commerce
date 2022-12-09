@@ -20,7 +20,7 @@ class Listings(models.Model):
         User, blank=True, null=True, on_delete=models.PROTECT, related_name="get_buyer_listings")
     watchers = models.ManyToManyField(
         User, blank=True, related_name="get_watched_listings")
-    # TODO: Not sure how to handle this date.
+    # TODO: Modified settings.py to fix the date issue.
     createdDate = models.DateTimeField(auto_now_add=True)
     active = models.BooleanField(default=True)
     title = models.CharField(max_length=64)
