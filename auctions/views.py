@@ -19,12 +19,10 @@ def activeListings(request):
     })
 
 
-# def index(request):
-#     return render(request, "auctions/index.html")
-
 def listings(request, listing_id):
-    return HttpResponse("Listings page!")
 
+    listing = Listings.objects.get(id=listing_id)
+    return render(request, "auctions/listing.html", {"listing": listing})
 
 
 def login_view(request):
