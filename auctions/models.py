@@ -45,7 +45,7 @@ class Bids(models.Model):
     # If a user is deleted, all bids associated with that user should also be deleted.
     user_bidder = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="get_user_bids")
-    date = models.DateTimeField(auto_now=True)
+    date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self) -> str:
         return f"User that bid: {self.user_bidder} - Bid amount: {self.bidAmount}"
@@ -54,7 +54,7 @@ class Bids(models.Model):
 class Comments(models.Model):
     comment = models.CharField(max_length=100)
     # TODO: Not sure how to handle this date.
-    createdDate = models.DateTimeField(auto_now=True)
+    createdDate = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="get_user_comments")
     listing = models.ForeignKey(
