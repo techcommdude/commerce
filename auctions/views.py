@@ -10,6 +10,15 @@ from .models import Comments
 from .models import Listings
 
 
+def activeListings(request):
+    # active = Listings.objects.get(active=True)
+    returned_listing = Listings.objects.all()
+    print(returned_listing)
+    return render(request, "auctions/index.html", {
+        "listings": Listings.objects.all()
+    })
+
+
 def index(request):
     return render(request, "auctions/index.html")
 

@@ -2,8 +2,9 @@
 
 {% block body %}
     <h2>Active Listings</h2>
-
-    {% for List in Listings %}
-    <li>Flight {{ flight.id }}: {{ flight.origin }} to {{ flight.destination }}</li>
+<!-- "listings" is the queryset that you return.  "listing" is just one object in the queryset. -->
+    {% for listing in listings %}
+    <li>Title: {{ listing.title}}</li>
+    <!-- <li>Test {{ active.title }}: {{ flight.origin }} to {{ flight.destination }}</li> -->
 {% endfor %}
 {% endblock %}
