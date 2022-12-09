@@ -1,12 +1,13 @@
 {% extends "auctions/layout.html" %}
 {% load static %}
 
-
 {% block body %}
 
 <h2>Active Listings</h2>
 
 {% for listing in listings %}
+
+{% if listing.active == True %}
 
 <div>
     <p><!-- <img src="{{ listing.url}}" alt="" width="200" height="200"/> -->
@@ -17,10 +18,7 @@
 
 <div>
     <ul>
-
-
         <!-- "listings" is the queryset that you return.  "listing" is just one object in the queryset. -->
-
 
         <li>
             <h5>Listing: {{ listing.title}}</h5>
@@ -29,20 +27,10 @@
         <li>${{ listing.startingBid}}</li>
         <li>Created {{ listing.createdDate}}</li>
 
-
-
-        <!-- <p>
-
-
-    </p> -->
-
     </ul>
 </div>
 
-
-
-
-
+{% endif %}
 
 {% endfor %}
 {% endblock %}
