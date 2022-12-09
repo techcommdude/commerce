@@ -22,7 +22,7 @@ def activeListings(request):
 # def index(request):
 #     return render(request, "auctions/index.html")
 
-def listings(request):
+def listings(request, id):
     return HttpResponse("Listings page!")
 
 
