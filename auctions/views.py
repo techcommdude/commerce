@@ -36,6 +36,15 @@ def watchlist(request, listing_id):
     username = request.user.username
     print(username)
 
+    listings = Listings.objects.all()
+
+
+
+    # print(listings)
+
+
+
+
 
 
     # print(test2)
