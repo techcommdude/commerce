@@ -24,9 +24,12 @@ def listings(request, listing_id):
     listing = Listings.objects.get(id=listing_id)
     return render(request, "auctions/listing.html", {"listing": listing})
 
-#TODO: This needs work.  users where watchlist = true.
+#TODO: This needs work.  users where watchlist = true.  Change watchlist to Boolean.  Need to look at the examples.
 def watchlist(request):
-    watchers = Listings.objects.all()
+    # watchers = Listings.objects.all()
+    # test = Listings.objects.filter()
+    # test = Listings.objects.get(User.username)
+    # print(test)
 
     return HttpResponse("Called the watchlist method!")
 
