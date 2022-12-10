@@ -27,6 +27,8 @@ def listings(request, listing_id):
 #TODO: This needs work.  users where watchlist = true.  Change watchlist to Boolean.  Need to look at the examples.
 def watchlist(request, listing_id):
     print(listing_id)
+    test = Listings.objects.get(id=listing_id)
+    print(test)
     # test = Listings.objects.filter()
     # test = Listings.objects.get(User.username)
     # print(test)
