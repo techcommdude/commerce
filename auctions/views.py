@@ -24,6 +24,12 @@ def listings(request, listing_id):
     listing = Listings.objects.get(id=listing_id)
     return render(request, "auctions/listing.html", {"listing": listing})
 
+#TODO: This needs work.  users where watchlist = true.
+def watchlist(request):
+    watchers = Listings.objects.all()
+
+    return HttpResponse("Called the watchlist method!")
+
 
 def login_view(request):
     if request.method == "POST":

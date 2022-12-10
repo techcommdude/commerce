@@ -18,7 +18,7 @@
         <li>${{ listing.startingBid}}</li>
         <li>Created {{ listing.createdDate}}</li>
         <!-- listing.id is passed to the listings method in views.py -->
-        <li><a class="btn btn-primary" href="{% url 'listings' listing.id %}">More Info</a></li>
+        <li><a class="btn btn-primary watchlist" href="{% url 'watchlist' %}">Add to watchlist</a></li>
     </ul>
 
 </div>
