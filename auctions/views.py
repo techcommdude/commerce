@@ -32,6 +32,12 @@ def watchlist(request, listing_id):
     test2 = test.watchers.all()
     #This prints the watcher for the listing.
     print(test2)
+    #This gets the current username.
+    username = request.user.username
+    print(username)
+
+
+
     # print(test2)
     # test = Listings.objects.filter()
     # test = Listings.objects.get(User.username)
