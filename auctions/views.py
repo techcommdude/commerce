@@ -38,6 +38,9 @@ def watchlist(request, listing_id):
 
     listings = Listings.objects.all()
 
+    for x in listings:
+        print(x)
+
 
 
     # print(listings)
