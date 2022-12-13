@@ -73,9 +73,10 @@ def displayCategoryListings(request, category):
 
     listings = Listings.objects.all()
     print(listings)
+    print (category)
 
 
-    return render(request, "auctions/categoryListing.html", {"listings": listings})
+    return render(request, "auctions/categoryListing.html", {"listings": listings, "category": category})
 
 # This just displays the full watchlist for a user.
 
