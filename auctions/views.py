@@ -10,6 +10,7 @@ from .models import Bids
 from .models import Comments
 from .models import Listings
 
+
 @login_required
 def activeListings(request):
     # active = Listings.objects.get(active=True)
@@ -19,6 +20,7 @@ def activeListings(request):
         "listings": Listings.objects.all()
     })
 
+
 @login_required
 def listings(request, listing_id):
 
@@ -26,6 +28,7 @@ def listings(request, listing_id):
     return render(request, "auctions/listing.html", {"listing": listing})
 
 # TODO: This needs work.  users where watchlist = true.  Change watchlist to Boolean.  Need to look at the examples.
+
 
 @login_required
 def createlisting(request):
@@ -37,6 +40,7 @@ def createlisting(request):
 
 # Need to display a list of hyperlinked categories.
 
+
 @login_required
 def categories(request):
 
@@ -45,35 +49,31 @@ def categories(request):
     # Clicking on the name of any category should take the user to a page that displays all of the active listings in that category.
     # Go to another view to display the active listings for the category.
 
-    #Gets all the listings.
+    # Gets all the listings.
     listing = Listings.objects.all()
     print(listing)
 
-
-    #This loops through all listings and returns unique categories.  Then pass these to the page for categories.
+    # This loops through all listings and returns unique categories.  Then pass these to the page for categories.
     category = listing.order_by().values('category').distinct()
     print(category)
-    #Cast it to a list although this is not necessary.
+    # Cast it to a list although this is not necessary.
     categories = list(category)
-
 
     # In the HTML need a for loop where you do "for category in categories"  Create the hyperlinks.
     return render(request, "auctions/categories.html", {"categories": categories})
 
 
-#This displays all the listings for a particular category.
+# This displays all the listings for a particular category.
 @login_required
-def displayCategoryListings (request, category):
+def displayCategoryListings(request, category):
 
-    # categoryUser = request.user.username
-    # print(categoryUser)
     return render(request, "auctions/categoryListing.html")
-
-
 
     return HttpResponse("On the category listings page!")
 
 # This just displays the full watchlist for a user.
+
+
 @login_required
 def displayWatchlist(request):
 
@@ -82,6 +82,7 @@ def displayWatchlist(request):
     return render(request, "auctions/watchlist.html", {"watchingUser": watchingUser})
 
 # This has the logic for determinging if an item is in the watchlist and if it isn't to add it.
+
 
 @login_required
 def watchlist(request, listing_id):
