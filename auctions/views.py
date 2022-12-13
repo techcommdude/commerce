@@ -31,6 +31,10 @@ def createlisting(request):
 
     return render(request, "auctions/createlisting.html")
 
+def categories(request):
+
+    return render(request, "auctions/categories.html")
+
 
 def watchlist(request, listing_id):
 
