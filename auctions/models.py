@@ -10,7 +10,8 @@ class User(AbstractUser):
 Cars = 'Cars'
 Appliances = 'Appliances'
 Sports = 'Sports'
-Category_Choices = ((Cars, 'Car'), (Appliances, 'Appliances'), (Sports, 'Sports'))
+NewCategory = 'NewCategory'
+Category_Choices = ((Cars, 'Car'), (Appliances, 'Appliances'), (Sports, 'Sports'), (NewCategory, 'NewCategory'))
 
 
 class Listings(models.Model):

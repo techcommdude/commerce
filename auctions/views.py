@@ -1,4 +1,5 @@
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
@@ -9,7 +10,7 @@ from .models import Bids
 from .models import Comments
 from .models import Listings
 
-
+@login_required
 def activeListings(request):
     # active = Listings.objects.get(active=True)
     returned_listing = Listings.objects.all()
@@ -18,7 +19,7 @@ def activeListings(request):
         "listings": Listings.objects.all()
     })
 
-
+@login_required
 def listings(request, listing_id):
 
     listing = Listings.objects.get(id=listing_id)
@@ -26,7 +27,7 @@ def listings(request, listing_id):
 
 # TODO: This needs work.  users where watchlist = true.  Change watchlist to Boolean.  Need to look at the examples.
 
-
+@login_required
 def createlisting(request):
     # Users should be able to visit a page to create a new listing. They should be able to specify a title for the listing,
     # a text-based description, and what the starting bid should be. Users should also optionally be able to provide a
@@ -36,7 +37,7 @@ def createlisting(request):
 
 # Need to display a list of hyperlinked categories.
 
-
+@login_required
 def categories(request):
 
     # Users should be able to visit a page that displays a list of all listing categories.  Do that logic here and then pass the
@@ -61,7 +62,7 @@ def categories(request):
 
 # This just displays the full watchlist for a user.
 
-
+@login_required
 def displayWatchlist(request):
 
     watchingUser = request.user.username
@@ -70,7 +71,7 @@ def displayWatchlist(request):
 
 # This has the logic for determinging if an item is in the watchlist and if it isn't to add it.
 
-
+@login_required
 def watchlist(request, listing_id):
 
     print(listing_id)

@@ -12,5 +12,6 @@ urlpatterns = [
     path("watchlist/<int:listing_id>", views.watchlist, name="watchlist"),
     path("watchlist", views.displayWatchlist, name="displayWatchlist"),
     path("createlisting", views.createlisting, name="createlisting"),
-    path("categories", views.categories, name="categories")
+    path("categories", views.categories, name="categories"),
+    path('accounts/login/', views.login_view, name="login")
 ]
