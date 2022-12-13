@@ -27,6 +27,11 @@ def listings(request, listing_id):
 # TODO: This needs work.  users where watchlist = true.  Change watchlist to Boolean.  Need to look at the examples.
 
 
+def createlisting(request):
+
+    return HttpResponse("On the create listing page!")
+
+
 def watchlist(request, listing_id):
 
     print(listing_id)
@@ -37,37 +42,34 @@ def watchlist(request, listing_id):
     # This prints the watchers for the listing id.
     print(test2)
 
-    #Turn the queryset into a list.
+    # Turn the queryset into a list.
     userList = list(test2)
 
-
-
-
-
     user = request.user.username
+    user = request.user
 
     # This loops through the watcher queryset.
     for x in userList:
 
-
         if x.username == user:
-            # print("This item is already on the user's watchlist!")
+            # This item is already on the user's watchlist, so go to the current active Listings again.
             return HttpResponseRedirect(reverse("activeListings"))
-            #Need to exit at this point and not do anything.
+            # Need to exit at this point and not do anything.
 
+    # TODO: Need to work on this to figure out how to update the watchlist.
+    # watchUsername = request.user.username
+    # watchUsername.save()
+    # print(watchUsername)
 
-   #Add the item to the watchlist.
+   # Add the item to the watchlist.
+    # username = request.user.username
+    # test6 = Listings(watchers=username)
+    # test6.save()
 
-    return HttpResponse("Need to add item to watchlist!")
+    # test5 = Listings.objects.get(id=listing_id)
+    # test5.watchers = request.user.username
 
-
-
-
-
-
-
-
-
+    return HttpResponse("Need to add item to watchlist for this user!")
 
     # TODO:
     # Need to search through queryset tests for 'gfarnell'
@@ -104,12 +106,6 @@ def watchlist(request, listing_id):
     # test = Listings.objects.filter()
     # test = Listings.objects.get(User.username)
     # print(test)
-
-
-
-
-def new_func(listings):
-    listings.id
 
 
 def login_view(request):
