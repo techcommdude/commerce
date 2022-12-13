@@ -11,6 +11,7 @@ from .models import Comments
 from .models import Listings
 
 
+#The template filters out those listings that are not active, so I send everything here.
 @login_required
 def activeListings(request):
     # active = Listings.objects.get(active=True)
@@ -79,6 +80,8 @@ def displayWatchlist(request):
 
     watchingUser = request.user.username
     print(watchingUser)
+
+
     return render(request, "auctions/watchlist.html", {"watchingUser": watchingUser})
 
 # This has the logic for determinging if an item is in the watchlist and if it isn't to add it.
