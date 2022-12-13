@@ -12,11 +12,11 @@
         <h5>Categories page.</h5>
 
         {% for category in categories %}
-        {% autoescape off %}
 
-        <a href="">{{ category|safe }}</a>
 
-        {% endautoescape %}
+        <a href="">{{ category.category }}</a>
+
+
 
         {% endfor %}
 

@@ -50,7 +50,7 @@ def categories(request):
 
 
     #This loops through all listings and returns unique categories.  Then pass these to the page for categories.
-    category = listing.order_by().values_list('category').distinct()
+    category = listing.order_by().values('category').distinct()
     print(category)
     #Cast it to a list although this is not necessary.
     categories = list(category)
