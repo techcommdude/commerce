@@ -60,8 +60,12 @@ def categories(request):
     # In the HTML need a for loop where you do "for category in categories"  Create the hyperlinks.
     return render(request, "auctions/categories.html", {"categories": categories})
 
-# This just displays the full watchlist for a user.
 
+@login_required
+def displayCategoryListings (request, category):
+    return HttpResponse("On the category listings page!")
+
+# This just displays the full watchlist for a user.
 @login_required
 def displayWatchlist(request):
 
