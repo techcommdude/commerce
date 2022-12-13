@@ -48,9 +48,13 @@ def categories(request):
     listing = Listings.objects.all()
     print(listing)
 
+
     #This loops through all listings and returns unique categories.  Then pass these to the page for categories.
-    categories = listing.order_by().values_list('category').distinct()
-    print(categories)
+    category = listing.order_by().values_list('category').distinct()
+    print(category)
+    #Cast it to a list although this is not necessary.
+    categories = list(category)
+
 
     # In the HTML need a for loop where you do "for category in categories"  Create the hyperlinks.
     return render(request, "auctions/categories.html", {"categories": categories})
