@@ -35,7 +35,14 @@ def categories(request):
 
     return render(request, "auctions/categories.html")
 
+# This just displays the full watchlist for a user.
+def displayWatchlist(request):
 
+    watchingUser = request.user.username
+    print(watchingUser)
+    return render(request, "auctions/watchlist.html", {"watchingUser": watchingUser})
+
+#This has the logic for determinging if an item is in the watchlist and if it isn't to add it.
 def watchlist(request, listing_id):
 
     print(listing_id)
