@@ -6,7 +6,13 @@
 
 {% block body %}
 
+<!-- "listings" is the queryset that you return.  "listing" is just one object in the queryset. -->
+{% for listing in listings %}
 
+<!-- Filter out those listings that are not active -->
+{% if listing.active == True %}
+
+<!-- TODO: Still need to filter out the categories. -->
 
 
 <div>
@@ -16,5 +22,25 @@
 
 
 </div>
+
+<div>
+    <ul>
+        <!-- "listings" is the queryset that you return.  "listing" is just one object in the queryset. -->
+
+        <li>
+            <h5>{{ listing.title}}</h5>
+        </li>
+        <li><img src="{{ listing.url}}" alt="" width="200" height="200" /></li>
+        <li>{{ listing.description}}</li>
+        <li>${{ listing.startingBid}}</li>
+        <li>Created {{ listing.createdDate}}</li>
+
+    </ul>
+
+</div>
+
+{% endif %}
+
+{% endfor %}
 
 {% endblock %}
