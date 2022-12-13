@@ -57,6 +57,7 @@ def watchlist(request, listing_id):
 
         if x.username == user:
             # This item is already on the user's watchlist, so go to the current active Listings again.
+            #May want to display a message at this point.
             return HttpResponseRedirect(reverse("activeListings"))
             # Need to exit at this point and not do anything.
 
