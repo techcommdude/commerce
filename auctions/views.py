@@ -48,7 +48,12 @@ def categories(request):
     listing = Listings.objects.all()
     print(listing)
 
-    return render(request, "auctions/categories.html")
+    #This loops through all listings and returns unique categories.  Then pass these to the page for categories.
+    categories = listing.order_by().values_list('category').distinct()
+    print(categories)
+
+    # In the HTML need a for loop where you do "for category in categories"  Create the hyperlinks.
+    return render(request, "auctions/categories.html", {"categories": categories})
 
 # This just displays the full watchlist for a user.
 
