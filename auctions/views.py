@@ -29,7 +29,7 @@ def listings(request, listing_id):
 
 def createlisting(request):
 
-    return HttpResponse("On the create listing page!")
+    return render(request, "auctions/createlisting.html")
 
 
 def watchlist(request, listing_id):
