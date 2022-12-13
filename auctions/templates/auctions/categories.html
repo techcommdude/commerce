@@ -9,13 +9,21 @@
 <div>
     <ul>
 
-        <h5>Categories page.</h5>
+        <h5>Categories:</h5>
 
         {% for category in categories %}
 
-        <!-- Need to pass in the category name and then display all active listings that use that category. -->
-        <!-- Pass in a string with category name in the view -->
-        <a href="{% url 'displayCategoryListings' category.category %}">{{ category.category }}</a>
+        <ul>
+            <li>
+                <!-- Need to pass in the category name and then display all active listings that use that category. -->
+                <!-- Pass in a string with category name in the view -->
+                <a href="{% url 'displayCategoryListings' category.category %}">{{ category.category }}</a>
+            </li>
+
+
+        </ul>
+
+
 
         {% endfor %}
 
