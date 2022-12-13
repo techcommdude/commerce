@@ -7,9 +7,10 @@ from django.db import models
 class User(AbstractUser):
     pass
 
-
-Category_Choices = (
-    (("Cars", "Cars"), ("Appliances", "Appliances"), ("Sports", "Sports")))
+Cars = 'Cars'
+Appliances = 'Appliances'
+Sports = 'Sports'
+Category_Choices = ((Cars, 'Car'), (Appliances, 'Appliances'), (Sports, 'Sports'))
 
 
 class Listings(models.Model):
