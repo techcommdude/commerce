@@ -28,21 +28,40 @@ def listings(request, listing_id):
 
 
 def createlisting(request):
+    # Users should be able to visit a page to create a new listing. They should be able to specify a title for the listing,
+    # a text-based description, and what the starting bid should be. Users should also optionally be able to provide a
+    # URL for an image for the listing and/or a category (e.g. Fashion, Toys, Electronics, Home, etc.).
 
     return render(request, "auctions/createlisting.html")
 
+# Need to display a list of hyperlinked categories.
+
+
 def categories(request):
+
+    # Users should be able to visit a page that displays a list of all listing categories.  Do that logic here and then pass the
+    # category names to the html page.
+    # Clicking on the name of any category should take the user to a page that displays all of the active listings in that category.
+    # Go to another view to display the active listings for the category.
+
+    #Gets all the listings.
+    listing = Listings.objects.all()
+    print(listing)
 
     return render(request, "auctions/categories.html")
 
 # This just displays the full watchlist for a user.
+
+
 def displayWatchlist(request):
 
     watchingUser = request.user.username
     print(watchingUser)
     return render(request, "auctions/watchlist.html", {"watchingUser": watchingUser})
 
-#This has the logic for determinging if an item is in the watchlist and if it isn't to add it.
+# This has the logic for determinging if an item is in the watchlist and if it isn't to add it.
+
+
 def watchlist(request, listing_id):
 
     print(listing_id)
@@ -64,7 +83,7 @@ def watchlist(request, listing_id):
 
         if x.username == user:
             # This item is already on the user's watchlist, so go to the current active Listings again.
-            #May want to display a message at this point.
+            # May want to display a message at this point.
             return HttpResponseRedirect(reverse("activeListings"))
             # Need to exit at this point and not do anything.
 
@@ -81,12 +100,10 @@ def watchlist(request, listing_id):
     # test5 = Listings.objects.get(id=listing_id)
     # test5.watchers = request.user.username
 
-    #The item has been added to the watchlist, so display the items on the user's watchlist.
+    # The item has been added to the watchlist, so display the items on the user's watchlist.
     return HttpResponseRedirect(reverse("displayWatchlist"))
     # return render(request, "auctions/watchlist.html")
     # return HttpResponse("Need to add item to watchlist for this user!")
-
-
 
     # TODO:
     # Need to search through queryset tests for 'gfarnell'
