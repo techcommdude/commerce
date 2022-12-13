@@ -61,8 +61,16 @@ def categories(request):
     return render(request, "auctions/categories.html", {"categories": categories})
 
 
+#This displays all the listings for a particular category.
 @login_required
 def displayCategoryListings (request, category):
+
+    # categoryUser = request.user.username
+    # print(categoryUser)
+    return render(request, "auctions/categoryListing.html")
+
+
+
     return HttpResponse("On the category listings page!")
 
 # This just displays the full watchlist for a user.
