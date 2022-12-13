@@ -68,6 +68,10 @@ def categories(request):
 @login_required
 def displayCategoryListings(request, category):
 
+    #Get all the listings and filter out those that are inactive on the template.
+    #Only display those listings that have the category name.
+
+
     return render(request, "auctions/categoryListing.html")
 
     return HttpResponse("On the category listings page!")
