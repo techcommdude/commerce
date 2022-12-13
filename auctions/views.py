@@ -80,8 +80,13 @@ def watchlist(request, listing_id):
 
     # test5 = Listings.objects.get(id=listing_id)
     # test5.watchers = request.user.username
-    return render(request, "auctions/watchlist.html")
+
+    #The item has been added to the watchlist, so display the items on the user's watchlist.
+    return HttpResponseRedirect(reverse("displayWatchlist"))
+    # return render(request, "auctions/watchlist.html")
     # return HttpResponse("Need to add item to watchlist for this user!")
+
+
 
     # TODO:
     # Need to search through queryset tests for 'gfarnell'
