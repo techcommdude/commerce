@@ -69,12 +69,13 @@ def categories(request):
 def displayCategoryListings(request, category):
 
     #Get all the listings and filter out those that are inactive on the template.
-    #Only display those listings that have the category name.
+    #Only display those listings that have the category name with another if statement on template.
+
+    listing = Listings.objects.all()
+    print(listing)
 
 
-    return render(request, "auctions/categoryListing.html")
-
-    return HttpResponse("On the category listings page!")
+    return render(request, "auctions/categoryListing.html", {"listing": listing})
 
 # This just displays the full watchlist for a user.
 
