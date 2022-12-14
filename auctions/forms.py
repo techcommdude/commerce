@@ -21,7 +21,7 @@ class AuctionListingForm(forms.Form):
         }
         )
     )
-    #This is the first price established when the user creates the listing.
+    # This is the first price established when the user creates the listing.
     price = forms.DecimalField(
         label='Price',
         required=True,
@@ -34,8 +34,8 @@ class AuctionListingForm(forms.Form):
         }
         )
     )
-    #This is the first bid on the item and must be larger than the price.
-    #TODO: Do I need this?
+    # This is the first bid on the item and must be larger than the price.
+    # TODO: Do I need this?
 
     # starting_bid = forms.DecimalField(
     #     label='Starting Bid',
@@ -94,6 +94,7 @@ class CommentForm(forms.Form):
         )
     )
 
+
 class BidForm(forms.Form):
     bid = forms.DecimalField(required=True,
                              label='Enter your bid here',
@@ -101,9 +102,3 @@ class BidForm(forms.Form):
                              widget=forms.NumberInput(attrs={'placeholder': '',
                                                              'min': '0.01',
                                                              'step': '0.01'}))
-
-    # def clean_bid(self):
-    #     number = self.cleaned_data.get('bid')
-    #     if number > 0:
-    #         return number
-    #     return self.errors
