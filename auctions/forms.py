@@ -21,9 +21,10 @@ class AuctionListingForm(forms.Form):
         }
         )
     )
+    #This is the first price established when the user creates the listing.
     price = forms.DecimalField(
         label='Price',
-        required=False,
+        required=True,
         initial=0.00,
         widget=forms.NumberInput(attrs={
             'class': 'form-control form-group',
@@ -33,6 +34,7 @@ class AuctionListingForm(forms.Form):
         }
         )
     )
+    #This is the first bid on the item and must be larger than the price.
     starting_bid = forms.DecimalField(
         label='Starting Bid',
         required=True,
@@ -100,6 +102,7 @@ class CommentForm(forms.Form):
 class BidForm(forms.Form):
     bid = forms.DecimalField(required=False,
                              label='Enter your bid here',
+                             initial='0',
                              widget=forms.NumberInput(attrs={'placeholder': '',
                                                              'min': '0.01',
                                                              'step': '0.01'}))

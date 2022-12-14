@@ -7,11 +7,11 @@ from django.db import models
 class User(AbstractUser):
     pass
 
-Cars = 'Cars'
-Appliances = 'Appliances'
-Sports = 'Sports'
-NewCategory = 'NewCategory'
-Category_Choices = ((Cars, 'Car'), (Appliances, 'Appliances'), (Sports, 'Sports'), (NewCategory, 'Children\'s Stuff'))
+# Cars = 'Cars'
+# Appliances = 'Appliances'
+# Sports = 'Sports'
+# NewCategory = 'NewCategory'
+# Category_Choices = ((Cars, 'Car'), (Appliances, 'Appliances'), (Sports, 'Sports'), (NewCategory, 'Children\'s Stuff'))
 
 
 class Listings(models.Model):
@@ -33,7 +33,7 @@ class Listings(models.Model):
     # blank = true means the field is not required.
     url = models.CharField(max_length=128, blank=True)
     category = models.CharField(
-        max_length=64, choices=Category_Choices, default="Cars")
+        max_length=64)
 
     def __str__(self) -> str:
         return f"Listing Title: {self.title} - Starting bid: {self.startingBid}"
