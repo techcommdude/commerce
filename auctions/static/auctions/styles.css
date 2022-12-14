@@ -4,6 +4,7 @@ body {
 
 ul {
     list-style: none;
+    padding-left: 0px;
 }
 
 a.btn.btn-primary.watchlist:visited {
