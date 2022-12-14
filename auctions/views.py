@@ -226,10 +226,3 @@ def register(request):
         return HttpResponseRedirect(reverse("activeListings"))
     else:
         return render(request, "auctions/register.html")
-
-
-class CommentForm(forms.Form):
-    comment = forms.CharField(widget=forms.Textarea)
-
-class ViewListingForm(forms.Form):
-    bidAmount = forms.IntegerField()
