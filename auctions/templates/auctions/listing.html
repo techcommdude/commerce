@@ -20,7 +20,15 @@
         <!-- listing.id is passed to the listings method in views.py -->
         <li><a class="btn btn-primary watchlist" href="{% url 'watchlist' listing.id %}">Add to watchlist</a></li>
     </ul>
-
 </div>
+<!-- Call the submit comment method. -->
+<div><form action="" method="post">
+    {% csrf_token %}
+
+
+    <input class="btn btn-primary" type="submit" value="Submit">
+
+</form></div>
+
 
 {% endblock %}

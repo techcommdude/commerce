@@ -1,3 +1,4 @@
+from django import forms
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
@@ -11,7 +12,7 @@ from .models import Comments
 from .models import Listings
 
 
-#The template filters out those listings that are not active, so I send everything here.
+# The template filters out those listings that are not active, so I send everything here.
 @login_required
 def activeListings(request):
     # active = Listings.objects.get(active=True)
@@ -68,13 +69,12 @@ def categories(request):
 @login_required
 def displayCategoryListings(request, category):
 
-    #Get all the listings and filter out those that are inactive on the template.
-    #Only display those listings that have the category name with another if statement on template.
+    # Get all the listings and filter out those that are inactive on the template.
+    # Only display those listings that have the category name with another if statement on template.
 
     listings = Listings.objects.all()
     print(listings)
-    print (category)
-
+    print(category)
 
     return render(request, "auctions/categoryListing.html", {"listings": listings, "category": category})
 
@@ -86,7 +86,6 @@ def displayWatchlist(request):
 
     watchingUser = request.user.username
     print(watchingUser)
-
 
     return render(request, "auctions/watchlist.html", {"watchingUser": watchingUser})
 
@@ -180,7 +179,9 @@ def login_view(request):
         # Attempt to sign user in
         username = request.POST["username"]
         password = request.POST["password"]
+
         user = authenticate(request, username=username, password=password)
+        print(user)
 
         # Check if authentication successful
         if user is not None:
@@ -224,3 +225,10 @@ def register(request):
         return HttpResponseRedirect(reverse("activeListings"))
     else:
         return render(request, "auctions/register.html")
+
+
+class CommentForm(forms.Form):
+    comment = forms.CharField(widget=forms.Textarea)
+
+class ViewListingForm(forms.Form):
+    bidAmount = forms.IntegerField()
