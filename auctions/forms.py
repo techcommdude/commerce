@@ -29,7 +29,6 @@ class AuctionListingForm(forms.Form):
             'class': 'form-control form-group',
             'placeholder': 'Estimated price (optional)',
             'min': '0.01',
-            'max': '999999999.99',
             'step': '0.01'
         }
         )
@@ -41,7 +40,6 @@ class AuctionListingForm(forms.Form):
             'class': 'form-control form-group',
             'placeholder': 'Starting bid',
             'min': '0.01',
-            'max': '99999999999.99',
             'step': '0.01'
         }
         )
@@ -82,12 +80,12 @@ class AuctionListingForm(forms.Form):
 class CommentForm(forms.Form):
     text = forms.CharField(
         label='',
-        initial='Enter your comment here.',
+        initial='',
         required=False,
         widget=forms.Textarea(attrs={
             'class': 'form-control-md lead form-group',
             'rows': '3',
-            'cols': '100'
+            'cols': '50'
         }
         )
     )
@@ -100,5 +98,14 @@ class CommentForm(forms.Form):
 
 
 class BidForm(forms.Form):
-    bid = forms.IntegerField(required=False,
-                             label='Enter your bid here:')
+    bid = forms.DecimalField(required=False,
+                             label='Enter your bid here',
+                             widget=forms.NumberInput(attrs={'placeholder': '',
+                                                             'min': '0.01',
+                                                             'step': '0.01'}))
+
+    def clean_bid(self):
+        number = self.cleaned_data.get('bid')
+        if len(number) > 0:
+            return number
+        return self.errors
