@@ -30,6 +30,7 @@ def listings(request, listing_id):
     return render(request, "auctions/listing.html", {"listing": listing})
 
 # TODO: This needs work.  users where watchlist = true.  Change watchlist to Boolean.  Need to look at the examples.
+# TODO: Also need to render the forms here.  the comment form and the bid form.
 
 
 @login_required

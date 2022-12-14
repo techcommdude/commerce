@@ -21,10 +21,19 @@
         <li><a class="btn btn-primary watchlist" href="{% url 'watchlist' listing.id %}">Add to watchlist</a></li>
     </ul>
 </div>
-<!-- Call the submit comment method. -->
+
+<!-- Call the submit bid method. -->
 <div><form action="" method="post">
     {% csrf_token %}
 
+    <input class="btn btn-primary" type="submit" value="Submit Bid">
+
+</form></div>
+
+
+<!-- Call the submit comment method. -->
+<div><form action="" method="post">
+    {% csrf_token %}
 
     <input class="btn btn-primary" type="submit" value="Submit">
 
