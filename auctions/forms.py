@@ -85,7 +85,7 @@ class CommentForm(forms.Form):
     text = forms.CharField(
         label='',
         initial='',
-        required=False,
+        required=True,
         widget=forms.Textarea(attrs={
             'class': 'form-control-md lead form-group',
             'rows': '3',
@@ -94,23 +94,16 @@ class CommentForm(forms.Form):
         )
     )
 
-    def clean_comment(self):
-        text = self.cleaned_data.get('text')
-        if len(text) > 0:
-            return text
-        return self.errors
-
-
 class BidForm(forms.Form):
-    bid = forms.DecimalField(required=False,
+    bid = forms.DecimalField(required=True,
                              label='Enter your bid here',
                              initial=0.00,
                              widget=forms.NumberInput(attrs={'placeholder': '',
                                                              'min': '0.01',
                                                              'step': '0.01'}))
 
-    def clean_bid(self):
-        number = self.cleaned_data.get('bid')
-        if number > 0:
-            return number
-        return self.errors
+    # def clean_bid(self):
+    #     number = self.cleaned_data.get('bid')
+    #     if number > 0:
+    #         return number
+    #     return self.errors

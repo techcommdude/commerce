@@ -27,13 +27,13 @@ def activeListings(request):
 @login_required
 def listings(request, listing_id):
 
-    #Create the comment form from the forms.py file
+    # Create the comment form from the forms.py file
     commentForm = forms.CommentForm()
 
-    #Create the bid form
+    # Create the bid form
     bidForm = forms.BidForm()
 
-    #Get all the listings and add to context.
+    # Get all the listings and add to context.
     listing = Listings.objects.get(id=listing_id)
     return render(request, "auctions/listing.html", {"listing": listing, "commentForm": commentForm, "bidForm": bidForm})
 
@@ -47,7 +47,7 @@ def createlisting(request):
     # a text-based description, and what the starting bid should be. Users should also optionally be able to provide a
     # URL for an image for the listing and/or a category (e.g. Fashion, Toys, Electronics, Home, etc.).
 
-    #TODO: render the create listing form here.  After they create the listing.  Return them to the home page.
+    # TODO: render the create listing form here.  After they create the listing.  Return them to the home page.
 
     form = forms.AuctionListingForm()
 
@@ -55,10 +55,32 @@ def createlisting(request):
 
 # Need to display a list of hyperlinked categories.
 
+
 @login_required
-def saveListing(request, listing_id):
-    #can get the user that submitted it as well.
-    return HttpResponse("Saving the listing! Calling the saveListing view.")
+def saveComment(request, listing_id):
+
+    if request.method == "POST":
+
+        form = forms.CommentForm(request.POST)
+        print(form)
+
+        if form.is_valid():
+
+            newComment = form.cleaned_data.get('text')
+            print(newComment)
+            if len(newComment) > 0:
+                print(newComment)
+                #TODO: Save teh comment to the model.
+
+            else:
+                print("No comment submitted.  Error!")
+                return HttpResponse("There was no comment submitted in the saveComment view!")
+
+            # TODO: Need to save the comment to the model.  Also need to have access to the user.
+
+    # can get the user that submitted it as well.
+    return HttpResponse("Saving the comment! Calling the saveComment view.")
+
 
 @login_required
 def submitBid(request, listing_id):
@@ -69,14 +91,11 @@ def submitBid(request, listing_id):
         print(form)
 
         if form.is_valid():
-            bidAmount = forms.BidForm.clean_bid()
+            bidAmount = form.cleaned_data.get('bid')
             print(bidAmount)
-            #TODO: Need to save the bidAmount to the model.  Don't need to worry about the user, just that this is the current highest bid.
+            # TODO: Need to save the bidAmount to the model.  Don't need to worry about the user, just that this is the current highest bid.
 
-
-
-
-        #can get the user that submitted it as well.
+        # can get the user that submitted it as well.
         return HttpResponse("Submitting the bid! Calling the submitBid view.")
 
 

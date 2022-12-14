@@ -14,9 +14,9 @@
             <h5>{{ listing.title}}</h5>
         </li>
         <li><img src="{{ listing.url}}" alt="" width="200" height="200" /></li>
-        <li>{{ listing.description}}</li>
-        <li>${{ listing.startingBid}}</li>
-        <li>Created {{ listing.createdDate}}</li>
+        <li>Item Description: {{ listing.description}}</li>
+        <li>Price: ${{ listing.startingBid}}</li>
+        <li>Created: {{ listing.createdDate}}</li>
         <!-- listing.id is passed to the listings method in views.py -->
         <!-- TODO: Could also just redisplay the same page again. -->
         <li><a class="btn btn-primary watchlist" href="{% url 'watchlist' listing.id %}">Add to watchlist</a></li>
@@ -35,7 +35,7 @@
 
 
 <!-- Call the submit comment method. -->
-<div><form action="{% url 'saveListing' listing.id %}" method="post">
+<div><form action="{% url 'saveComment' listing.id %}" method="post">
     {% csrf_token %}
 
     {{commentForm}}
