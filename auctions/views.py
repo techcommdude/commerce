@@ -70,7 +70,7 @@ def saveComment(request, listing_id):
             print(newComment)
             if len(newComment) > 0:
                 print(newComment)
-                #TODO: Save teh comment to the model.
+                # TODO: Save teh comment to the model.
 
             else:
                 print("No comment submitted.  Error!")
