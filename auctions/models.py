@@ -11,7 +11,7 @@ Cars = 'Cars'
 Appliances = 'Appliances'
 Sports = 'Sports'
 NewCategory = 'NewCategory'
-Category_Choices = ((Cars, 'Car'), (Appliances, 'Appliances'), (Sports, 'Sports'), (NewCategory, 'NewCategory'))
+Category_Choices = ((Cars, 'Car'), (Appliances, 'Appliances'), (Sports, 'Sports'), (NewCategory, 'Children\'s Stuff'))
 
 
 class Listings(models.Model):

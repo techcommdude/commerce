@@ -16,19 +16,14 @@
 
 <!-- TODO: Still need to filter out the categories.  Display message if there is nothing in the category -->
 
-
 <div>
     <ul>
 
 </div>
-
+<!-- Filter for the categories -->
 <div>
     {% if listing.category == category %}
     <ul>
-        <!-- "listings" is the queryset that you return.  "listing" is just one object in the queryset. -->
-
-
-
         <li>
             <h5>{{ listing.title}}</h5>
         </li>
