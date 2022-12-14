@@ -62,8 +62,22 @@ def saveListing(request, listing_id):
 
 @login_required
 def submitBid(request, listing_id):
-    #can get the user that submitted it as well.
-    return HttpResponse("Submitting the bid! Calling the submitBid view.")
+
+    if request.method == "POST":
+
+        form = forms.BidForm(request.POST)
+        print(form)
+
+        if form.is_valid():
+            bidAmount = forms.BidForm.clean_bid()
+            print(bidAmount)
+            #TODO: Need to save the bidAmount to the model.  Don't need to worry about the user, just that this is the current highest bid.
+
+
+
+
+        #can get the user that submitted it as well.
+        return HttpResponse("Submitting the bid! Calling the submitBid view.")
 
 
 @login_required

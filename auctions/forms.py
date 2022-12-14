@@ -111,6 +111,6 @@ class BidForm(forms.Form):
 
     def clean_bid(self):
         number = self.cleaned_data.get('bid')
-        if len(number) > 0:
+        if number > 0:
             return number
         return self.errors
