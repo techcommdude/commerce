@@ -55,6 +55,16 @@ def createlisting(request):
 
 # Need to display a list of hyperlinked categories.
 
+@login_required
+def saveListing(request, listing_id):
+    #can get the user that submitted it as well.
+    return HttpResponse("Saving the listing! Calling the saveListing view.")
+
+@login_required
+def submitBid(request, listing_id):
+    #can get the user that submitted it as well.
+    return HttpResponse("Submitting the bid! Calling the submitBid view.")
+
 
 @login_required
 def categories(request):

@@ -24,7 +24,7 @@
 </div>
 
 <!-- Call the submit bid method. -->
-<div><form action="" method="post">
+<div><form action="{% url 'submitBid' listing.id %}" method="post">
     {% csrf_token %}
 
     {{bidForm}}
@@ -35,7 +35,7 @@
 
 
 <!-- Call the submit comment method. -->
-<div><form action="" method="post">
+<div><form action="{% url 'saveListing' listing.id %}" method="post">
     {% csrf_token %}
 
     {{commentForm}}
