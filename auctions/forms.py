@@ -16,7 +16,7 @@ class AuctionListingForm(forms.Form):
         required=True,
         widget=forms.Textarea(attrs={
             'class': 'form-control form-group',
-            'placeholder': 'Tell more about the product',
+            'placeholder': 'Tell us more about the product',
             'rows': '3'
         }
         )
@@ -35,17 +35,19 @@ class AuctionListingForm(forms.Form):
         )
     )
     #This is the first bid on the item and must be larger than the price.
-    starting_bid = forms.DecimalField(
-        label='Starting Bid',
-        required=True,
-        widget=forms.NumberInput(attrs={
-            'class': 'form-control form-group',
-            'placeholder': 'Starting bid',
-            'min': '0.01',
-            'step': '0.01'
-        }
-        )
-    )
+    #TODO: Do I need this?
+
+    # starting_bid = forms.DecimalField(
+    #     label='Starting Bid',
+    #     required=True,
+    #     widget=forms.NumberInput(attrs={
+    #         'class': 'form-control form-group',
+    #         'placeholder': 'Starting bid',
+    #         'min': '0.01',
+    #         'step': '0.01'
+    #     }
+    #     )
+    # )
     category = forms.CharField(
         label='Category',
         required=False,
@@ -102,7 +104,7 @@ class CommentForm(forms.Form):
 class BidForm(forms.Form):
     bid = forms.DecimalField(required=False,
                              label='Enter your bid here',
-                             initial='0',
+                             initial=0.00,
                              widget=forms.NumberInput(attrs={'placeholder': '',
                                                              'min': '0.01',
                                                              'step': '0.01'}))

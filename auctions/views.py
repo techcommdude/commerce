@@ -37,7 +37,7 @@ def listings(request, listing_id):
     listing = Listings.objects.get(id=listing_id)
     return render(request, "auctions/listing.html", {"listing": listing, "commentForm": commentForm, "bidForm": bidForm})
 
-# TODO: This needs work.  users where watchlist = true.  Change watchlist to Boolean.  Need to look at the examples.
+# TODO: This needs work.  users where watchlist = true.  Change watchlist to Boolean?  Need to look at the examples.
 # TODO: Also need to render the forms here.  the comment form and the bid form.
 
 
@@ -47,7 +47,11 @@ def createlisting(request):
     # a text-based description, and what the starting bid should be. Users should also optionally be able to provide a
     # URL for an image for the listing and/or a category (e.g. Fashion, Toys, Electronics, Home, etc.).
 
-    return render(request, "auctions/createlisting.html")
+    #TODO: render the create listing form here.  After they create the listing.  Return them to the home page.
+
+    form = forms.AuctionListingForm()
+
+    return render(request, "auctions/createlisting.html", {"form": form})
 
 # Need to display a list of hyperlinked categories.
 
