@@ -1,4 +1,5 @@
 from django import forms
+from .import forms
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
@@ -26,8 +27,15 @@ def activeListings(request):
 @login_required
 def listings(request, listing_id):
 
+    #Create the comment form from the forms.py file
+    commentForm = forms.CommentForm()
+
+    #Create the bid form
+    bidForm = forms.BidForm()
+
+    #Get all the listings and add to context.
     listing = Listings.objects.get(id=listing_id)
-    return render(request, "auctions/listing.html", {"listing": listing})
+    return render(request, "auctions/listing.html", {"listing": listing, "commentForm": commentForm, "bidForm": bidForm})
 
 # TODO: This needs work.  users where watchlist = true.  Change watchlist to Boolean.  Need to look at the examples.
 # TODO: Also need to render the forms here.  the comment form and the bid form.

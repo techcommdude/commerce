@@ -26,6 +26,8 @@
 <div><form action="" method="post">
     {% csrf_token %}
 
+    {{bidForm}}
+
     <input class="btn btn-primary" type="submit" value="Submit Bid">
 
 </form></div>
@@ -34,6 +36,8 @@
 <!-- Call the submit comment method. -->
 <div><form action="" method="post">
     {% csrf_token %}
+
+    {{commentForm}}
 
     <input class="btn btn-primary" type="submit" value="Submit Comment">
 

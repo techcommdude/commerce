@@ -82,7 +82,8 @@ class AuctionListingForm(forms.Form):
 class CommentForm(forms.Form):
     text = forms.CharField(
         label='',
-        required=True,
+        initial='Enter your comment here.',
+        required=False,
         widget=forms.Textarea(attrs={
             'class': 'form-control-md lead form-group',
             'rows': '3',
@@ -96,3 +97,8 @@ class CommentForm(forms.Form):
         if len(text) > 0:
             return text
         return self.errors
+
+
+class BidForm(forms.Form):
+    bid = forms.IntegerField(required=False,
+                             label='Enter your bid here:')
