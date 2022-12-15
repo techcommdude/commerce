@@ -7,6 +7,11 @@ ul {
     padding-left: 0px;
 }
 
+label {
+     margin-top: 15px;
+}
+
+
 a.btn.btn-primary.watchlist:visited {
 
     /* color:grey; */
@@ -18,4 +23,24 @@ a.btn.btn-primary.watchlist:visited {
 input.btn.btn-primary {
 
     display: flex;
+    /* width: 150px;
+    margin-top: 10px;
+    text-align: center;
+    vertical-align: middle;
+    padding: 5px; */
+}
+
+#id_text {
+    margin-top: 10px;
+}
+
+#id_bid {
+
+    margin-bottom: 10px;
+}
+
+#formCreateListing {
+    display: flex;
+    flex-direction: column;
+
 }

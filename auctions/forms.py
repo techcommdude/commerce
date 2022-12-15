@@ -6,7 +6,6 @@ class AuctionListingForm(forms.Form):
         label='Title',
         required=True,
         widget=forms.TextInput(attrs={
-            'class': 'form-control form-group',
             'placeholder': 'Give it a title'
         }
         )
@@ -15,7 +14,6 @@ class AuctionListingForm(forms.Form):
         label='Description',
         required=True,
         widget=forms.Textarea(attrs={
-            'class': 'form-control form-group',
             'placeholder': 'Tell us more about the product',
             'rows': '3'
         }
@@ -27,7 +25,6 @@ class AuctionListingForm(forms.Form):
         required=True,
         initial=0.00,
         widget=forms.NumberInput(attrs={
-            'class': 'form-control form-group',
             'placeholder': 'Starting price for listing',
             'min': '0.01',
             'step': '0.01'
@@ -52,7 +49,6 @@ class AuctionListingForm(forms.Form):
         label='Category',
         required=False,
         widget=forms.TextInput(attrs={
-            'class': 'form-control form-group',
             'autocomplete': 'on',
             'placeholder': 'Category (optional)'
         }
@@ -63,7 +59,6 @@ class AuctionListingForm(forms.Form):
         required=False,
         initial='https://user-images.githubusercontent.com/52632898/161646398-6d49eca9-267f-4eab-a5a7-6ba6069d21df.png',
         widget=forms.TextInput(attrs={
-            'class': 'form-control form-group',
             'placeholder': 'Image URL (optional)',
         }
         )
@@ -87,7 +82,6 @@ class CommentForm(forms.Form):
         initial='',
         required=True,
         widget=forms.Textarea(attrs={
-            'class': 'form-control-md lead form-group',
             'rows': '3',
             'cols': '50'
         }
