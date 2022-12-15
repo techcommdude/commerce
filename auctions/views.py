@@ -17,7 +17,7 @@ from .models import Listings
 @login_required
 def activeListings(request):
     # active = Listings.objects.get(active=True)
-    #get all the listings
+    # get all the listings
     returned_listing = Listings.objects.all()
     print(returned_listing)
     return render(request, "auctions/index.html", {
@@ -34,12 +34,21 @@ def listings(request, listing_id):
     # Create the bid form
     bidForm = forms.BidForm()
 
-    #TODO: Need to add the comments to the templates as well.
+    # TODO: Need to add the comments to the templates as well.
+    # Returns all comments from all users for a specific listing when displaying that listing.
+    # Just display this in the template.  Do this in the 'listings' view.
+    # Add all of the comments to the context as well.
+    commentsForListing = Comments.objects.filter(
+        listing=listing_id)
+    print(commentsForListing)
+    # return render(request, "auctions/index.html", {"commentsForListing": commentsForListing})
+
+
 
 
     # Get all the listings and add to context.
     listing = Listings.objects.get(id=listing_id)
-    return render(request, "auctions/listing.html", {"listing": listing, "commentForm": commentForm, "bidForm": bidForm})
+    return render(request, "auctions/listing.html", {"listing": listing, "commentForm": commentForm, "bidForm": bidForm, "commentsForListing": commentsForListing})
 
 # TODO: This needs work.  users where watchlist = true.  Change watchlist to Boolean?  Need to look at the examples.
 # TODO: Also need to render the forms here.  the comment form and the bid form.
@@ -76,55 +85,28 @@ def saveComment(request, listing_id):
                 # print(newComment)
                 # TODO: Save the comment to the model and then redisplay the page with the comment below.
 
-
-                #Get the user ID of the logged in user for the User object
+                # Get the user ID of the logged in user for the User object
                 user_id = request.user.id
-                userName  = User.objects.get(id=user_id)
+                userName = User.objects.get(id=user_id)
 
-                #Get the ID for the Listings object that has the comment.
+                # Get the ID for the Listings object that has the comment.
                 listingObject = Listings.objects.get(id=listing_id)
                 print(listingObject)
 
-                #'user' must be a User object.  'listing' must be a Listings object
-                savedComment = Comments(comment=newComment, user=userName, listing=listingObject)
+                # 'user' must be a User object.  'listing' must be a Listings object.  Save
+                # the comment that the user entered.
+                savedComment = Comments(
+                    comment=newComment, user=userName, listing=listingObject)
                 savedComment.save()
-
 
                 # this returns a queryset for all users and all comments on all listings.
                 #commentObject = Comments.objects.all()
 
-                # Returns all comments from all users for a specific listing when displaying that listing.
-                # Just display this in the template.  Do this in the 'listings' view.
-                commentsForListing = Comments.objects.filter(
-                    listing=listing_id)
-                print(commentsForListing)
-
-
-
-
-
-                # TODO: only need to save the comment here and redirect to the active listings page.  Next
+                # Only need to save the comment here and redirect to the active listings page.  Next
                 # time when you display the listing you can get the comments. as we've done here.
-
-
-                # return render(request, "auctions/listing.html", {"listings": Listings.objects.all()})
-                # return render(request, "auctions/index.html", {"commentsForListing": commentsForListing})
-                # return HttpResponseRedirect(reverse("activeListings", args=(Listings.objects.all())))
 
                 # Redirect to activeListings page.
                 return HttpResponseRedirect(reverse("activeListings"))
-
-
-
-            # TODO: Just display the same listing page with no comment.
-            else:
-                print("No comment submitted.  Error!")
-                return HttpResponse("There was no comment submitted in the saveComment view!")
-
-            # TODO: Need to save the comment to the model.  Also need to have access to the user.
-
-    # can get the user that submitted it as well.
-    return HttpResponse("Saving the comment! Calling the saveComment view.")
 
 
 @login_required
