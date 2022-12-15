@@ -68,9 +68,6 @@ def createlisting(request):
 
     return render(request, "auctions/createlisting.html", {"form": form})
 
-    # Redirect to activeListings page.
-    # return HttpResponseRedirect(reverse("activeListings"))
-
 
 @login_required
 def saveListing():
@@ -96,7 +93,7 @@ def saveComment(request, listing_id):
             # If there is a comment, then do something.
             if len(newComment) > 0:
                 # print(newComment)
-                # TODO: Save the comment to the model and then redisplay the page with the comment below.
+                # Save the comment to the model and then redisplay the page with the comment below.
 
                 # Get the user ID of the logged in user for the User object
                 user_id = request.user.id
@@ -133,7 +130,7 @@ def submitBid(request, listing_id):
         if form.is_valid():
             bidAmount = form.cleaned_data.get('bid')
             print(bidAmount)
-            # TODO: Need to save the bidAmount to the model.  Don't need to worry about the user, just that this is the current highest bid.
+            # TODO: Need to save the bidAmount to the model.  Do an update?  Don't need to worry about the user, just that this is the current highest bid.
 
         # can get the user that submitted it as well.
         return HttpResponse("Submitting the bid! Calling the submitBid view.")
