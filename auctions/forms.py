@@ -28,7 +28,7 @@ class AuctionListingForm(forms.Form):
         initial=0.00,
         widget=forms.NumberInput(attrs={
             'class': 'form-control form-group',
-            'placeholder': 'Estimated price (optional)',
+            'placeholder': 'Starting price for listing',
             'min': '0.01',
             'step': '0.01'
         }
