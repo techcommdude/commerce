@@ -4,11 +4,11 @@
 {% block body %}
 
 <div>
-    <h2>Create a Listing</h2>
+    <h2>Create a listing</h2>
 </div>
 
 <!-- URL should clean the form, save the listing and display the main page. -->
-<form action="" method="post" id="formCreateListing">
+<form action="{% url 'saveListing' %}" method="post" id="formCreateListing">
     {% csrf_token %}
 
     {{form}}

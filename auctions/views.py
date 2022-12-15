@@ -64,9 +64,22 @@ def createlisting(request):
 
     form = forms.AuctionListingForm()
 
+
+
     return render(request, "auctions/createlisting.html", {"form": form})
 
-# Need to display a list of hyperlinked categories.
+    # Redirect to activeListings page.
+    # return HttpResponseRedirect(reverse("activeListings"))
+
+
+@login_required
+def saveListing():
+
+    #TODO:  Need to get the information from the form here, clean it and then save it to Listings object.
+
+    # Redirect to activeListings page.
+    return HttpResponseRedirect(reverse("activeListings"))
+
 
 
 @login_required
