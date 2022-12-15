@@ -13,6 +13,9 @@ a.btn.btn-primary.watchlist:visited {
     /* background-color: grey; */
     /* content: "Unwatch"; */
 
+}
 
+input.btn.btn-primary {
 
+    display: flex;
 }

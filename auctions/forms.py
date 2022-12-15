@@ -97,7 +97,7 @@ class CommentForm(forms.Form):
 
 class BidForm(forms.Form):
     bid = forms.DecimalField(required=True,
-                             label='Enter your bid here',
+                             label='',
                              initial=0.00,
                              widget=forms.NumberInput(attrs={'placeholder': '',
                                                              'min': '0.01',
