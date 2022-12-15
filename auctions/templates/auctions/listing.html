@@ -24,25 +24,37 @@
 </div>
 
 <!-- Call the submit bid method. -->
-<div><form action="{% url 'submitBid' listing.id %}" method="post">
-    {% csrf_token %}
+<div>
+    <form action="{% url 'submitBid' listing.id %}" method="post">
+        {% csrf_token %}
 
-    {{bidForm}}
+        {{bidForm}}
 
-    <input class="btn btn-primary" type="submit" value="Submit Bid">
+        <input class="btn btn-primary" type="submit" value="Submit Bid">
 
-</form></div>
+    </form>
+</div>
 
 
 <!-- Call the submit comment method. -->
-<div><form action="{% url 'saveComment' listing.id %}" method="post">
-    {% csrf_token %}
+<div>
+    <form action="{% url 'saveComment' listing.id %}" method="post">
+        {% csrf_token %}
 
-    {{commentForm}}
+        {{commentForm}}
 
-    <input class="btn btn-primary" type="submit" value="Submit Comment">
+        <input class="btn btn-primary" type="submit" value="Submit Comment">
 
-</form></div>
+    </form>
+</div>
+
+<div>
+
+    <p>User: </p>
+    <p>Comment: </p>
+
+</div>
+
 
 
 {% endblock %}

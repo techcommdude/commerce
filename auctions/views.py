@@ -34,6 +34,9 @@ def listings(request, listing_id):
     # Create the bid form
     bidForm = forms.BidForm()
 
+    #TODO: Need to add the comments to the templates as well.
+
+
     # Get all the listings and add to context.
     listing = Listings.objects.get(id=listing_id)
     return render(request, "auctions/listing.html", {"listing": listing, "commentForm": commentForm, "bidForm": bidForm})
@@ -73,14 +76,30 @@ def saveComment(request, listing_id):
                 # print(newComment)
                 # TODO: Save the comment to the model and then redisplay the page with the comment below.
 
+
+                #Get the user ID of the logged in user for the User object
+                user_id = request.user.id
+                userName  = User.objects.get(id=user_id)
+
+                #Get the ID for the Listings object that has the comment.
+                listingObject = Listings.objects.get(id=listing_id)
+                print(listingObject)
+
+                #'user' must be a User object.  'listing' must be a Listings object
+                savedComment = Comments(comment=newComment, user=userName, listing=listingObject)
+                savedComment.save()
+
+
                 # this returns a queryset for all users and all comments on all listings.
-                commentObject = Comments.objects.all()
+                #commentObject = Comments.objects.all()
 
                 # Returns all comments from all users for a specific listing when displaying that listing.
-                # Just display this in the template.
+                # Just display this in the template.  Do this in the 'listings' view.
                 commentsForListing = Comments.objects.filter(
                     listing=listing_id)
                 print(commentsForListing)
+
+
 
 
 
