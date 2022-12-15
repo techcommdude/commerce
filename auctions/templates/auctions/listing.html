@@ -49,9 +49,13 @@
 </div>
 
 <div>
+    {% for x in commentsForListing %}
 
-    <p>User: </p>
-    <p>Comment: </p>
+    <p>User: {{x.user}}</p>
+    <p>Comment: {{x.comment}}</p>
+
+
+    {% endfor %}
 
 </div>
 
