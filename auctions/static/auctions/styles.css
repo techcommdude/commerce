@@ -20,14 +20,15 @@ a.btn.btn-primary.watchlist:visited {
 
 }
 
+input.btn.btn-primary.test {
+
+    width: 132px;
+    margin-top: 10px;
+}
+
 input.btn.btn-primary {
 
     display: flex;
-    /* width: 150px;
-    margin-top: 10px;
-    text-align: center;
-    vertical-align: middle;
-    padding: 5px; */
 }
 
 #id_text {
