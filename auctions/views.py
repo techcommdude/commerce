@@ -17,6 +17,7 @@ from .models import Listings
 @login_required
 def activeListings(request):
     # active = Listings.objects.get(active=True)
+    #get all the listings
     returned_listing = Listings.objects.all()
     print(returned_listing)
     return render(request, "auctions/index.html", {
@@ -65,17 +66,38 @@ def saveComment(request, listing_id):
         print(form)
 
         if form.is_valid():
-
+            # This retries and cleans the data for the comment. 'text' is the name of the comment form field in forms.py.
             newComment = form.cleaned_data.get('text')
-            print(newComment)
+            # If there is a comment, then do something.
             if len(newComment) > 0:
-                #print(newComment)
+                # print(newComment)
                 # TODO: Save the comment to the model and then redisplay the page with the comment below.
 
-                listing = Comments.objects.get(listing=listing_id)
-                print(listing)
+                # this returns a queryset for all users and all comments on all listings.
+                commentObject = Comments.objects.all()
+
+                # Returns all comments from all users for a specific listing when displaying that listing.
+                # Just display this in the template.
+                commentsForListing = Comments.objects.filter(
+                    listing=listing_id)
+                print(commentsForListing)
 
 
+
+                # TODO: only need to save the comment here and redirect to the active listings page.  Next
+                # time when you display the listing you can get the comments. as we've done here.
+
+
+                # return render(request, "auctions/listing.html", {"listings": Listings.objects.all()})
+                # return render(request, "auctions/index.html", {"commentsForListing": commentsForListing})
+                # return HttpResponseRedirect(reverse("activeListings", args=(Listings.objects.all())))
+
+                # Redirect to activeListings page.
+                return HttpResponseRedirect(reverse("activeListings"))
+
+
+
+            # TODO: Just display the same listing page with no comment.
             else:
                 print("No comment submitted.  Error!")
                 return HttpResponse("There was no comment submitted in the saveComment view!")
