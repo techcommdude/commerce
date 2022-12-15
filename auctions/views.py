@@ -69,8 +69,12 @@ def saveComment(request, listing_id):
             newComment = form.cleaned_data.get('text')
             print(newComment)
             if len(newComment) > 0:
-                print(newComment)
-                # TODO: Save teh comment to the model.
+                #print(newComment)
+                # TODO: Save the comment to the model and then redisplay the page with the comment below.
+
+                listing = Comments.objects.get(listing=listing_id)
+                print(listing)
+
 
             else:
                 print("No comment submitted.  Error!")

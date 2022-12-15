@@ -29,6 +29,7 @@ class Listings(models.Model):
     active = models.BooleanField(default=True)
     title = models.CharField(max_length=64)
     description = models.CharField(max_length=300)
+    # This is the starting price that the user who creates the listing specifies.
     startingBid = models.FloatField(max_length=64)
     # blank = true means the field is not required.
     url = models.CharField(max_length=128, blank=True)
@@ -42,7 +43,7 @@ class Listings(models.Model):
 class Bids(models.Model):
     auction = models.ForeignKey(
         Listings, on_delete=models.CASCADE, related_name="get_auction_listings")
-    # must be at least as high as the starting bid.  Is there a point to this one?
+    # This is the current bid on the item.  This item must be at least as high as previous that was bid or it is rejected.
     currentBid = models.FloatField(blank=True, null=True)
     # bid at which the offer was accepted and the listing is now closed and inactive.
     bidAmount = models.FloatField()
