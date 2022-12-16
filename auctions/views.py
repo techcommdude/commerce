@@ -77,7 +77,12 @@ def saveListing(request):
             description = form.cleaned_data.get('description')
             price = form.cleaned_data.get('price')
             category = form.cleaned_data.get('category')
+
+            #Case for when users do not specify a category
             category = category.lower()
+            if category == '':
+                category = 'No Category'
+
             image_url = form.cleaned_data.get('image_url')
 
             # Get the user ID of the logged in user for the User object
