@@ -22,15 +22,14 @@ class Listings(models.Model):
         User, blank=True, null=True, on_delete=models.PROTECT, related_name="get_buyer_listings")
     watchers = models.ManyToManyField(
         User, blank=True, related_name="get_watched_listings")
-    # TODO: Does this work here?
-    watchlist = models.CharField(blank=True, max_length=300)
-    # TODO: Modified settings.py to fix the date issue.
-    createdDate = models.DateTimeField(auto_now_add=True)
-    active = models.BooleanField(default=True)
     title = models.CharField(max_length=64)
     description = models.CharField(max_length=300)
     # This is the starting price that the user who creates the listing specifies.
     startingBid = models.FloatField(max_length=64)
+    # TODO: Does this work here?
+    watchlist = models.CharField(blank=True, max_length=300)
+    createdDate = models.DateTimeField(auto_now_add=True)
+    active = models.BooleanField(default=True)
     # blank = true means the field is not required.
     url = models.CharField(max_length=128, blank=True)
     category = models.CharField(
