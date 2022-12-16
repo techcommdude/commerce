@@ -34,7 +34,6 @@ def listings(request, listing_id):
     # Create the bid form
     bidForm = forms.BidForm()
 
-    # TODO: Need to add the comments to the templates as well.
     # Returns all comments from all users for a specific listing when displaying that listing.
     # Just display this in the template.  Do this in the 'listings' view.
     # Add all of the comments to the context as well.
@@ -57,17 +56,9 @@ def createlisting(request):
     # a text-based description, and what the starting bid should be. Users should also optionally be able to provide a
     # URL for an image for the listing and/or a category (e.g. Fashion, Toys, Electronics, Home, etc.).
 
-    # TODO: render the create listing form here.  After they create the listing.  Return them to the home page.
+    # Render the create listing form here.  After they create the listing.  Return them to the home page.
 
     form = forms.AuctionListingForm()
-
-    # TODO: Remove if no longer needed.
-    # print(form)
-    # test = form.errors.as_data()
-    # print(test)
-    # # print(print)
-
-    # # if form.is_valid():
 
     return render(request, "auctions/createlisting.html", {"form": form})
 
@@ -75,7 +66,7 @@ def createlisting(request):
 @login_required
 def saveListing(request):
 
-    # TODO:  Need to get the information from the form here, clean it and then save it to Listings object.
+    # Need to get the information from the form here, clean it and then save it to Listings object.
     if request.method == "POST":
 
         form = forms.AuctionListingForm(request.POST)
@@ -124,9 +115,6 @@ def saveComment(request, listing_id):
                 # Get the ID for the Listings object that has the comment.
                 listingObject = Listings.objects.get(id=listing_id)
                 print(listingObject)
-
-                # TODO: Get the date for the comment.  It is in the Comment object.
-                # createDate =
 
                 # 'user' must be a User object.  'listing' must be a Listings object.  Save
                 # the comment that the user entered.
