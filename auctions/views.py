@@ -61,19 +61,32 @@ def createlisting(request):
 
     form = forms.AuctionListingForm()
 
+    #TODO: Remove if no longer needed.
+    # print(form)
+    # test = form.errors.as_data()
+    # print(test)
+    # # print(print)
 
+    # # if form.is_valid():
 
     return render(request, "auctions/createlisting.html", {"form": form})
 
 
 @login_required
-def saveListing():
+def saveListing(request):
 
-    #TODO:  Need to get the information from the form here, clean it and then save it to Listings object.
+    # TODO:  Need to get the information from the form here, clean it and then save it to Listings object.
+    if request.method == "POST":
+
+        form = forms.AuctionListingForm(request.POST)
+
+        if form.is_valid():
+            print("valid form!")
+
+        #TODO: Right now the category is being cleaned.
 
     # Redirect to activeListings page.
-    return HttpResponseRedirect(reverse("activeListings"))
-
+            return HttpResponseRedirect(reverse("activeListings"))
 
 
 @login_required
@@ -100,7 +113,7 @@ def saveComment(request, listing_id):
                 listingObject = Listings.objects.get(id=listing_id)
                 print(listingObject)
 
-                #TODO: Get the date for the comment.  It is in the Comment object.
+                # TODO: Get the date for the comment.  It is in the Comment object.
                 # createDate =
 
                 # 'user' must be a User object.  'listing' must be a Listings object.  Save
