@@ -64,16 +64,18 @@ class AuctionListingForm(forms.Form):
         )
     )
 
-    def clean_starting_bid(self):
-        amount = float(self.cleaned_data.get('starting_bid'))
-        if isinstance(amount, float) and amount > 0:
-            return amount
-        print(amount)
-        raise forms.ValidationError('Should be a number larger than zero!')
+    # def clean_category(self):
+    #     category = self.cleaned_data.get('category')
+    #     return category.lower()
 
-    def clean_category(self):
-        category = self.cleaned_data.get('category')
-        return category.lower()
+
+
+    # def clean_starting_bid(self):
+    #     amount = float(self.cleaned_data.get('starting_bid'))
+    #     if isinstance(amount, float) and amount > 0:
+    #         return amount
+    #     print(amount)
+    #     raise forms.ValidationError('Should be a number larger than zero!')
 
 
 class CommentForm(forms.Form):

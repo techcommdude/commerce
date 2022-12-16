@@ -61,7 +61,7 @@ def createlisting(request):
 
     form = forms.AuctionListingForm()
 
-    #TODO: Remove if no longer needed.
+    # TODO: Remove if no longer needed.
     # print(form)
     # test = form.errors.as_data()
     # print(test)
@@ -81,11 +81,23 @@ def saveListing(request):
         form = forms.AuctionListingForm(request.POST)
 
         if form.is_valid():
-            print("valid form!")
 
-        #TODO: Right now the category is being cleaned.
+            title = form.cleaned_data.get('title')
+            description = form.cleaned_data.get('description')
+            price = form.cleaned_data.get('price')
+            category = form.cleaned_data.get('category')
+            category = category.lower()
+            image_url = form.cleaned_data.get('image_url')
 
-    # Redirect to activeListings page.
+            # Get the user ID of the logged in user for the User object
+            user_id = request.user.id
+            userName = User.objects.get(id=user_id)
+
+            newListing = Listings(creator=userName, title=title, description=description,
+                                  startingBid=price, category=category, url=image_url)
+            newListing.save()
+
+            # Redirect to activeListings page.
             return HttpResponseRedirect(reverse("activeListings"))
 
 
