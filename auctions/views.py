@@ -43,9 +43,6 @@ def listings(request, listing_id):
     print(commentsForListing)
     # return render(request, "auctions/index.html", {"commentsForListing": commentsForListing})
 
-
-    #TODO: Need to also send the created date of the comment.
-
     # Get all the listings and add to context.
     listing = Listings.objects.get(id=listing_id)
     return render(request, "auctions/listing.html", {"listing": listing, "commentForm": commentForm, "bidForm": bidForm, "commentsForListing": commentsForListing})
