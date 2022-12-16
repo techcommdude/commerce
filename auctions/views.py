@@ -78,7 +78,7 @@ def saveListing(request):
             price = form.cleaned_data.get('price')
             category = form.cleaned_data.get('category')
 
-            #Case for when users do not specify a category
+            # Case for when users do not specify a category
             category = category.lower()
             if category == '':
                 category = 'No Category'
@@ -146,12 +146,47 @@ def submitBid(request, listing_id):
         print(form)
 
         if form.is_valid():
+            #This is the currentBid in the Bids model.
             bidAmount = form.cleaned_data.get('bid')
             print(bidAmount)
-            # TODO: Need to save the bidAmount to the model.  Do an update?  Don't need to worry about the user, just that this is the current highest bid.
+
+            # Get the currentBid from the Bids model and compare to bidAmount.
+            # TODO: Check that the bid is higher than the current price.
+            currentBid = Bids.objects.filter(currentBid=bidAmount)
+            if not currentBid:
+                currentBid = bidAmount
+                #TODO: Need to update the curent bid in the model.
+                return HttpResponse("Your bid was succesful!")
+
+            else:
+                if bidAmount < currentBid:
+                    print("Your bid amount is too small")
+                else:
+                    print("Your bid is successful. Updating the listing with your bid.")
+
+
+
+            # Get the user ID of the logged in user for the User object
+            user_id = request.user.id
+            userName = User.objects.get(id=user_id)
+
+            # Get the ID for the Listings object or Auction that is being bid on.
+            listingObject = Listings.objects.get(id=listing_id)
+
+
+
+
+
+
+
+
+            # TODO: Need to save the bidAmount to the model if it is higher than the price and higher than highest bid..
+            # Do an update?  Don't need to worry about the user, just that this is the current highest bid.
+
+            # TODO: Get the current price from the Listings model and make sure the bid is higher than the current price.
 
         # can get the user that submitted it as well.
-        return HttpResponse("Submitting the bid! Calling the submitBid view.")
+        # return HttpResponse("Submitting the bid! Calling the submitBid view.")
 
 
 @login_required
