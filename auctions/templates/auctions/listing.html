@@ -50,12 +50,14 @@
     </form>
 </div>
 
+<h5 class="UserComments">User comments</h5>
+
 <div>
     <hr>
     {% for x in commentsForListing %}
 
-    <p> <b>User:</b> {{x.user}}</p>
-    <p> <strong>Comment:</strong> {{x.comment}}</p>
+    <p> <b>{{x.user}}</b> on {{x.createdDate}}</p>
+     <p>  {{x.comment}}</p>
     <hr>
     {% endfor %}
 

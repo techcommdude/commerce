@@ -44,6 +44,7 @@ class Bids(models.Model):
     auction = models.ForeignKey(
         Listings, on_delete=models.CASCADE, related_name="get_auction_listings")
     # This is the current bid on the item.  This item must be at least as high as previous that was bid or it is rejected.
+    # Keep updating this amount and with the current highest price, or else update the price in the listing.
     currentBid = models.FloatField(blank=True, null=True)
     # bid at which the offer was accepted and the listing is now closed and inactive.
     bidAmount = models.FloatField()

@@ -6,7 +6,7 @@ class AuctionListingForm(forms.Form):
         label='Title',
         required=True,
         widget=forms.TextInput(attrs={
-            'placeholder': 'Give it a title'
+            'placeholder': 'Title for your listing'
         }
         )
     )
@@ -14,7 +14,7 @@ class AuctionListingForm(forms.Form):
         label='Description',
         required=True,
         widget=forms.Textarea(attrs={
-            'placeholder': 'Tell us more about the product',
+            'placeholder': 'Tell us more your product',
             'rows': '3'
         }
         )
@@ -46,7 +46,7 @@ class AuctionListingForm(forms.Form):
     #     )
     # )
     category = forms.CharField(
-        label='Category',
+        label='Listing category',
         required=False,
         widget=forms.TextInput(attrs={
             'autocomplete': 'on',
@@ -55,7 +55,7 @@ class AuctionListingForm(forms.Form):
         )
     )
     image_url = forms.URLField(
-        label='Image URL',
+        label='Image URL for your listing',
         required=False,
         initial='https://user-images.githubusercontent.com/52632898/161646398-6d49eca9-267f-4eab-a5a7-6ba6069d21df.png',
         widget=forms.TextInput(attrs={

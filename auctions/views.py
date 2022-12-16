@@ -44,7 +44,7 @@ def listings(request, listing_id):
     # return render(request, "auctions/index.html", {"commentsForListing": commentsForListing})
 
 
-
+    #TODO: Need to also send the created date of the comment.
 
     # Get all the listings and add to context.
     listing = Listings.objects.get(id=listing_id)
@@ -102,6 +102,9 @@ def saveComment(request, listing_id):
                 # Get the ID for the Listings object that has the comment.
                 listingObject = Listings.objects.get(id=listing_id)
                 print(listingObject)
+
+                #TODO: Get the date for the comment.  It is in the Comment object.
+                # createDate =
 
                 # 'user' must be a User object.  'listing' must be a Listings object.  Save
                 # the comment that the user entered.
