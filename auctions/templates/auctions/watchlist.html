@@ -13,7 +13,7 @@
 
 <!-- {% if x.watchlist == userLoggedIn -->
 
-<!-- #TODO: The above is not working at the moment. -->
+<!-- #TODO: The above is not working at the moment.  There is a x.watchers and x.watchlist. -->
 <!-- Put an if statement here to determine if name is in the x.watchlist -->
 
 <div>
@@ -23,9 +23,7 @@
 
 </div>
 <div>
-
     <ul>
-
         <!-- "allListings" is the queryset that you return.  "listing" is just one object in the queryset. -->
         <li>
             <h5>{{ x.title}}</h5>
@@ -33,11 +31,8 @@
         <li>Description: {{ x.description}}</li>
         <li>Price: ${{ x.startingBid}}</li>
         <li>Created: {{ x.createdDate}}</li>
-        <li>Watchlist user: {{ x.watchlist}}</li>
-
+        <li>Watchlist user: {{ x.watchers}}</li>
     </ul>
-
-
 </div>
 
 <!-- {% endif  -->

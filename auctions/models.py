@@ -36,7 +36,7 @@ class Listings(models.Model):
         max_length=64)
 
     def __str__(self) -> str:
-        return f"Listing Title: {self.title} - Starting bid: {self.startingBid}"
+        return f"Listing Title: {self.title} - Starting bid: {self.startingBid} - Watchers: {self.watchers}"
 
 
 class Bids(models.Model):

@@ -293,7 +293,7 @@ def displayWatchlist(request):
     userLoggedIn = request.user.username
     print(userLoggedIn)
     allListings = Listings.objects.all()
-    #This returns a QuerySet which can be iterated in teh template to only display those listings that have the user in the Listings.watchlist.
+    #This returns a QuerySet which can be iterated in the template to only display those listings that have the user in the Listings.watchlist.
     print(allListings)
 
     return render(request, "auctions/watchlist.html", {"userLoggedIn": userLoggedIn, "allListings": allListings})
