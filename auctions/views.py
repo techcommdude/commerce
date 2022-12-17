@@ -299,8 +299,6 @@ def displayWatchlist(request):
     return render(request, "auctions/watchlist.html", {"userLoggedIn": userLoggedIn, "allListings": allListings})
 
 
-
-
 @login_required
 def watchlist(request, listing_id):
     #TODO: This adds a user to the watchlist for a particular listing ID.
