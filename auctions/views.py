@@ -292,6 +292,7 @@ def displayWatchlist(request):
 
 #TODO: Watchers is a many to many field that is associated with User object, so
 # need to pass that. whereas watchlist is just a char field.  Look into this.
+# May need to do something like User.objects.get(watchers=User.object.userID)
 
     # This is in another method and gets all the watchers for a listing id.
     # test = Listings.objects.get(id=listing_id)
