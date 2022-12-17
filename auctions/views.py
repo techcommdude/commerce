@@ -293,6 +293,16 @@ def displayWatchlist(request):
 #TODO: Watchers is a many to many field that is associated with User object, so
 # need to pass that. whereas watchlist is just a char field.  Look into this.
 # May need to do something like User.objects.get(watchers=User.object.userID)
+    # Get the user ID of the logged in user for the User object
+    user_id = request.user.id
+    userLoggedIn = request.user.username
+    print(userLoggedIn)
+    watchers = User.objects.get(get_watched_listings=user_id)
+    #TODO: This successfully determines the current watchers for an item when you click "Add to Watchlist" button.
+    #TODO: Need to check what is happening with the other method and the Watchlist link that displays all watched items for a user.
+    #TODO: Need an If statement for display the "Add to watchlist" and "Remove from watchlist" buttons.  Check if the user is in the watchlist
+    #to determine which button to display and which method to call.
+    print(watchers)
 
     # This is in another method and gets all the watchers for a listing id.
     # test = Listings.objects.get(id=listing_id)
@@ -300,8 +310,8 @@ def displayWatchlist(request):
     # print(test)
     # test2 = test.watchers.all()
 
-    userLoggedIn = request.user.username
-    print(userLoggedIn)
+    # userLoggedIn = request.user.username
+    # print(userLoggedIn)
     #TODO: change this so that you are getting all objects where watchers the current user logged in.
     allListings = Listings.objects.all()
     #This returns a QuerySet which can be iterated in the template to only display those listings that have the user in the Listings.watchlist.
