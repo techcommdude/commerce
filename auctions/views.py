@@ -290,10 +290,13 @@ def displayWatchlist(request):
 #TODO: This displays the watchlist for the user that is logged in.  Need to get all of the objects
 # in the listings and if a user is in the watchlist for the listing, then display it.
 
-    watchingUser = request.user.username
-    print(watchingUser)
+    userLoggedIn = request.user.username
+    print(userLoggedIn)
+    allListings = Listings.objects.all()
+    #This returns a QuerySet which can be iterated in teh template to only display those listings that have the user in the Listings.watchlist.
+    print(allListings)
 
-    return render(request, "auctions/watchlist.html", {"watchingUser": watchingUser})
+    return render(request, "auctions/watchlist.html", {"userLoggedIn": userLoggedIn, "allListings": allListings})
 
 
 
@@ -308,7 +311,7 @@ def watchlist(request, listing_id):
     # This prints the listing.
     print(test)
     test2 = test.watchers.all()
-    # This prints the watchers for the listing id.  Is this a QuerySet or an object?
+    # This prints the watchers for the above listing id.  This is a QuerySet.
     print(test2)
 
     # Turn the queryset into a list.

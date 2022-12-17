@@ -5,10 +5,11 @@
 <!-- % if listing.active == True % -->
 {% block body %}
 
+<!-- Use a for loop and an if statement to determine if should display the item -->
 
 <div>
     <ul>
-        <h2>Watch List {{watchingUser}}</h2>
+        <h2>Watch List {{userLoggedIn}}</h2>
 </div>
 
 {% endblock %}
