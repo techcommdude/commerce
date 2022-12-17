@@ -46,7 +46,7 @@ class Bids(models.Model):
     # Keep updating this amount and with the current highest price, or else update the price in the listing.
     currentBid = models.FloatField(blank=True, null=True)
     # bid at which the offer was accepted and the listing is now closed and inactive.
-    bidAmount = models.FloatField()
+    bidAmount = models.FloatField(null=True)
     # If a user is deleted, all bids associated with that user should also be deleted.
     user_bidder = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="get_user_bids")

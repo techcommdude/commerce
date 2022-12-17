@@ -89,6 +89,7 @@ def saveListing(request):
             user_id = request.user.id
             userName = User.objects.get(id=user_id)
 
+
             newListing = Listings(creator=userName, title=title, description=description,
                                   startingBid=price, category=category, url=image_url)
             newListing.save()
@@ -150,9 +151,54 @@ def submitBid(request, listing_id):
             bidAmount = form.cleaned_data.get('bid')
             print(bidAmount)
 
+
+
+
+           #TODO: also update the currentBid in the Bids model and make it equivalent to the current price.
+            #TODO: Update teh current bid to the starting price so you don't need to deal with empty querysets.
+            # test = Bids.objects.values_list('currentBid')
+
+            #Get returns an object which is what you need in order to save it and do an update.  Filter returns a queryset
+            # which is really only used when displaying data in the templates.
+            #TODO: proabaly better to do this in the other
+            # test2 = Bids.objects.get(pk=pk)
+
+
+
+            # test = price
+            # print(test)
+            #TODO: Need to update Current bid in the bids model.
+            # Bids.currentBid = test
+            # Bids.save(update_fields=['currentBid'])
+            #Need to get the current instance of the Bids object.
+
+            #TODO: There no bids yet so this will return an empty queryset.
+            # bidsObject = Bids.objects.filter(user_bidder=userName)
+
+            # print(Bids.objects.count())
+
+            #TODO: This is assigning an empty queryset to a value which doesn't work.
+            # bidsObject.currentBid = test
+
+
+            # bidsObject.save(update_fields=['currentBid'])
+            # testAgain = Bids.objects.values_list('currentBid')
+            # print(testAgain)
+
+
+
+
+
+
+
+
+
             # Get the currentBid from the Bids model and compare to bidAmount.
             # TODO: Check that the bid is higher than the current price.
-            currentBid = Bids.objects.filter(currentBid=bidAmount)
+            # This returns a queryset which will not work.  Net to use Get to return the current instance of the object.
+            test = Bids.objects.values_list('currentBid')
+            print(test)
+
             if not currentBid:
                 currentBid = bidAmount
                 #TODO: Need to update the curent bid in the model.
