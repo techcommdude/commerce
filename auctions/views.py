@@ -197,9 +197,11 @@ def submitBid(request, listing_id):
             if bidAmount > startingBid:
                 print("Your bid is high enough!")
                 return HttpResponse("Your bid is high enough! Calling the submitBid view.")
+                #TODO: Update the instance of the Bid object here.
             else:
                 print("Bid too low")
                 return HttpResponse("Bid too low")
+                #TODO: Do nothing here and issue an error message.
 
 
 
@@ -301,7 +303,7 @@ def watchlist(request, listing_id):
     # This prints the listing.
     print(test)
     test2 = test.watchers.all()
-    # This prints the watchers for the listing id.
+    # This prints the watchers for the listing id.  Is this a QuerySet or an object?
     print(test2)
 
     # Turn the queryset into a list.
