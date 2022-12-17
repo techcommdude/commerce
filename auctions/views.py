@@ -290,8 +290,18 @@ def displayWatchlist(request):
 #TODO: This displays the watchlist for the user that is logged in.  Need to get all of the objects
 # in the listings and if a user is in the watchlist for the listing, then display it.
 
+#TODO: Watchers is a many to many field that is associated with User object, so
+# need to pass that. whereas watchlist is just a char field.  Look into this.
+
+    # This is in another method and gets all the watchers for a listing id.
+    # test = Listings.objects.get(id=listing_id)
+    # # This prints the listing.
+    # print(test)
+    # test2 = test.watchers.all()
+
     userLoggedIn = request.user.username
     print(userLoggedIn)
+    #TODO: change this so that you are getting all objects where watchers the current user logged in.
     allListings = Listings.objects.all()
     #This returns a QuerySet which can be iterated in the template to only display those listings that have the user in the Listings.watchlist.
     print(allListings)
@@ -304,12 +314,14 @@ def watchlist(request, listing_id):
     #TODO: This adds a user to the watchlist for a particular listing ID.
     # Need to update the instance of the object and just add the user to the watchlist.
 
+
+
     print(listing_id)
     test = Listings.objects.get(id=listing_id)
     # This prints the listing.
     print(test)
     test2 = test.watchers.all()
-    # This prints the watchers for the above listing id.  This is a QuerySet.
+    #TODO: This prints the watchers for the above listing id.  This is a QuerySet.
     print(test2)
 
     # Turn the queryset into a list.
