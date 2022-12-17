@@ -287,16 +287,21 @@ def displayCategoryListings(request, category):
 @login_required
 def displayWatchlist(request):
 
+#TODO: This displays the watchlist for the user that is logged in.  Need to get all of the objects
+# in the listings and if a user is in the watchlist for the listing, then display it.
+
     watchingUser = request.user.username
     print(watchingUser)
 
     return render(request, "auctions/watchlist.html", {"watchingUser": watchingUser})
 
-# This has the logic for determinging if an item is in the watchlist and if it isn't to add it.
+
 
 
 @login_required
 def watchlist(request, listing_id):
+    #TODO: This adds a user to the watchlist for a particular listing ID.
+    # Need to update the instance of the object and just add the user to the watchlist.
 
     print(listing_id)
     test = Listings.objects.get(id=listing_id)
