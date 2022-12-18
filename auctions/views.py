@@ -293,31 +293,29 @@ def displayWatchlist(request):
 #TODO: Watchers is a many to many field that is associated with User object, so
 # need to pass that. whereas watchlist is just a char field.  Look into this.
 # May need to do something like User.objects.get(watchers=User.object.userID)
-    # Get the user ID of the logged in user for the User object
+# Get the user ID of the logged in user for the User object. Need to look at the lecture notes on many to many.
     user_id = request.user.id
     userLoggedIn = request.user.username
     print(userLoggedIn)
-    watchers = User.objects.get(get_watched_listings=user_id)
+
+    watchers = User.objects.get(id=user_id)
+    #This returns a QuerySet for the current logged in user.  Returns those listings that have that user as a watcher.
+    listingsForWatcher = Listings.objects.filter(watchers=watchers)
+    #TODO: This successfully lists all the listings that have the current logged in user as a watcher.  It returns a QuerySet.
+    print(listingsForWatcher)
+
+
+
+
     #TODO: This successfully determines the current watchers for an item when you click "Add to Watchlist" button.
     #TODO: Need to check what is happening with the other method and the Watchlist link that displays all watched items for a user.
     #TODO: Need an If statement for display the "Add to watchlist" and "Remove from watchlist" buttons.  Check if the user is in the watchlist
     #to determine which button to display and which method to call.
     print(watchers)
 
-    # This is in another method and gets all the watchers for a listing id.
-    # test = Listings.objects.get(id=listing_id)
-    # # This prints the listing.
-    # print(test)
-    # test2 = test.watchers.all()
 
-    # userLoggedIn = request.user.username
-    # print(userLoggedIn)
-    #TODO: change this so that you are getting all objects where watchers the current user logged in.
-    allListings = Listings.objects.all()
-    #This returns a QuerySet which can be iterated in the template to only display those listings that have the user in the Listings.watchlist.
-    print(allListings)
-
-    return render(request, "auctions/watchlist.html", {"userLoggedIn": userLoggedIn, "allListings": allListings})
+    # This function now works.  Need to work on the add to watchlist method.
+    return render(request, "auctions/watchlist.html", {"userLoggedIn": userLoggedIn, "listingsForWatcher": listingsForWatcher})
 
 
 @login_required

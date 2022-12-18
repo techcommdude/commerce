@@ -9,7 +9,7 @@
 
 <h2>Watch List</h2>
 
-{% for x in allListings %}
+{% for x in listingsForWatcher %}
 
 <!-- {% if x.watchlist == userLoggedIn -->
 
@@ -31,7 +31,7 @@
         <li>Description: {{ x.description}}</li>
         <li>Price: ${{ x.startingBid}}</li>
         <li>Created: {{ x.createdDate}}</li>
-        <li>Watchlist user: {{ x.watchers}}</li>
+        <li>Watchlist user: {{ request.user.username }}</li>
     </ul>
 </div>
 
