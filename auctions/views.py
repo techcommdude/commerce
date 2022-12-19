@@ -44,7 +44,6 @@ def listings(request, listing_id):
 
     ####################
 
-
     # Get the user ID of the logged in user for the User object
     user_id = request.user.id
     userName = User.objects.get(id=user_id)
@@ -61,15 +60,12 @@ def listings(request, listing_id):
         # Send this in context and display the REmove from Watchlist button.
         watcher = False
 
-
     ##################
-
 
     # Get all the listings and add to context.
     listing = Listings.objects.get(id=listing_id)
     return render(request, "auctions/listing.html", {"listing": listing, "commentForm": commentForm, "bidForm": bidForm, "commentsForListing":
-    commentsForListing, "watcher": watcher})
-
+                                                     commentsForListing, "watcher": watcher})
 
 
 @login_required
@@ -341,7 +337,7 @@ def watchlist(request, listing_id):
     if userName in currentObject.watchers.all():
         print("Watcher is already in the list!")
         # The item has been added to the watchlist, so display the items on the user's watchlist.
-        #TODO: May want to issue an error message as well.
+        # TODO: May want to issue an error message as well.
         return HttpResponseRedirect(reverse("displayWatchlist"))
     else:
         print("Watcher is not in the list!")
@@ -418,6 +414,15 @@ def watchlist(request, listing_id):
     # test = Listings.objects.filter()
     # test = Listings.objects.get(User.username)
     # print(test)
+
+def removeFromWatchlist(request, listing_id):
+
+    user_id = request.user.id
+    userName = User.objects.get(id=user_id)
+    currentObject = Listings.objects.get(id=listing_id)
+    currentObject.watchers.remove(userName)
+    print(currentObject.watchers.all())
+    return HttpResponseRedirect(reverse("activeListings"))
 
 
 def login_view(request):
