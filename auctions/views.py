@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib import messages
 from .import forms
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -215,6 +216,10 @@ def submitBid(request, listing_id):
                 print("Bid too low")
                 # TODO: Need to issue an error message here per requirements.
                 # Redirect to activeListings page.  Need to pass the currentBid somehow.
+
+                # return render(request, "auctions/listing.html", {"listing": listing, "commentForm": commentForm, "bidForm": bidForm, "commentsForListing":
+                #                                      commentsForListing, "watcher": watcher, "currentBidForContext": currentBidForContext})
+
                 return HttpResponseRedirect(reverse("activeListings"))
 
 
@@ -328,11 +333,17 @@ def closeAuction(request, listing_id):
 
     user = request.user.username
     print(user)
+
+
+
+
     #Only display button if the current user is the user that created the listing.
 
     #TODO: If the current bid is higher than the initial price, then the auction can be closed and the listing can be made inactive.
 
-    return HttpResponse("Closing the auction logic!")
+    messages.info(request, 'You have successfully closed the auction!')
+
+    return HttpResponseRedirect(reverse("activeListings"))
 
 
 def login_view(request):
