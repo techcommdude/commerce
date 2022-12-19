@@ -60,7 +60,6 @@ def listings(request, listing_id):
         # Send this in context and display the REmove from Watchlist button.
         watcher = False
 
-    #TODO: Return all bids as well and then display this.
     returnedBids  = Bids.objects.get(auction=listing_id)
     currentBidForContext = returnedBids.currentBid
 
@@ -188,9 +187,9 @@ def submitBid(request, listing_id):
             # This works!!!!  This is the object that I need to update.
             currentObject = Bids.objects.get(auction=listing_id)
 
-            #TODO: When you first create the listing, currentBid needs to be set to the same as startingBid
+            #When you first create the listing, currentBid needs to be set to the same as startingBid
 
-            # TODO: Next, need to update the currentBid in the Bids.currentBid model so that it will work next time
+            # Next, need to update the currentBid in the Bids.currentBid model so that it will work next time
             # you go in and it starts at the previous bids amount.
             # Also need to make sure that the user is not bidding on their own listing.
 

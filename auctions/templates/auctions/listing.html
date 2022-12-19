@@ -18,8 +18,6 @@
         <li>Price: ${{ listing.startingBid}}</li>
         <li>Bids must be higher than: ${{ currentBidForContext }}</li>
         <li>Created: {{ listing.createdDate}}</li>
-        <!-- listing.id is passed to the listings method in views.py -->
-        <!-- TODO: Could also just redisplay the same page again. -->
 
         {% if watcher == False %}
         <li><a class="btn btn-primary watchlist" href="{% url 'watchlist' listing.id %}">Add to watchlist</a></li>
