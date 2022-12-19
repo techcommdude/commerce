@@ -20,7 +20,15 @@
         <!-- listing.id is passed to the listings method in views.py -->
         <!-- TODO: Could also just redisplay the same page again. -->
 
+        {% if watcher == False %}
         <li><a class="btn btn-primary watchlist" href="{% url 'watchlist' listing.id %}">Add to watchlist</a></li>
+        {% endif %}
+
+        {% if watcher == True %}
+        <!-- Send to the remove from watchlist view. -->
+        <li><a class="btn btn-primary watchlist" href="{% url 'watchlist' listing.id %}">Remove from watchlist</a></li>
+        {% endif %}
+
         <hr>
     </ul>
 </div>
