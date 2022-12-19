@@ -15,8 +15,7 @@
             <li>
                 <!-- Need to pass in the category name and then display all active listings that use that category. -->
                 <!-- Pass in a string with category name in the view -->
-                <!-- TODO: There is an error here is there is no category for the listing. -->
-                {% if category.category != '' %}
+                  {% if category.category != '' %}
 
                 <a href="{% url 'displayCategoryListings' category.category %}">{{ category.category }}</a>
 
