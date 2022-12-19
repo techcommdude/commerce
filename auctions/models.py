@@ -34,7 +34,7 @@ class Listings(models.Model):
         max_length=64)
 
     def __str__(self) -> str:
-        return f"Listing Title: {self.title} - Starting bid: {self.startingBid} - Watchers: {self.watchers}"
+        return f"Listing Title: {self.title} - Starting bid: {self.startingBid}"
 
 
 class Bids(models.Model):
@@ -47,7 +47,7 @@ class Bids(models.Model):
     bidAmount = models.FloatField(null=True, default=0.0)
     # If a user is deleted, all bids associated with that user should also be deleted.
     user_bidder = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name="get_user_bids")
+        User, on_delete=models.CASCADE, null=True, related_name="get_user_bids")
     date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self) -> str:

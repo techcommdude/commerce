@@ -110,6 +110,20 @@ def saveListing(request):
                                   startingBid=price, category=category, url=image_url)
             newListing.save()
 
+            #This is the primary key of the new listing.
+            pkNewListing = newListing.id
+
+            #This retrieves the new Listings object that was just created.
+            listObjectForBids = Listings.objects.get(id=pkNewListing)
+
+            # Probably need to create the Bids object since it doesn't currently exist.
+            newBidObject = Bids(auction=listObjectForBids, currentBid=price)
+            newBidObject.save()
+
+            # currentBidObject = Bids.objects.get(auction=listObjectForBids)
+            # currentBidObject.currentBid = price
+            # print(currentBidObject.currentBid)
+
             # Redirect to activeListings page.
             return HttpResponseRedirect(reverse("activeListings"))
 
@@ -165,94 +179,51 @@ def submitBid(request, listing_id):
         if form.is_valid():
             # This is the currentBid in the Bids model.
             bidAmount = form.cleaned_data.get('bid')
-            print(bidAmount)
 
-           # TODO: also update the currentBid in the Bids model and make it equivalent to the current price.
-            # TODO: Update teh current bid to the starting price so you don't need to deal with empty querysets.
-            # test = Bids.objects.values_list('currentBid')
-
-            # Get returns an object which is what you need in order to save it and do an update.  Filter returns a queryset
-            # which is really only used when displaying data in the templates.
-            # TODO: proabaly better to do this in the other
-            # test2 = Bids.objects.get(pk=pk)
-
-            # test = price
-            # print(test)
-            # TODO: Need to update Current bid in the bids model.
-            # Bids.currentBid = test
-            # Bids.save(update_fields=['currentBid'])
-            # Need to get the current instance of the Bids object.
-
-            # TODO: There no bids yet so this will return an empty queryset.
-            # bidsObject = Bids.objects.filter(user_bidder=userName)
-
-
-            # bidsObject.save(update_fields=['currentBid'])
-            # testAgain = Bids.objects.values_list('currentBid')
-            # print(testAgain)
-
-            # This works!!!!  This is the object that I need to update.  use update() I think.
-            print(Bids.objects.count())
+            # This works!!!!  This is the object that I need to update.
             currentObject = Bids.objects.get(auction=listing_id)
-            print(currentObject)
-            currentObject.bidAmount = bidAmount
-            currentObject.save()
             print(currentObject)
 
             # Need to get the value for the Listing.startingBid
             listingsObject = Listings.objects.get(id=listing_id)
             startingBid = listingsObject.startingBid
 
-
+            #TODO: When you first create the listing, currentBid needs to be set to the same as startingBid
 
             # TODO: Next, need to update the currentBid in the Bids.currentBid model so that it will work next time
             # you go in and it starts at the previous bids amount.
-            #Also need to make sure that the user is not bidding on their own listing.
+            # Also need to make sure that the user is not bidding on their own listing.
 
+            # currentObject.currentBid = bidAmount
+            curentBid = currentObject.currentBid
 
-
-
-
-            if bidAmount > startingBid:
+            # The currently bidded value must be greater than the last stored bid in currentBid.
+            #CurrentBid is set when the listing is created.
+            if float(bidAmount) > curentBid:
                 print("Your bid is high enough!")
-                return HttpResponse("Your bid is high enough! Calling the submitBid view.")
-                # TODO: Update the instance of the Bid object here.
+
+                #TODO: Update startingBid so that next time you go through it will use the new latest number.
+                # listingsObject.startingBid = bidAmount
+                # listingsObject.save()
+
+                currentObject.bidAmount = bidAmount
+                currentObject.save()
+                print(currentObject)
+
+                # Update the current bid to the latest value
+                currentObject.currentBid = bidAmount
+                currentObject.save()
+                print(currentObject)
+
+                # Redirect to activeListings page.
+                return HttpResponseRedirect(reverse("activeListings"))
+
             else:
                 print("Bid too low")
-                return HttpResponse("Bid too low")
-                # TODO: Do nothing here and issue an error message.
-
-            # Get the currentBid from the Bids model and compare to bidAmount.
-            # TODO: Check that the bid is higher than the current price.
-            # This returns a queryset which will not work.  Net to use Get to return the current instance of the object.
-            # test = Bids.objects.values_list('currentBid')
-            # print(test)
-
-            # if not currentBid:
-            #     currentBid = bidAmount
-            #     #TODO: Need to update the curent bid in the model.
-            #     return HttpResponse("Your bid was succesful!")
-
-            # else:
-            #     if bidAmount < currentBid:
-            #         print("Your bid amount is too small")
-            #     else:
-            #         print("Your bid is successful. Updating the listing with your bid.")
-
-            # Get the user ID of the logged in user for the User object
-            # user_id = request.user.id
-            # userName = User.objects.get(id=user_id)
-
-            # Get the ID for the Listings object or Auction that is being bid on.
-            # listingObject = Listings.objects.get(id=listing_id)
-
-            # TODO: Need to save the bidAmount to the model if it is higher than the price and higher than highest bid..
-            # Do an update?  Don't need to worry about the user, just that this is the current highest bid.
-
-            # TODO: Get the current price from the Listings model and make sure the bid is higher than the current price.
-
-        # can get the user that submitted it as well.
-        # return HttpResponse("Submitting the bid! Calling the submitBid view.")
+                # Go back to active listings
+                # TODO: Can also issue an error message here.
+                # Redirect to activeListings page.
+                return HttpResponseRedirect(reverse("activeListings"))
 
 
 @login_required
