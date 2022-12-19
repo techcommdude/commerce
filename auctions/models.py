@@ -26,7 +26,7 @@ class Listings(models.Model):
     description = models.CharField(max_length=300)
     # This is the starting price that the user who creates the listing specifies.
     startingBid = models.FloatField(max_length=64)
-    # TODO: Does this work here?
+    # TODO: Does this work here?  Maybe remove this.
     watchlist = models.CharField(blank=True, max_length=300)
     createdDate = models.DateTimeField(auto_now_add=True)
     active = models.BooleanField(default=True)

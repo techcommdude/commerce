@@ -350,78 +350,16 @@ def watchlist(request, listing_id):
         return HttpResponseRedirect(reverse("displayWatchlist"))
 
 
-############################################
-
-    # TODO: Print the object with the updated watcher.  Can also test if the watcher is in this, if it is then
-    # don't update and issue an error message.
-    # test2 = currentObject.watchers.all()
-
-    # TODO: This prints the watchers for the above listing id.  This is a QuerySet.
-    # print(test2)
-
-    # # Turn the queryset into a list.
-    # userList = list(test2)
-
-    # user = request.user.username
-    # user = request.user
-
-    # # This loops through the watcher queryset.
-    # for x in userList:
-
-    #     if x.username == user:
-    #         # This item is already on the user's watchlist, so go to the current active Listings again.
-    #         # May want to display a message at this point.
-    #         return HttpResponseRedirect(reverse("activeListings"))
-    #         # Need to exit at this point and not do anything.
-
-    # # The item has been added to the watchlist, so display the items on the user's watchlist.
-    # return HttpResponseRedirect(reverse("displayWatchlist"))
-    # return render(request, "auctions/watchlist.html")
-    # return HttpResponse("Need to add item to watchlist for this user!")
-
-    # TODO:
-    # Need to search through queryset tests for 'gfarnell'
-    # test4 = Listings.objects.filter(user=user)
-    # print(test4)
-
-    # # This gets the current username.
-    # username2 = request.user.username
-    # print(username2)
-
-    # listings = Listings.objects.all().values()
-    # print(listings)
-
-    # usernameWatchlist = Listings.objects.values('watchlist')
-    # print(usernameWatchlist)
-
-    # # Need the id here.
-    # usernameWatchlist = Listings.objects.filter(watchers=1)
-    # print(usernameWatchlist)
-
-    # getUserName = User.objects.filter(username=request.user.username)
-    # if getUserName:
-    #     print("That username")
-
-    # for x in listings:
-    #     print(x)
-    #     print(test.watchers.all().values())
-    #     # This prints all the values of the User object
-    #     print(User.objects.all().values())
-
-    # print(listings)
-
-    # print(test2)
-    # test = Listings.objects.filter()
-    # test = Listings.objects.get(User.username)
-    # print(test)
-
 def removeFromWatchlist(request, listing_id):
-
+    # Removes the item from the watchlist.
     user_id = request.user.id
     userName = User.objects.get(id=user_id)
+    # Get the instance of the object based on the user id from the User object.
     currentObject = Listings.objects.get(id=listing_id)
+    # Remvoe the object from the instance.
     currentObject.watchers.remove(userName)
     print(currentObject.watchers.all())
+    # Go back to the active listings page.
     return HttpResponseRedirect(reverse("activeListings"))
 
 
