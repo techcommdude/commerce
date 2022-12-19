@@ -16,9 +16,8 @@ from .models import Listings
 # The template filters out those listings that are not active, so I send everything here.
 @login_required
 def activeListings(request):
-    # active = Listings.objects.get(active=True)
-    # get all the listings
-    # TODO: This needs to be updated to list only the Active objects.
+
+    # The template filters out those items that are Inactive with an If statement.
     returned_listing = Listings.objects.all()
     print(returned_listing)
     return render(request, "auctions/index.html", {
@@ -295,13 +294,12 @@ def displayCategoryListings(request, category):
 @login_required
 def displayWatchlist(request):
 
-    # TODO: This displays the watchlist for the user that is logged in.  Need to get all of the objects
+    # This displays the watchlist for the user that is logged in.  Need to get all of the objects
     # in the listings and if a user is in the watchlist for the listing, then display it.
 
-    # TODO: Watchers is a many to many field that is associated with User object, so
-    # need to pass that. whereas watchlist is just a char field.  Look into this.
-    # May need to do something like User.objects.get(watchers=User.object.userID)
-    # Get the user ID of the logged in user for the User object. Need to look at the lecture notes on many to many.
+    # Watchers is a many to many field that is associated with User object, so
+    # need to pass that.
+    # Get the user ID of the logged in user for the User object.
     user_id = request.user.id
     userLoggedIn = request.user.username
     print(userLoggedIn)
@@ -309,12 +307,8 @@ def displayWatchlist(request):
     watchers = User.objects.get(id=user_id)
     # This returns a QuerySet for the current logged in user.  Returns those listings that have that user as a watcher.
     listingsForWatcher = Listings.objects.filter(watchers=watchers)
-    # TODO: This successfully lists all the listings that have the current logged in user as a watcher.  It returns a QuerySet.
-    print(listingsForWatcher)
 
-    # TODO: This successfully determines the current watchers for an item when you click "Add to Watchlist" button.
-    # TODO: Need to check what is happening with the other method and the Watchlist link that displays all watched items for a user.
-    # TODO: Need an If statement for display the "Add to watchlist" and "Remove from watchlist" buttons.  Check if the user is in the watchlist
+    # Need an If statement for display the "Add to watchlist" and "Remove from watchlist" buttons.  Check if the user is in the watchlist
     # to determine which button to display and which method to call.
     print(watchers)
 
@@ -324,7 +318,7 @@ def displayWatchlist(request):
 
 @login_required
 def watchlist(request, listing_id):
-    # TODO: This adds a user to the watchlist for a particular listing ID.
+    # This adds a user to the watchlist for a particular listing ID.
     # Need to update the instance of the object and just add the user as a watcher to the object.
     # Get the user ID of the logged in user for the User object
     user_id = request.user.id
@@ -341,7 +335,7 @@ def watchlist(request, listing_id):
         return HttpResponseRedirect(reverse("displayWatchlist"))
     else:
         print("Watcher is not in the list!")
-        # Add teh watcher to the list.  Get the current object and add the userName to the watchers
+        # Add the watcher to the list.  Get the current object and add the userName to the watchers
         # field.  do this with a many to many field.
         currentObject.watchers.add(userName)
         print(currentObject.watchers.all())

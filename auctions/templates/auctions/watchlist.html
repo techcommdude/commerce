@@ -11,11 +11,6 @@
 
 {% for x in listingsForWatcher %}
 
-<!-- {% if x.watchlist == userLoggedIn -->
-
-<!-- #TODO: The above is not working at the moment.  There is a x.watchers and x.watchlist. -->
-<!-- Put an if statement here to determine if name is in the x.watchlist -->
-
 <div>
     <p>
         <img src="{{ x.url }}" alt="" width="200" height="200" />
@@ -31,12 +26,9 @@
         <li>Description: {{ x.description}}</li>
         <li>Price: ${{ x.startingBid}}</li>
         <li>Created: {{ x.createdDate}}</li>
-        <!-- TODO: May want to remove this -->
-        <li>Watchlist user: {{ request.user.username }}</li>
     </ul>
 </div>
 
-<!-- {% endif  -->
 
 {% endfor %}
 
