@@ -16,7 +16,7 @@
         <li><img src="{{ listing.url}}" alt="" width="200" height="200" /></li>
         <li>Item Description: {{ listing.description}}</li>
         <li>Price: ${{ listing.startingBid}}</li>
-        <li>Current minimum bid: </li>
+        <li>Bids must be higher than: ${{ currentBidForContext }}</li>
         <li>Created: {{ listing.createdDate}}</li>
         <!-- listing.id is passed to the listings method in views.py -->
         <!-- TODO: Could also just redisplay the same page again. -->

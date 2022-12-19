@@ -20,6 +20,7 @@ def activeListings(request):
     # The template filters out those items that are Inactive with an If statement.
     returned_listing = Listings.objects.all()
     print(returned_listing)
+
     return render(request, "auctions/index.html", {
         "listings": Listings.objects.all()
     })
@@ -59,12 +60,15 @@ def listings(request, listing_id):
         # Send this in context and display the REmove from Watchlist button.
         watcher = False
 
-    ##################
+    #TODO: Return all bids as well and then display this.
+    returnedBids  = Bids.objects.get(auction=listing_id)
+    currentBidForContext = returnedBids.currentBid
 
     # Get all the listings and add to context.
     listing = Listings.objects.get(id=listing_id)
+    #This returns objects and Querysets.
     return render(request, "auctions/listing.html", {"listing": listing, "commentForm": commentForm, "bidForm": bidForm, "commentsForListing":
-                                                     commentsForListing, "watcher": watcher})
+                                                     commentsForListing, "watcher": watcher, "currentBidForContext": currentBidForContext})
 
 
 @login_required
@@ -118,7 +122,7 @@ def saveListing(request):
             #This retrieves the new Listings object that was just created.
             listObjectForBids = Listings.objects.get(id=pkNewListing)
 
-            currentMinBid = float(price) + 0.001
+            currentMinBid = float(price)
             print(currentMinBid)
 
             # Probably need to create the Bids object since it doesn't currently exist.
@@ -210,8 +214,8 @@ def submitBid(request, listing_id):
 
             else:
                 print("Bid too low")
-                # TODO: Can also issue an error message here.
-                # Redirect to activeListings page.
+                # TODO: Need to issue an error message here per requirements.
+                # Redirect to activeListings page.  Need to pass the currentBid somehow.
                 return HttpResponseRedirect(reverse("activeListings"))
 
 
