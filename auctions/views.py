@@ -106,6 +106,8 @@ def saveListing(request):
             user_id = request.user.id
             userName = User.objects.get(id=user_id)
 
+
+
             newListing = Listings(creator=userName, title=title, description=description,
                                   startingBid=price, category=category, url=image_url)
             newListing.save()
@@ -116,13 +118,12 @@ def saveListing(request):
             #This retrieves the new Listings object that was just created.
             listObjectForBids = Listings.objects.get(id=pkNewListing)
 
-            # Probably need to create the Bids object since it doesn't currently exist.
-            newBidObject = Bids(auction=listObjectForBids, currentBid=price)
-            newBidObject.save()
+            currentMinBid = float(price) + 0.001
+            print(currentMinBid)
 
-            # currentBidObject = Bids.objects.get(auction=listObjectForBids)
-            # currentBidObject.currentBid = price
-            # print(currentBidObject.currentBid)
+            # Probably need to create the Bids object since it doesn't currently exist.
+            newBidObject = Bids(auction=listObjectForBids, currentBid=currentMinBid)
+            newBidObject.save()
 
             # Redirect to activeListings page.
             return HttpResponseRedirect(reverse("activeListings"))
@@ -182,11 +183,6 @@ def submitBid(request, listing_id):
 
             # This works!!!!  This is the object that I need to update.
             currentObject = Bids.objects.get(auction=listing_id)
-            print(currentObject)
-
-            # Need to get the value for the Listing.startingBid
-            listingsObject = Listings.objects.get(id=listing_id)
-            startingBid = listingsObject.startingBid
 
             #TODO: When you first create the listing, currentBid needs to be set to the same as startingBid
 
@@ -202,25 +198,18 @@ def submitBid(request, listing_id):
             if float(bidAmount) > curentBid:
                 print("Your bid is high enough!")
 
-                #TODO: Update startingBid so that next time you go through it will use the new latest number.
-                # listingsObject.startingBid = bidAmount
-                # listingsObject.save()
-
                 currentObject.bidAmount = bidAmount
                 currentObject.save()
-                print(currentObject)
 
                 # Update the current bid to the latest value
                 currentObject.currentBid = bidAmount
                 currentObject.save()
-                print(currentObject)
 
                 # Redirect to activeListings page.
                 return HttpResponseRedirect(reverse("activeListings"))
 
             else:
                 print("Bid too low")
-                # Go back to active listings
                 # TODO: Can also issue an error message here.
                 # Redirect to activeListings page.
                 return HttpResponseRedirect(reverse("activeListings"))
