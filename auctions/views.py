@@ -41,14 +41,35 @@ def listings(request, listing_id):
     commentsForListing = Comments.objects.filter(
         listing=listing_id)
     print(commentsForListing)
-    # return render(request, "auctions/index.html", {"commentsForListing": commentsForListing})
+
+    ####################
+
+
+    # Get the user ID of the logged in user for the User object
+    user_id = request.user.id
+    userName = User.objects.get(id=user_id)
+    currentObject = Listings.objects.get(id=listing_id)
+
+    # Tests if the watcher is already in the queryset for watchers on the current object.
+    if userName in currentObject.watchers.all():
+        print("Watcher is already in the list!")
+        # Send this in context and do not  display the Add to Watchlist button
+        watcher = True
+
+    else:
+        print("Watcher is not in the list!")
+        # Send this in context and display the REmove from Watchlist button.
+        watcher = False
+
+
+    ##################
+
 
     # Get all the listings and add to context.
     listing = Listings.objects.get(id=listing_id)
-    return render(request, "auctions/listing.html", {"listing": listing, "commentForm": commentForm, "bidForm": bidForm, "commentsForListing": commentsForListing})
+    return render(request, "auctions/listing.html", {"listing": listing, "commentForm": commentForm, "bidForm": bidForm, "commentsForListing":
+    commentsForListing, "watcher": watcher})
 
-# TODO: This needs work.  users where watchlist = true.  Change watchlist to Boolean?  Need to look at the examples.
-# TODO: Also need to render the forms here.  the comment form and the bid form.
 
 
 @login_required
