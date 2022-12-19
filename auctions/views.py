@@ -186,16 +186,12 @@ def submitBid(request, listing_id):
             # TODO: There no bids yet so this will return an empty queryset.
             # bidsObject = Bids.objects.filter(user_bidder=userName)
 
-            # print(Bids.objects.count())
-
-            # TODO: This is assigning an empty queryset to a value which doesn't work.
-            # bidsObject.currentBid = test
 
             # bidsObject.save(update_fields=['currentBid'])
             # testAgain = Bids.objects.values_list('currentBid')
             # print(testAgain)
 
-            # This works!!!!  This is the object that I need to update.
+            # This works!!!!  This is the object that I need to update.  use update() I think.
             print(Bids.objects.count())
             currentObject = Bids.objects.get(auction=listing_id)
             print(currentObject)
@@ -204,12 +200,18 @@ def submitBid(request, listing_id):
             print(currentObject)
 
             # Need to get the value for the Listing.startingBid
-
             listingsObject = Listings.objects.get(id=listing_id)
             startingBid = listingsObject.startingBid
 
-            # TODO: Next, need to update the CurrentBid in the Bids.currentBid model so that it will work next time
+
+
+            # TODO: Next, need to update the currentBid in the Bids.currentBid model so that it will work next time
             # you go in and it starts at the previous bids amount.
+            #Also need to make sure that the user is not bidding on their own listing.
+
+
+
+
 
             if bidAmount > startingBid:
                 print("Your bid is high enough!")
