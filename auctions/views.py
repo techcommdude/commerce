@@ -18,6 +18,7 @@ from .models import Listings
 def activeListings(request):
     # active = Listings.objects.get(active=True)
     # get all the listings
+    # TODO: This needs to be updated to list only the Active objects.
     returned_listing = Listings.objects.all()
     print(returned_listing)
     return render(request, "auctions/index.html", {
@@ -197,24 +198,17 @@ def submitBid(request, listing_id):
             if bidAmount > startingBid:
                 print("Your bid is high enough!")
                 return HttpResponse("Your bid is high enough! Calling the submitBid view.")
-                #TODO: Update the instance of the Bid object here.
+                # TODO: Update the instance of the Bid object here.
             else:
                 print("Bid too low")
                 return HttpResponse("Bid too low")
-                #TODO: Do nothing here and issue an error message.
-
-
-
-
-
-
+                # TODO: Do nothing here and issue an error message.
 
             # Get the currentBid from the Bids model and compare to bidAmount.
             # TODO: Check that the bid is higher than the current price.
             # This returns a queryset which will not work.  Net to use Get to return the current instance of the object.
             # test = Bids.objects.values_list('currentBid')
             # print(test)
-
 
             # if not currentBid:
             #     currentBid = bidAmount
@@ -227,15 +221,12 @@ def submitBid(request, listing_id):
             #     else:
             #         print("Your bid is successful. Updating the listing with your bid.")
 
-
-
             # Get the user ID of the logged in user for the User object
             # user_id = request.user.id
             # userName = User.objects.get(id=user_id)
 
             # Get the ID for the Listings object or Auction that is being bid on.
             # listingObject = Listings.objects.get(id=listing_id)
-
 
             # TODO: Need to save the bidAmount to the model if it is higher than the price and higher than highest bid..
             # Do an update?  Don't need to worry about the user, just that this is the current highest bid.
@@ -287,32 +278,28 @@ def displayCategoryListings(request, category):
 @login_required
 def displayWatchlist(request):
 
-#TODO: This displays the watchlist for the user that is logged in.  Need to get all of the objects
-# in the listings and if a user is in the watchlist for the listing, then display it.
+    # TODO: This displays the watchlist for the user that is logged in.  Need to get all of the objects
+    # in the listings and if a user is in the watchlist for the listing, then display it.
 
-#TODO: Watchers is a many to many field that is associated with User object, so
-# need to pass that. whereas watchlist is just a char field.  Look into this.
-# May need to do something like User.objects.get(watchers=User.object.userID)
-# Get the user ID of the logged in user for the User object. Need to look at the lecture notes on many to many.
+    # TODO: Watchers is a many to many field that is associated with User object, so
+    # need to pass that. whereas watchlist is just a char field.  Look into this.
+    # May need to do something like User.objects.get(watchers=User.object.userID)
+    # Get the user ID of the logged in user for the User object. Need to look at the lecture notes on many to many.
     user_id = request.user.id
     userLoggedIn = request.user.username
     print(userLoggedIn)
 
     watchers = User.objects.get(id=user_id)
-    #This returns a QuerySet for the current logged in user.  Returns those listings that have that user as a watcher.
+    # This returns a QuerySet for the current logged in user.  Returns those listings that have that user as a watcher.
     listingsForWatcher = Listings.objects.filter(watchers=watchers)
-    #TODO: This successfully lists all the listings that have the current logged in user as a watcher.  It returns a QuerySet.
+    # TODO: This successfully lists all the listings that have the current logged in user as a watcher.  It returns a QuerySet.
     print(listingsForWatcher)
 
-
-
-
-    #TODO: This successfully determines the current watchers for an item when you click "Add to Watchlist" button.
-    #TODO: Need to check what is happening with the other method and the Watchlist link that displays all watched items for a user.
-    #TODO: Need an If statement for display the "Add to watchlist" and "Remove from watchlist" buttons.  Check if the user is in the watchlist
-    #to determine which button to display and which method to call.
+    # TODO: This successfully determines the current watchers for an item when you click "Add to Watchlist" button.
+    # TODO: Need to check what is happening with the other method and the Watchlist link that displays all watched items for a user.
+    # TODO: Need an If statement for display the "Add to watchlist" and "Remove from watchlist" buttons.  Check if the user is in the watchlist
+    # to determine which button to display and which method to call.
     print(watchers)
-
 
     # This function now works.  Need to work on the add to watchlist method.
     return render(request, "auctions/watchlist.html", {"userLoggedIn": userLoggedIn, "listingsForWatcher": listingsForWatcher})
@@ -320,49 +307,58 @@ def displayWatchlist(request):
 
 @login_required
 def watchlist(request, listing_id):
-    #TODO: This adds a user to the watchlist for a particular listing ID.
-    # Need to update the instance of the object and just add the user to the watchlist.
+    # TODO: This adds a user to the watchlist for a particular listing ID.
+    # Need to update the instance of the object and just add the user as a watcher to the object.
+    # Get the user ID of the logged in user for the User object
+    user_id = request.user.id
+    userName = User.objects.get(id=user_id)
+    print(userName)
+    currentObject = Listings.objects.get(id=listing_id)
+    print(currentObject)
+
+    # Tests if the watcher is already in the queryset for watchers on the current object.
+    if userName in currentObject.watchers.all():
+        print("Watcher is already in the list!")
+        # The item has been added to the watchlist, so display the items on the user's watchlist.
+        #TODO: May want to issue an error message as well.
+        return HttpResponseRedirect(reverse("displayWatchlist"))
+    else:
+        print("Watcher is not in the list!")
+        # Add teh watcher to the list.  Get the current object and add the userName to the watchers
+        # field.  do this with a many to many field.
+        currentObject.watchers.add(userName)
+        print(currentObject.watchers.all())
+
+        # The item has been added to the watchlist, so display the items on the user's watchlist.
+        return HttpResponseRedirect(reverse("displayWatchlist"))
 
 
+############################################
 
-    print(listing_id)
-    test = Listings.objects.get(id=listing_id)
-    # This prints the listing.
-    print(test)
-    test2 = test.watchers.all()
-    #TODO: This prints the watchers for the above listing id.  This is a QuerySet.
-    print(test2)
+    # TODO: Print the object with the updated watcher.  Can also test if the watcher is in this, if it is then
+    # don't update and issue an error message.
+    # test2 = currentObject.watchers.all()
 
-    # Turn the queryset into a list.
-    userList = list(test2)
+    # TODO: This prints the watchers for the above listing id.  This is a QuerySet.
+    # print(test2)
 
-    user = request.user.username
-    user = request.user
+    # # Turn the queryset into a list.
+    # userList = list(test2)
 
-    # This loops through the watcher queryset.
-    for x in userList:
+    # user = request.user.username
+    # user = request.user
 
-        if x.username == user:
-            # This item is already on the user's watchlist, so go to the current active Listings again.
-            # May want to display a message at this point.
-            return HttpResponseRedirect(reverse("activeListings"))
-            # Need to exit at this point and not do anything.
+    # # This loops through the watcher queryset.
+    # for x in userList:
 
-    # TODO: Need to work on this to figure out how to update the watchlist.
-    # watchUsername = request.user.username
-    # watchUsername.save()
-    # print(watchUsername)
+    #     if x.username == user:
+    #         # This item is already on the user's watchlist, so go to the current active Listings again.
+    #         # May want to display a message at this point.
+    #         return HttpResponseRedirect(reverse("activeListings"))
+    #         # Need to exit at this point and not do anything.
 
-   # Add the item to the watchlist.
-    # username = request.user.username
-    # test6 = Listings(watchers=username)
-    # test6.save()
-
-    # test5 = Listings.objects.get(id=listing_id)
-    # test5.watchers = request.user.username
-
-    # The item has been added to the watchlist, so display the items on the user's watchlist.
-    return HttpResponseRedirect(reverse("displayWatchlist"))
+    # # The item has been added to the watchlist, so display the items on the user's watchlist.
+    # return HttpResponseRedirect(reverse("displayWatchlist"))
     # return render(request, "auctions/watchlist.html")
     # return HttpResponse("Need to add item to watchlist for this user!")
 
