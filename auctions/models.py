@@ -26,8 +26,6 @@ class Listings(models.Model):
     description = models.CharField(max_length=300)
     # This is the starting price that the user who creates the listing specifies.
     startingBid = models.FloatField(max_length=64)
-    # TODO: Does this work here?  Maybe remove this.
-    watchlist = models.CharField(blank=True, max_length=300)
     createdDate = models.DateTimeField(auto_now_add=True)
     active = models.BooleanField(default=True)
     # blank = true means the field is not required.
@@ -58,7 +56,6 @@ class Bids(models.Model):
 
 class Comments(models.Model):
     comment = models.CharField(max_length=100)
-    # TODO: Not sure how to handle this date.
     createdDate = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="get_user_comments")
