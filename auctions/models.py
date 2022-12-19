@@ -16,8 +16,10 @@ class User(AbstractUser):
 
 class Listings(models.Model):
 
+    #TODO: The creator of the listing who can close it.
     creator = models.ForeignKey(
         User, on_delete=models.PROTECT, related_name="get_creator_listings", blank=False)
+    #TODO: Person who won the auction and bought it.  Cannot be the person who created it.
     buyer = models.ForeignKey(
         User, blank=True, null=True, on_delete=models.PROTECT, related_name="get_buyer_listings")
     watchers = models.ManyToManyField(
@@ -46,6 +48,7 @@ class Bids(models.Model):
     # The is the bid that the user submits on the form.
     bidAmount = models.FloatField(null=True, default=0.0)
     # If a user is deleted, all bids associated with that user should also be deleted.
+    #TODO: Is this field necessary?
     user_bidder = models.ForeignKey(
         User, on_delete=models.CASCADE, null=True, related_name="get_user_bids")
     date = models.DateTimeField(auto_now_add=True)
