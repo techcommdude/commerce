@@ -218,6 +218,8 @@ def submitBid(request, listing_id):
                 return HttpResponseRedirect(reverse("activeListings"))
 
 
+
+
 @login_required
 def categories(request):
 
@@ -308,7 +310,7 @@ def watchlist(request, listing_id):
         # The item has been added to the watchlist, so display the items on the user's watchlist.
         return HttpResponseRedirect(reverse("displayWatchlist"))
 
-
+@login_required
 def removeFromWatchlist(request, listing_id):
     # Removes the item from the watchlist.
     user_id = request.user.id
@@ -320,6 +322,17 @@ def removeFromWatchlist(request, listing_id):
     print(currentObject.watchers.all())
     # Go back to the active listings page.
     return HttpResponseRedirect(reverse("activeListings"))
+
+@login_required
+def closeAuction(request, listing_id):
+
+    user = request.user.username
+    print(user)
+    #Only display button if the current user is the user that created the listing.
+
+    #TODO: If the current bid is higher than the initial price, then the auction can be closed and the listing can be made inactive.
+
+    return HttpResponse("Closing the auction logic!")
 
 
 def login_view(request):
