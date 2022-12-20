@@ -124,7 +124,7 @@ def saveListing(request):
             newBidObject = Bids(auction=listObjectForBids,
                                 currentBid=currentMinBid)
             newBidObject.save()
-
+            messages.success(request, 'Your listing has been created.')
             # Redirect to activeListings page.
             return HttpResponseRedirect(reverse("activeListings"))
 
@@ -141,7 +141,6 @@ def saveComment(request, listing_id):
             newComment = form.cleaned_data.get('text')
             # If there is a comment, then do something.
             if len(newComment) > 0:
-                # print(newComment)
                 # Save the comment to the model and then redisplay the page with the comment below.
 
                 # Get the user ID of the logged in user for the User object
@@ -225,7 +224,6 @@ def categories(request):
 
     # Gets all the listings.
     listing = Listings.objects.all()
-    print(listing)
 
     # This loops through all listings and returns unique categories.  Then pass these to the page for categories.
     category = listing.order_by().values('category').distinct()
@@ -262,7 +260,6 @@ def displayWatchlist(request):
     # Get the user ID of the logged in user for the User object.
     user_id = request.user.id
     userLoggedIn = request.user.username
-    print(userLoggedIn)
 
     watchers = User.objects.get(id=user_id)
     # This returns a QuerySet for the current logged in user.  Returns those listings that have that user as a watcher.
@@ -277,7 +274,7 @@ def displayWatchlist(request):
 
 @login_required
 def watchlist(request, listing_id):
-    # This adds a user to the watchlist for a particular listing ID.
+    # This adds a listing to the watchlist for a particular listing ID.
     # Need to update the instance of the object and just add the user as a watcher to the object.
     # Get the user ID of the logged in user for the User object
     user_id = request.user.id
@@ -288,7 +285,9 @@ def watchlist(request, listing_id):
     if userName in currentObject.watchers.all():
         print("Watcher is already in the list!")
         # The item has been added to the watchlist, so display the items on the user's watchlist.
-        # TODO: May want to issue an error message as well.
+        # May want to issue an error message as well.
+        messages.error(
+            request, 'Listing is already in your watchlist.')
         return HttpResponseRedirect(reverse("displayWatchlist"))
     else:
         print("Watcher is not in the list!")
@@ -298,6 +297,8 @@ def watchlist(request, listing_id):
         print(currentObject.watchers.all())
 
         # The item has been added to the watchlist, so display the items on the user's watchlist.
+        messages.success(
+            request, 'Listing has been added to your watchlist.')
         return HttpResponseRedirect(reverse("displayWatchlist"))
 
 
@@ -312,6 +313,8 @@ def removeFromWatchlist(request, listing_id):
     currentObject.watchers.remove(userName)
 
     # Go back to the active listings page.
+    messages.success(
+            request, 'Listing has been removed from your watchlist.')
     return HttpResponseRedirect(reverse("activeListings"))
 
 
