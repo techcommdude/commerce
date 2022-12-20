@@ -199,7 +199,7 @@ def submitBid(request, listing_id):
 
             # The currently bidded value must be greater than the last stored bid in currentBid.
             #CurrentBid is set when the listing is created.
-            if float(bidAmount) > curentBid:
+            if float(bidAmount) >= curentBid:
                 print("Your bid is high enough!")
 
                 currentObject.bidAmount = bidAmount
@@ -208,6 +208,8 @@ def submitBid(request, listing_id):
                 # Update the current bid to the latest value
                 currentObject.currentBid = bidAmount
                 currentObject.save()
+
+                messages.success(request, 'Your bid was successful.')
 
                 # Redirect to activeListings page.
                 return HttpResponseRedirect(reverse("activeListings"))
@@ -219,7 +221,7 @@ def submitBid(request, listing_id):
 
                 # return render(request, "auctions/listing.html", {"listing": listing, "commentForm": commentForm, "bidForm": bidForm, "commentsForListing":
                 #                                      commentsForListing, "watcher": watcher, "currentBidForContext": currentBidForContext})
-
+                messages.error(request, 'Your bid was not successful')
                 return HttpResponseRedirect(reverse("activeListings"))
 
 
