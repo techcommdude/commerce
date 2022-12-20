@@ -350,13 +350,13 @@ def closeAuction(request, listing_id):
     #Current Listings object.
     currentListingsObject = Listings.objects.get(id=listing_id)
     price = currentListingsObject.startingBid
-    creator = User.objects.filter(id=user_id)
+    creator = currentListingsObject.creator
     print(creator)
 
-    if userName in creator:
+    if userName == creator:
         print("Yes")
 
-        if float(currentBid) > float(price):
+        if float(currentBid) >= float(price):
 
             currentListingsObject.active = False
             currentListingsObject.save()
