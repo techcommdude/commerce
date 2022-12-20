@@ -20,7 +20,6 @@ def activeListings(request):
 
     # The template filters out those items that are Inactive with an If statement.
     returned_listing = Listings.objects.all()
-    print(returned_listing)
 
     return render(request, "auctions/index.html", {
         "listings": Listings.objects.all()
@@ -41,7 +40,6 @@ def listings(request, listing_id):
     # Add all of the comments to the context as well.
     commentsForListing = Comments.objects.filter(
         listing=listing_id)
-    print(commentsForListing)
 
     ####################
 
@@ -123,7 +121,6 @@ def saveListing(request):
             listObjectForBids = Listings.objects.get(id=pkNewListing)
 
             currentMinBid = float(price)
-            print(currentMinBid)
 
             # Probably need to create the Bids object since it doesn't currently exist.
             newBidObject = Bids(auction=listObjectForBids, currentBid=currentMinBid)
@@ -139,7 +136,6 @@ def saveComment(request, listing_id):
     if request.method == "POST":
 
         form = forms.CommentForm(request.POST)
-        print(form)
 
         if form.is_valid():
             # This retries and cleans the data for the comment. 'text' is the name of the comment form field in forms.py.
@@ -155,7 +151,6 @@ def saveComment(request, listing_id):
 
                 # Get the ID for the Listings object that has the comment.
                 listingObject = Listings.objects.get(id=listing_id)
-                print(listingObject)
 
                 # 'user' must be a User object.  'listing' must be a Listings object.  Save
                 # the comment that the user entered.
@@ -179,7 +174,6 @@ def submitBid(request, listing_id):
     if request.method == "POST":
 
         form = forms.BidForm(request.POST)
-        print(form)
 
         if form.is_valid():
             # This is the currentBid in the Bids model.
@@ -200,7 +194,6 @@ def submitBid(request, listing_id):
             # The currently bidded value must be greater than the last stored bid in currentBid.
             #CurrentBid is set when the listing is created.
             if float(bidAmount) >= curentBid:
-                print("Your bid is high enough!")
 
                 currentObject.bidAmount = bidAmount
                 currentObject.save()
@@ -214,8 +207,7 @@ def submitBid(request, listing_id):
                 return HttpResponseRedirect(reverse("activeListings"))
 
             else:
-                print("Bid too low")
-                # TODO: Need to issue an error message here per requirements.
+                # Need to issue an error message here per requirements.
                 # Redirect to activeListings page.  Need to pass the currentBid somehow.
 
                 # return render(request, "auctions/listing.html", {"listing": listing, "commentForm": commentForm, "bidForm": bidForm, "commentsForListing":
@@ -240,7 +232,7 @@ def categories(request):
 
     # This loops through all listings and returns unique categories.  Then pass these to the page for categories.
     category = listing.order_by().values('category').distinct()
-    print(category)
+
     # Cast it to a list although this is not necessary.
     categories = list(category)
 
@@ -256,8 +248,6 @@ def displayCategoryListings(request, category):
     # Only display those listings that have the category name with another if statement on template.
 
     listings = Listings.objects.all()
-    print(listings)
-    print(category)
 
     return render(request, "auctions/categoryListing.html", {"listings": listings, "category": category})
 
@@ -283,7 +273,6 @@ def displayWatchlist(request):
 
     # Need an If statement for display the "Add to watchlist" and "Remove from watchlist" buttons.  Check if the user is in the watchlist
     # to determine which button to display and which method to call.
-    print(watchers)
 
     # This function now works.  Need to work on the add to watchlist method.
     return render(request, "auctions/watchlist.html", {"userLoggedIn": userLoggedIn, "listingsForWatcher": listingsForWatcher})
@@ -296,9 +285,7 @@ def watchlist(request, listing_id):
     # Get the user ID of the logged in user for the User object
     user_id = request.user.id
     userName = User.objects.get(id=user_id)
-    print(userName)
     currentObject = Listings.objects.get(id=listing_id)
-    print(currentObject)
 
     # Tests if the watcher is already in the queryset for watchers on the current object.
     if userName in currentObject.watchers.all():
@@ -325,7 +312,7 @@ def removeFromWatchlist(request, listing_id):
     currentObject = Listings.objects.get(id=listing_id)
     # Remvoe the object from the instance.
     currentObject.watchers.remove(userName)
-    print(currentObject.watchers.all())
+
     # Go back to the active listings page.
     return HttpResponseRedirect(reverse("activeListings"))
 
@@ -335,8 +322,6 @@ def closeAuction(request, listing_id):
     # user = request.user.username
     user_id = request.user.id
     userName = User.objects.get(id=user_id)
-    print(userName)
-    # print(user)
 
     #Need to get the original price.
 
@@ -344,18 +329,15 @@ def closeAuction(request, listing_id):
     currentBidObject = Bids.objects.get(auction=listing_id)
     #Get the current highest bid.
     currentBid = currentBidObject.currentBid
-    print(currentBid)
+
     # bidAmount = currentBidObject.bidAmount
-    # print(bidAmount)
 
     #Current Listings object.
     currentListingsObject = Listings.objects.get(id=listing_id)
     price = currentListingsObject.startingBid
     creator = currentListingsObject.creator
-    print(creator)
 
     if userName == creator:
-        print("Yes")
 
         if float(currentBid) >= float(price):
 
@@ -363,8 +345,6 @@ def closeAuction(request, listing_id):
             currentListingsObject.save()
             currentListingsObject.buyer = userName
             currentListingsObject.save()
-            print(currentListingsObject.buyer)
-
 
             messages.success(request, 'You have successfully closed the auction!')
             return HttpResponseRedirect(reverse("activeListings"))
@@ -390,7 +370,6 @@ def login_view(request):
         password = request.POST["password"]
 
         user = authenticate(request, username=username, password=password)
-        print(user)
 
         # Check if authentication successful
         if user is not None:
