@@ -357,6 +357,9 @@ def closeAuction(request, listing_id):
         print("Yes")
 
         if float(currentBid) > float(price):
+
+            currentListingsObject.active = False
+            currentListingsObject.save()
             messages.success(request, 'You have successfully closed the auction!')
 
             return HttpResponseRedirect(reverse("activeListings"))
@@ -370,7 +373,7 @@ def closeAuction(request, listing_id):
 
     #TODO: If the current bid is higher than the initial price, then the auction can be closed and the listing can be made inactive.
 
-    messages.warning(request, 'You cannot close this auction since you did not create it!')
+    messages.warning(request, 'You cannot close this auction since your are not the owner of the listing')
 
     return HttpResponseRedirect(reverse("activeListings"))
 
