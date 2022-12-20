@@ -59,12 +59,12 @@ def listings(request, listing_id):
         # Send this in context and display the REmove from Watchlist button.
         watcher = False
 
-    returnedBids  = Bids.objects.get(auction=listing_id)
+    returnedBids = Bids.objects.get(auction=listing_id)
     currentBidForContext = returnedBids.currentBid
 
     # Get all the listings and add to context.
     listing = Listings.objects.get(id=listing_id)
-    #This returns objects and Querysets.
+    # This returns objects and Querysets.
     return render(request, "auctions/listing.html", {"listing": listing, "commentForm": commentForm, "bidForm": bidForm, "commentsForListing":
                                                      commentsForListing, "watcher": watcher, "currentBidForContext": currentBidForContext})
 
@@ -108,22 +108,21 @@ def saveListing(request):
             user_id = request.user.id
             userName = User.objects.get(id=user_id)
 
-
-
             newListing = Listings(creator=userName, title=title, description=description,
                                   startingBid=price, category=category, url=image_url)
             newListing.save()
 
-            #This is the primary key of the new listing.
+            # This is the primary key of the new listing.
             pkNewListing = newListing.id
 
-            #This retrieves the new Listings object that was just created.
+            # This retrieves the new Listings object that was just created.
             listObjectForBids = Listings.objects.get(id=pkNewListing)
 
             currentMinBid = float(price)
 
             # Probably need to create the Bids object since it doesn't currently exist.
-            newBidObject = Bids(auction=listObjectForBids, currentBid=currentMinBid)
+            newBidObject = Bids(auction=listObjectForBids,
+                                currentBid=currentMinBid)
             newBidObject.save()
 
             # Redirect to activeListings page.
@@ -182,7 +181,7 @@ def submitBid(request, listing_id):
             # This works!!!!  This is the object that I need to update.
             currentObject = Bids.objects.get(auction=listing_id)
 
-            #When you first create the listing, currentBid needs to be set to the same as startingBid
+            # When you first create the listing, currentBid needs to be set to the same as startingBid
 
             # Next, need to update the currentBid in the Bids.currentBid model so that it will work next time
             # you go in and it starts at the previous bids amount.
@@ -192,7 +191,7 @@ def submitBid(request, listing_id):
             curentBid = currentObject.currentBid
 
             # The currently bidded value must be greater than the last stored bid in currentBid.
-            #CurrentBid is set when the listing is created.
+            # CurrentBid is set when the listing is created.
             if float(bidAmount) >= curentBid:
 
                 currentObject.bidAmount = bidAmount
@@ -214,8 +213,6 @@ def submitBid(request, listing_id):
                 #                                      commentsForListing, "watcher": watcher, "currentBidForContext": currentBidForContext})
                 messages.error(request, 'Your bid was not successful')
                 return HttpResponseRedirect(reverse("activeListings"))
-
-
 
 
 @login_required
@@ -303,6 +300,7 @@ def watchlist(request, listing_id):
         # The item has been added to the watchlist, so display the items on the user's watchlist.
         return HttpResponseRedirect(reverse("displayWatchlist"))
 
+
 @login_required
 def removeFromWatchlist(request, listing_id):
     # Removes the item from the watchlist.
@@ -316,6 +314,7 @@ def removeFromWatchlist(request, listing_id):
     # Go back to the active listings page.
     return HttpResponseRedirect(reverse("activeListings"))
 
+
 @login_required
 def closeAuction(request, listing_id):
 
@@ -323,16 +322,16 @@ def closeAuction(request, listing_id):
     user_id = request.user.id
     userName = User.objects.get(id=user_id)
 
-    #Need to get the original price.
+    # Need to get the original price.
 
     # This works!!!!  This is the object that I need to update.
     currentBidObject = Bids.objects.get(auction=listing_id)
-    #Get the current highest bid.
+    # Get the current highest bid.
     currentBid = currentBidObject.currentBid
 
     # bidAmount = currentBidObject.bidAmount
 
-    #Current Listings object.
+    # Current Listings object.
     currentListingsObject = Listings.objects.get(id=listing_id)
     price = currentListingsObject.startingBid
     creator = currentListingsObject.creator
@@ -346,18 +345,20 @@ def closeAuction(request, listing_id):
             currentListingsObject.buyer = userName
             currentListingsObject.save()
 
-            messages.success(request, 'You have successfully closed the auction!')
+            messages.success(
+                request, 'You have successfully closed the auction!')
             return HttpResponseRedirect(reverse("activeListings"))
         else:
 
             messages.error(request, 'You cannot close the auction!')
             return HttpResponseRedirect(reverse("activeListings"))
 
-    #Only display button if the current user is the user that created the listing.
+    # Only display button if the current user is the user that created the listing.
 
-    #If the current bid is higher than the initial price, then the auction can be closed and the listing can be made inactive.
+    # If the current bid is higher than the initial price, then the auction can be closed and the listing can be made inactive.
 
-    messages.error(request, 'You cannot close this auction since you are not the owner of the listing')
+    messages.error(
+        request, 'You cannot close this auction since you are not the owner of the listing')
 
     return HttpResponseRedirect(reverse("activeListings"))
 
