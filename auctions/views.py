@@ -210,7 +210,6 @@ def submitBid(request, listing_id):
                 currentObject.save()
 
                 messages.success(request, 'Your bid was successful.')
-
                 # Redirect to activeListings page.
                 return HttpResponseRedirect(reverse("activeListings"))
 
@@ -362,18 +361,21 @@ def closeAuction(request, listing_id):
 
             currentListingsObject.active = False
             currentListingsObject.save()
-            messages.success(request, 'You have successfully closed the auction!')
+            currentListingsObject.buyer = userName
+            currentListingsObject.save()
+            print(currentListingsObject.buyer)
 
+
+            messages.success(request, 'You have successfully closed the auction!')
             return HttpResponseRedirect(reverse("activeListings"))
         else:
 
             messages.error(request, 'You cannot close the auction!')
-
             return HttpResponseRedirect(reverse("activeListings"))
 
     #Only display button if the current user is the user that created the listing.
 
-    #TODO: If the current bid is higher than the initial price, then the auction can be closed and the listing can be made inactive.
+    #If the current bid is higher than the initial price, then the auction can be closed and the listing can be made inactive.
 
     messages.error(request, 'You cannot close this auction since you are not the owner of the listing')
 

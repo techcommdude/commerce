@@ -18,6 +18,8 @@
         <li>Price: ${{ listing.startingBid}}</li>
         <li>Current bid: ${{ currentBidForContext }}</li>
         <li>Created: {{ listing.createdDate}}</li>
+        <li>Buyer: {{ listing.buyer}}</li>
+
 
         {% if watcher == False %}
         <li><a class="btn btn-primary watchlist" href="{% url 'watchlist' listing.id %}">Add to watchlist</a></li>
@@ -49,8 +51,9 @@
 </div>
 
 <div>
-    <ul>
+    <ul> {% if listing.active == True%}
         <li><a class="btn btn-primary watchlist" href="{% url 'closeAuction' listing.id %}">Close auction</a></li>
+        {% endif %}
     </ul>
     <hr>
 
