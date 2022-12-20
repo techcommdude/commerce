@@ -208,7 +208,7 @@ def submitBid(request, listing_id):
 
                 # return render(request, "auctions/listing.html", {"listing": listing, "commentForm": commentForm, "bidForm": bidForm, "commentsForListing":
                 #                                      commentsForListing, "watcher": watcher, "currentBidForContext": currentBidForContext})
-                messages.error(request, 'Your bid was not successful')
+                messages.error(request, 'Your bid was not successful.')
                 return HttpResponseRedirect(reverse("activeListings"))
 
 
@@ -347,11 +347,11 @@ def closeAuction(request, listing_id):
             currentListingsObject.save()
 
             messages.success(
-                request, 'You have successfully closed the auction!')
+                request, 'You have successfully closed the auction.')
             return HttpResponseRedirect(reverse("activeListings"))
         else:
 
-            messages.error(request, 'You cannot close the auction!')
+            messages.error(request, 'You cannot close the auction.')
             return HttpResponseRedirect(reverse("activeListings"))
 
     # Only display button if the current user is the user that created the listing.
@@ -359,7 +359,7 @@ def closeAuction(request, listing_id):
     # If the current bid is higher than the initial price, then the auction can be closed and the listing can be made inactive.
 
     messages.error(
-        request, 'You cannot close this auction since you are not the owner of the listing')
+        request, 'You cannot close this auction since you are not the owner of the listing.')
 
     return HttpResponseRedirect(reverse("activeListings"))
 
