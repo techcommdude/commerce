@@ -30,7 +30,8 @@
         <li>Description: {{ listing.description}}</li>
         <li>Price: ${{ listing.startingBid}}</li>
         <li>Created: {{ listing.createdDate}}</li>
-        <li>Category: {{ category }}</li>
+        <li>Category: {{ listing.category}}</li>
+        <li><a class="btn btn-primary" href="{% url 'listings' listing.id %}">More Info</a></li>
 
     </ul>
     {% endif %}
