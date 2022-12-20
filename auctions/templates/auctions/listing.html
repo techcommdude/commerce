@@ -16,7 +16,7 @@
         <li><img src="{{ listing.url}}" alt="" width="200" height="200" /></li>
         <li>Item Description: {{ listing.description}}</li>
         <li>Price: ${{ listing.startingBid}}</li>
-        <li>Bids must be higher than: ${{ currentBidForContext }}</li>
+        <li>Current bid: ${{ currentBidForContext }}</li>
         <li>Created: {{ listing.createdDate}}</li>
 
         {% if watcher == False %}
