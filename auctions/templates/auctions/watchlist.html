@@ -27,6 +27,8 @@
         <li>Description: {{ x.description}}</li>
         <li>Price: ${{ x.startingBid}}</li>
         <li>Created: {{ x.createdDate}}</li>
+        <!-- listing.id is passed to the listings method in views.py -->
+        <li><a class="btn btn-primary" href="{% url 'listings' x.id %}">More Info</a></li>
     </ul>
 </div>
 

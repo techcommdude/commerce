@@ -16,10 +16,10 @@ class User(AbstractUser):
 
 class Listings(models.Model):
 
-    #TODO: The creator of the listing who can close it.
+    #The creator of the listing who can close it.
     creator = models.ForeignKey(
         User, on_delete=models.PROTECT, related_name="get_creator_listings", blank=False)
-    #TODO: Person who won the auction and bought it.  Cannot be the person who created it.
+    #Person who won the auction and bought it.  Cannot be the person who created it.
     buyer = models.ForeignKey(
         User, blank=True, null=True, on_delete=models.PROTECT, related_name="get_buyer_listings")
     watchers = models.ManyToManyField(

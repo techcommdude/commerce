@@ -41,8 +41,6 @@ def listings(request, listing_id):
     commentsForListing = Comments.objects.filter(
         listing=listing_id)
 
-    ####################
-
     # Get the user ID of the logged in user for the User object
     user_id = request.user.id
     userName = User.objects.get(id=user_id)
