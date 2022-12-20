@@ -365,7 +365,7 @@ def closeAuction(request, listing_id):
             return HttpResponseRedirect(reverse("activeListings"))
         else:
 
-            messages.warning(request, 'You cannot close the auction!')
+            messages.error(request, 'You cannot close the auction!')
 
             return HttpResponseRedirect(reverse("activeListings"))
 
@@ -373,7 +373,7 @@ def closeAuction(request, listing_id):
 
     #TODO: If the current bid is higher than the initial price, then the auction can be closed and the listing can be made inactive.
 
-    messages.warning(request, 'You cannot close this auction since your are not the owner of the listing')
+    messages.error(request, 'You cannot close this auction since you are not the owner of the listing')
 
     return HttpResponseRedirect(reverse("activeListings"))
 
