@@ -331,17 +331,46 @@ def removeFromWatchlist(request, listing_id):
 @login_required
 def closeAuction(request, listing_id):
 
-    user = request.user.username
-    print(user)
+    # user = request.user.username
+    user_id = request.user.id
+    userName = User.objects.get(id=user_id)
+    print(userName)
+    # print(user)
 
+    #Need to get the original price.
 
+    # This works!!!!  This is the object that I need to update.
+    currentBidObject = Bids.objects.get(auction=listing_id)
+    #Get the current highest bid.
+    currentBid = currentBidObject.currentBid
+    print(currentBid)
+    # bidAmount = currentBidObject.bidAmount
+    # print(bidAmount)
 
+    #Current Listings object.
+    currentListingsObject = Listings.objects.get(id=listing_id)
+    price = currentListingsObject.startingBid
+    creator = User.objects.filter(id=user_id)
+    print(creator)
+
+    if userName in creator:
+        print("Yes")
+
+        if float(currentBid) > float(price):
+            messages.success(request, 'You have successfully closed the auction!')
+
+            return HttpResponseRedirect(reverse("activeListings"))
+        else:
+
+            messages.warning(request, 'You cannot close the auction!')
+
+            return HttpResponseRedirect(reverse("activeListings"))
 
     #Only display button if the current user is the user that created the listing.
 
     #TODO: If the current bid is higher than the initial price, then the auction can be closed and the listing can be made inactive.
 
-    messages.info(request, 'You have successfully closed the auction!')
+    messages.warning(request, 'You cannot close this auction since you did not create it!')
 
     return HttpResponseRedirect(reverse("activeListings"))
 
