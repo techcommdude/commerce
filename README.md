@@ -31,6 +31,4 @@ Some of the technologies used:
 * **Django Admin Interface**: Via the Django admin interface, as a site administrator you can view, add, edit, and delete any listings, comments, and bids made on the site.
 
 ## Screen capture of the application:
-![Auction site](XXXX.png)
-
-to do.
+![Auction site](Auction_site.png)
