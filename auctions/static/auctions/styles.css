@@ -11,6 +11,10 @@ label {
      margin-top: 15px;
 }
 
+a {
+
+    text-decoration: none;
+}
 
 a.btn.btn-primary.watchlist:visited {
 
