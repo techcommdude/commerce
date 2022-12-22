@@ -31,20 +31,7 @@ class AuctionListingForm(forms.Form):
         }
         )
     )
-    # This is the first bid on the item and must be larger than the price.
-    # TODO: Do I need this?
 
-    # starting_bid = forms.DecimalField(
-    #     label='Starting Bid',
-    #     required=True,
-    #     widget=forms.NumberInput(attrs={
-    #         'class': 'form-control form-group',
-    #         'placeholder': 'Starting bid',
-    #         'min': '0.01',
-    #         'step': '0.01'
-    #     }
-    #     )
-    # )
     category = forms.CharField(
         label='Listing category',
         required=False,
