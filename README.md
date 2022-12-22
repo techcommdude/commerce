@@ -32,3 +32,5 @@ Some of the technologies used:
 
 ## Screen capture of the application:
 ![Auction site](XXXX.png)
+
+to do.
