@@ -6,7 +6,7 @@ from django.db import models
 
 class User(AbstractUser):
     pass
-
+#TODO: Implement choices?
 # Cars = 'Cars'
 # Appliances = 'Appliances'
 # Sports = 'Sports'
