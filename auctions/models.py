@@ -48,9 +48,6 @@ class Bids(models.Model):
     # The is the bid that the user submits on the form.
     bidAmount = models.FloatField(null=True, default=0.0)
     # If a user is deleted, all bids associated with that user should also be deleted.
-    #TODO: Is this field necessary?
-    user_bidder = models.ForeignKey(
-        User, on_delete=models.CASCADE, null=True, related_name="get_user_bids")
     date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self) -> str:
