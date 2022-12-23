@@ -1,5 +1,9 @@
 # e-Commerce website using Django framework and Python
 
+This project is deployed on Heroku: <a href="https://python-django-commerce.herokuapp.com/" target="_blank" rel="noopener">https://python-django-commerce.herokuapp.com/</a>
+
+A screencast of the project can be found here: <a href="" target="_blank" rel="noopener"></a>
+
 An eBay-like e-commerce auction site that will allow users to post auction listings, place bids on listings, comment on those listings, and add listings to a “watchlist.”
 
 Some of the technologies used:
@@ -10,6 +14,7 @@ Some of the technologies used:
 * Git
 * HTML
 * CSS
+* Heroku
 
 -----------
 ## Project overview
