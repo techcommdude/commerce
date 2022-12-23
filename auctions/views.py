@@ -415,3 +415,9 @@ def register(request):
         return HttpResponseRedirect(reverse("activeListings"))
     else:
         return render(request, "auctions/register.html")
+
+
+def handler404(request, exception, template_name="404.html"):
+    response = render(template_name)
+    response.status_code = 404
+    return response

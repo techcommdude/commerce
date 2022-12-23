@@ -1,6 +1,7 @@
-from django.urls import path
+from django.urls import path, re_path
 
 from . import views
+handler404 = 'auctions.views.handler404'
 
 urlpatterns = [
     # path("", views.index, name="index"),
