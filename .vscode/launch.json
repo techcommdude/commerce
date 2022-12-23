@@ -13,8 +13,11 @@
                 "runserver",
                 "--insecure"
             ],
+
             "django": true,
             "justMyCode": true
         }
     ]
 }
+
+//TODO: May need to change the above configuration if you deploy it elsewhere or host it.
