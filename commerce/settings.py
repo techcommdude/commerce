@@ -123,9 +123,9 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-STATIC_URL = '/static/'
+STATIC_URL = '/staticfiles/'
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static\\auctions')
+    os.path.join(BASE_DIR, 'auctions/')
 ]
 
 # SESSION_EXPIRE_AT_BROWSER_CLOSE = True
