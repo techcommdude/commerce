@@ -1,0 +1,28 @@
+{% extends "auctions/layout.html" %}
+{% load static %}
+
+{% block body %}
+{% include "auctions/messages.html" %}
+
+<div>
+    <h2>Create a listing</h2>
+</div>
+
+<div>
+<!-- URL should clean the form, save the listing and display the main page. -->
+<form action="{% url 'saveListing' %}" method="post" id="formCreateListing">
+    {% csrf_token %}
+
+    {{form}}
+    <!-- Attempting to troubleshoot some form errors -->
+    {{ form.non_field_errors }}
+    {{ form.body.errors }}
+    {{ form.body }}
+    {{ form.fieldname.errors }}
+
+    <input class="btn btn-primary test" type="submit" value="Create Listing">
+</form>
+
+</div>
+
+{% endblock %}

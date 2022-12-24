@@ -1,0 +1,90 @@
+{% extends "auctions/layout.html" %}
+{% load static %}
+
+{% block body %}
+{% include "auctions/messages.html" %}
+
+<!-- this is an active listing since it was previously filtered out. -->
+
+
+<div>
+    <ul>
+        <!-- "listings" is the queryset that you return.  "listing" is just one object in the queryset. -->
+
+        <li>
+            <h5>{{ listing.title}}</h5>
+        </li>
+        <li><img src="{{ listing.url}}" alt="" width="200" height="200" /></li>
+        <li>Item Description: {{ listing.description}}</li>
+        <li>Price: ${{ listing.startingBid}}</li>
+        <li>Current bid: ${{ currentBidForContext }}</li>
+        <li>Created: {{ listing.createdDate}}</li>
+        <li>Buyer: {{ listing.buyer}}</li>
+
+
+        {% if watcher == False %}
+        <li><a class="btn btn-primary watchlist" href="{% url 'watchlist' listing.id %}">Add to watchlist</a></li>
+        {% endif %}
+
+        {% if watcher == True %}
+        <!-- Send to the remove from watchlist view. -->
+        <li><a class="btn btn-primary watchlist" href="{% url 'removeFromWatchlist' listing.id %}">Remove from
+                watchlist</a></li>
+        {% endif %}
+
+
+
+        <hr>
+    </ul>
+</div>
+
+<!-- Call the submit bid method. -->
+<div>
+    <form action="{% url 'submitBid' listing.id %}" method="post">
+        {% csrf_token %}
+
+        {{bidForm}}
+
+        <input class="btn btn-primary" type="submit" value="Submit Bid">
+
+    </form>
+    <hr>
+</div>
+
+<div>
+    <ul> {% if listing.active == True%}
+        <li><a class="btn btn-primary watchlist" href="{% url 'closeAuction' listing.id %}">Close auction</a></li>
+        {% endif %}
+    </ul>
+    <hr>
+
+</div>
+
+
+<!-- Call the submit comment method. -->
+<div>
+    <form action="{% url 'saveComment' listing.id %}" method="post">
+        {% csrf_token %}
+
+        {{commentForm}}
+
+        <input class="btn btn-primary" type="submit" value="Submit Comment">
+
+    </form>
+</div>
+
+<h5 class="UserComments">User comments</h5>
+
+<div>
+    <hr>
+    {% for x in commentsForListing %}
+
+    <p> <b>{{x.user}}</b> on {{x.createdDate}}</p>
+    <p> {{x.comment}}</p>
+    <hr>
+    {% endfor %}
+
+</div>
+
+
+{% endblock %}
