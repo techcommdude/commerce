@@ -14,7 +14,7 @@ Some of the technologies used:
 * Git
 * HTML
 * CSS
-* Heroku
+* Heroku hosting
 
 -----------
 ## Project overview
