@@ -1,7 +1,9 @@
 
 # Some of the commands necessary to set it up:
 
-**Test it on local first:**
+**Test it on local first found here:**
+
+ http://127.0.0.1:5000/
 
 gfarnell@HP_laptop:/mnt/c/Users/geoff/OneDrive/Desktop/Git_Repositories/commerce$ heroku local
 

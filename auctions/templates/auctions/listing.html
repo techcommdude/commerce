@@ -40,7 +40,7 @@
 
 <!-- Call the submit bid method. -->
 <div>
-    <form action="{% url 'submitBid' listing.id %}" method="post">
+    <form action="{% url 'submitBid' listing.id %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
 
         {{bidForm}}
@@ -63,7 +63,7 @@
 
 <!-- Call the submit comment method. -->
 <div>
-    <form action="{% url 'saveComment' listing.id %}" method="post">
+    <form action="{% url 'saveComment' listing.id %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
 
         {{commentForm}}
