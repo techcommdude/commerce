@@ -31,3 +31,7 @@ Note: the branch could also be called "main" in Git.
 git push heroku master
 
 * Whitenoise should be installed at the latest version.
+
+**Also sometimes need to run collectstatic locally:**
+
+python ./manage.py collectstatic
