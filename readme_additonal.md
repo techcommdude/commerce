@@ -23,3 +23,7 @@ set git remote heroku to https://git.heroku.com/python-django-commerce.git
 gfarnell@HP_laptop:/mnt/c/Users/geoff/OneDrive/Desktop/Git_Repositories/commerce$ heroku push master
 
 Note: the branch could also be called "main" in Git.
+
+**Cn also use this command on Linux Ubuntu:**
+
+git push heroku master
