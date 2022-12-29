@@ -1,7 +1,6 @@
 from django import forms
 
 
-
 class AuctionListingForm(forms.Form):
     title = forms.CharField(
         label='Title',
@@ -36,9 +35,9 @@ class AuctionListingForm(forms.Form):
     import auctions.models
 
     category = forms.ChoiceField(choices=auctions.models.category_choices,
-        label='Listing category',
-        required=False,
-        )
+                                 label='Listing category',
+                                 required=False,
+                                 )
 
     image_url = forms.URLField(
         label='Image URL for your listing',
@@ -49,19 +48,6 @@ class AuctionListingForm(forms.Form):
         }
         )
     )
-
-    # def clean_category(self):
-    #     category = self.cleaned_data.get('category')
-    #     return category.lower()
-
-
-
-    # def clean_starting_bid(self):
-    #     amount = float(self.cleaned_data.get('starting_bid'))
-    #     if isinstance(amount, float) and amount > 0:
-    #         return amount
-    #     print(amount)
-    #     raise forms.ValidationError('Should be a number larger than zero!')
 
 
 class CommentForm(forms.Form):

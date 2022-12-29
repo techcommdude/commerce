@@ -1,5 +1,4 @@
 from datetime import timezone
-from enum import Enum
 from django.utils.timezone import now
 from django.contrib.auth.models import AbstractUser
 from django.db import models
