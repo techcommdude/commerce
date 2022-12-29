@@ -44,7 +44,7 @@ class AuctionListingForm(forms.Form):
     image_url = forms.URLField(
         label='Image URL for your listing',
         required=False,
-        initial='https://user-images.githubusercontent.com/52632898/161646398-6d49eca9-267f-4eab-a5a7-6ba6069d21df.png',
+        initial='https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Symbol_thumbs_up.svg/185px-Symbol_thumbs_up.svg.png',
         widget=forms.TextInput(attrs={
             'placeholder': 'Image URL (optional)',
         }
