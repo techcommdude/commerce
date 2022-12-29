@@ -29,6 +29,10 @@ a.btn.btn-primary.watchlist:visited {
     width: 20rem;
 }
 
+#container_card_listing {
+
+    width: 40rem;
+}
 input.btn.btn-primary.test {
 
     width: 132px;

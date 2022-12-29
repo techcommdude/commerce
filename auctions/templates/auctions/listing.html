@@ -6,84 +6,89 @@
 
 <!-- this is an active listing since it was previously filtered out. -->
 
-<div class="card">
-    <div>
-        <ul>
-            <!-- "listings" is the queryset that you return.  "listing" is just one object in the queryset. -->
+<div id="container_card_listing">
+    <div class="card">
+        <div>
+            <ul>
+                <!-- "listings" is the queryset that you return.  "listing" is just one object in the queryset. -->
 
-            <li>
+                <li>
 
-            </li>
-            <li><img src="{{ listing.url}}" alt="" width="" height="" /></li>
-            <h5>{{ listing.title}}</h5>
-            <li>Item Description: {{ listing.description}}</li>
-            <li>Price: ${{ listing.startingBid}}</li>
-            <li>Current bid: ${{ currentBidForContext }}</li>
-            <li>Created: {{ listing.createdDate}}</li>
-            <li>Buyer: {{ listing.buyer}}</li>
-
-
-            {% if watcher == False %}
-            <li><a class="btn btn-primary watchlist" href="{% url 'watchlist' listing.id %}">Add to watchlist</a></li>
-            {% endif %}
-
-            {% if watcher == True %}
-            <!-- Send to the remove from watchlist view. -->
-            <li><a class="btn btn-primary watchlist" href="{% url 'removeFromWatchlist' listing.id %}">Remove from
-                    watchlist</a></li>
-            {% endif %}
+                </li>
+                <li><img src="{{ listing.url}}" alt="" width="" height="" /></li>
+                <h5>{{ listing.title}}</h5>
+                <li>Item Description: {{ listing.description}}</li>
+                <li>Price: ${{ listing.startingBid}}</li>
+                <li>Current bid: ${{ currentBidForContext }}</li>
+                <li>Created: {{ listing.createdDate}}</li>
+                <li>Buyer: {{ listing.buyer}}</li>
 
 
+                {% if watcher == False %}
+                <li><a class="btn btn-primary watchlist" href="{% url 'watchlist' listing.id %}">Add to watchlist</a>
+                </li>
+                {% endif %}
+
+                {% if watcher == True %}
+                <!-- Send to the remove from watchlist view. -->
+                <li><a class="btn btn-primary watchlist" href="{% url 'removeFromWatchlist' listing.id %}">Remove from
+                        watchlist</a></li>
+                {% endif %}
 
 
-        </ul>
-    </div>
-
-    <!-- Call the submit bid method. -->
-    <div>
-        <form action="{% url 'submitBid' listing.id %}" method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-
-            {{bidForm}}
-
-            <input class="btn btn-primary" type="submit" value="Submit Bid">
-
-        </form>
-
-    </div>
-
-    <div>
-        <ul> {% if listing.active == True%}
-            <li><a class="btn btn-primary watchlist" href="{% url 'closeAuction' listing.id %}">Close auction</a></li>
-            {% endif %}
-        </ul>
 
 
-    </div>
+            </ul>
+        </div>
+
+        <!-- Call the submit bid method. -->
+        <div>
+            <form action="{% url 'submitBid' listing.id %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                {{bidForm}}
+
+                <input class="btn btn-primary" type="submit" value="Submit Bid">
+
+            </form>
+
+        </div>
+
+        <div>
+            <ul> {% if listing.active == True%}
+                <li><a class="btn btn-primary watchlist" href="{% url 'closeAuction' listing.id %}">Close auction</a>
+                </li>
+                {% endif %}
+            </ul>
 
 
-    <!-- Call the submit comment method. -->
-    <div>
-        <form action="{% url 'saveComment' listing.id %}" method="post" enctype="multipart/form-data">
-            {% csrf_token %}
+        </div>
 
-            {{commentForm}}
 
-            <input class="btn btn-primary" type="submit" value="Submit Comment">
+        <!-- Call the submit comment method. -->
+        <div>
+            <form action="{% url 'saveComment' listing.id %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
 
-        </form>
-    </div>
+                {{commentForm}}
 
-    <h5 class="UserComments">User comments</h5>
+                <input class="btn btn-primary" type="submit" value="Submit Comment">
 
-    <div>
+            </form>
+        </div>
 
-        {% for x in commentsForListing %}
+        <h5 class="UserComments">User comments</h5>
 
-        <p> <b>{{x.user}}</b> on {{x.createdDate}}</p>
-        <p> {{x.comment}}</p>
+        <div>
 
-        {% endfor %}
+            {% for x in commentsForListing %}
+
+            <p> <b>{{x.user}}</b> on {{x.createdDate}}</p>
+            <p> {{x.comment}}</p>
+
+            {% endfor %}
+
+        </div>
 
     </div>
 

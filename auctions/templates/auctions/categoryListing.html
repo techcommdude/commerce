@@ -15,27 +15,41 @@
 <!-- Filter out those listings that are not active -->
 {% if listing.active == True %}
 
-<div>
-    <ul>
 
-</div>
 <!-- Filter for the categories -->
-<div>
-    {% if listing.category == category %}
-    <ul>
-        <li>
-            <h5>{{ listing.title}}</h5>
-        </li>
-        <li><img src="{{ listing.url}}" alt="" width="200" height="200" /></li>
-        <li>Description: {{ listing.description}}</li>
-        <li>Price: ${{ listing.startingBid}}</li>
-        <li>Created: {{ listing.createdDate}}</li>
-        <li>Category: {{ listing.category}}</li>
-        <li><a class="btn btn-primary" href="{% url 'listings' listing.id %}">More Info</a></li>
 
-    </ul>
-    {% endif %}
+{% if listing.category == category %}
+
+
+<div id="container_card">
+
+    <div class="card">
+
+        <a href="{% url 'listings' listing.id %}" class="card-link">
+            <img src="{{ listing.url }}" alt="" class="card-img-top" />
+        </a>
+
+        <div class="card-body">
+
+            <ul class="list-group list-group-flush">
+                <!-- "listings" is the queryset that you return.  "listing" is just one object in the queryset. -->
+                <li>
+                    <h5>{{ listing.title}}</h5>
+                </li>
+                <li>Description: {{ listing.description}}</li>
+                <li>Price: ${{ listing.startingBid}}</li>
+                <li>Created: {{ listing.createdDate}}</li>
+                <li>Category: {{ listing.category}}</li>
+                <!-- listing.id is passed to the listings method in views.py -->
+                <li><a class="btn btn-primary" href="{% url 'listings' listing.id %}">More Info</a></li>
+            </ul>
+
+        </div>
+
+    </div>
 </div>
+
+{% endif %}
 
 {% endif %}
 
