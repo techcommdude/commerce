@@ -1,8 +1,17 @@
 from datetime import timezone
+from enum import Enum
 from django.utils.timezone import now
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
+
+category_choices = (
+    ("No Category", "No Category"),
+    ("Car", "Car"),
+    ("Appliances", "Appliances"),
+    ("Equipment", "Equipment"),
+    ("Clothing", "Clothing"),
+    ("Kids Stuff", "Kids Stuff"))
 
 class User(AbstractUser):
     pass
@@ -25,8 +34,7 @@ class Listings(models.Model):
     active = models.BooleanField(default=True)
     # blank = true means the field is not required.
     url = models.CharField(max_length=128, blank=True)
-    category = models.CharField(
-        max_length=45)
+    category = models.CharField(max_length=64, choices=category_choices, default="No Category")
 
     def __str__(self) -> str:
         return f"Listing Title: {self.title} - Starting bid: {self.startingBid}"

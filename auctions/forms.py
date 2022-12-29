@@ -32,17 +32,18 @@ class AuctionListingForm(forms.Form):
         )
     )
 
-    category_choices = (
-         ("No Category", "No Category"),
-    ("Car", "Car"),
-    ("Appliances", "Appliances"),
-    ("Equipment", "Equipment"),
-    ("Clothing", "Clothing"),
-    ("Kids Stuff", "Kids Stuff"),
+#     category_choices = (
+#          ("No Category", "No Category"),
+#     ("Car", "Car"),
+#     ("Appliances", "Appliances"),
+#     ("Equipment", "Equipment"),
+#     ("Clothing", "Clothing"),
+#     ("Kids Stuff", "Kids Stuff"),
 
-)
+# )
+    import auctions.models
 
-    category = forms.ChoiceField(choices=category_choices,
+    category = forms.CharField(
         label='Listing category',
         required=False,
         )
