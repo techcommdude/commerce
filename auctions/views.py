@@ -76,8 +76,6 @@ def createlisting(request):
     # Render the create listing form here.  After they create the listing.  Return them to the home page.
 
     form = forms.AuctionListingForm()
-    #TODO: pass the choices to the Create listing page.
-    # from auctions.models import category_choices
 
     return render(request, "auctions/createlisting.html", {"form": form})
 

@@ -9,18 +9,6 @@ class User(AbstractUser):
 
 class Listings(models.Model):
 
-    FRESHMAN = 'FR'
-    SOPHOMORE = 'SO'
-    JUNIOR = 'JR'
-    SENIOR = 'SR'
-    GRADUATE = 'GR'
-    YEAR_IN_SCHOOL_CHOICES = [
-        (FRESHMAN, 'Freshman'),
-        (SOPHOMORE, 'Sophomore'),
-        (JUNIOR, 'Junior'),
-        (SENIOR, 'Senior'),
-        (GRADUATE, 'Graduate'),]
-
     # The creator of the listing who can close it.
     creator = models.ForeignKey(
         User, on_delete=models.PROTECT, related_name="get_creator_listings", blank=False)
@@ -38,7 +26,7 @@ class Listings(models.Model):
     # blank = true means the field is not required.
     url = models.CharField(max_length=128, blank=True)
     category = models.CharField(
-        max_length=45, choices=YEAR_IN_SCHOOL_CHOICES, default=FRESHMAN)
+        max_length=45)
 
     def __str__(self) -> str:
         return f"Listing Title: {self.title} - Starting bid: {self.startingBid}"
