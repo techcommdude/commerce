@@ -76,6 +76,8 @@ def createlisting(request):
     # Render the create listing form here.  After they create the listing.  Return them to the home page.
 
     form = forms.AuctionListingForm()
+    #TODO: pass the choices to the Create listing page.
+    # from auctions.models import category_choices
 
     return render(request, "auctions/createlisting.html", {"form": form})
 
@@ -155,7 +157,7 @@ def saveComment(request, listing_id):
                 savedComment.save()
 
                 # this returns a queryset for all users and all comments on all listings.
-                # commentObject = Comments.objects.all()
+                # commentObject = Comfments.objects.all()
 
                 # Only need to save the comment here and redirect to the active listings page.  Next
                 # time when you display the listing you can get the comments. as we've done here.

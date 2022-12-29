@@ -6,20 +6,25 @@ from django.db import models
 
 class User(AbstractUser):
     pass
-#TODO: Implement choices?
-# Cars = 'Cars'
-# Appliances = 'Appliances'
-# Sports = 'Sports'
-# NewCategory = 'NewCategory'
-# Category_Choices = ((Cars, 'Car'), (Appliances, 'Appliances'), (Sports, 'Sports'), (NewCategory, 'Children\'s Stuff'))
-
 
 class Listings(models.Model):
 
-    #The creator of the listing who can close it.
+    FRESHMAN = 'FR'
+    SOPHOMORE = 'SO'
+    JUNIOR = 'JR'
+    SENIOR = 'SR'
+    GRADUATE = 'GR'
+    YEAR_IN_SCHOOL_CHOICES = [
+        (FRESHMAN, 'Freshman'),
+        (SOPHOMORE, 'Sophomore'),
+        (JUNIOR, 'Junior'),
+        (SENIOR, 'Senior'),
+        (GRADUATE, 'Graduate'),]
+
+    # The creator of the listing who can close it.
     creator = models.ForeignKey(
         User, on_delete=models.PROTECT, related_name="get_creator_listings", blank=False)
-    #Person who won the auction and bought it.  Cannot be the person who created it.
+    # Person who won the auction and bought it.  Cannot be the person who created it.
     buyer = models.ForeignKey(
         User, blank=True, null=True, on_delete=models.PROTECT, related_name="get_buyer_listings")
     watchers = models.ManyToManyField(
@@ -33,11 +38,10 @@ class Listings(models.Model):
     # blank = true means the field is not required.
     url = models.CharField(max_length=128, blank=True)
     category = models.CharField(
-        max_length=64)
+        max_length=45, choices=YEAR_IN_SCHOOL_CHOICES, default=FRESHMAN)
 
     def __str__(self) -> str:
         return f"Listing Title: {self.title} - Starting bid: {self.startingBid}"
-
 
 class Bids(models.Model):
     auction = models.ForeignKey(

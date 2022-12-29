@@ -32,15 +32,21 @@ class AuctionListingForm(forms.Form):
         )
     )
 
-    category = forms.CharField(
+    category_choices = (
+         ("No Category", "No Category"),
+    ("Car", "Car"),
+    ("Appliances", "Appliances"),
+    ("Equipment", "Equipment"),
+    ("Clothing", "Clothing"),
+    ("Kids Stuff", "Kids Stuff"),
+
+)
+
+    category = forms.ChoiceField(choices=category_choices,
         label='Listing category',
         required=False,
-        widget=forms.TextInput(attrs={
-            'autocomplete': 'on',
-            'placeholder': 'Category (optional)'
-        }
         )
-    )
+
     image_url = forms.URLField(
         label='Image URL for your listing',
         required=False,
