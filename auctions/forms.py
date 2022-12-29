@@ -1,6 +1,7 @@
 from django import forms
 
 
+
 class AuctionListingForm(forms.Form):
     title = forms.CharField(
         label='Title',
@@ -32,18 +33,9 @@ class AuctionListingForm(forms.Form):
         )
     )
 
-#     category_choices = (
-#          ("No Category", "No Category"),
-#     ("Car", "Car"),
-#     ("Appliances", "Appliances"),
-#     ("Equipment", "Equipment"),
-#     ("Clothing", "Clothing"),
-#     ("Kids Stuff", "Kids Stuff"),
-
-# )
     import auctions.models
 
-    category = forms.CharField(
+    category = forms.ChoiceField(choices=auctions.models.category_choices,
         label='Listing category',
         required=False,
         )
