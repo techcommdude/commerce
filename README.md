@@ -1,6 +1,6 @@
 # e-Commerce website using Django framework and Python
 
-This project is deployed on Heroku: <a href="https://python-django-commerce.herokuapp.com/" target="_blank" rel="noopener">https://python-django-commerce.herokuapp.com/</a>
+This project is deployed on Heroku (have patience since the instance is likely sleeping): <a href="https://python-django-commerce.herokuapp.com/" target="_blank" rel="noopener">https://python-django-commerce.herokuapp.com/</a>
 
 A screencast of the project can be found here: <a href="" target="_blank" rel="noopener"></a>
 
