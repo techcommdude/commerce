@@ -221,13 +221,17 @@ def categories(request):
     # Go to another view to display the active listings for the category.
 
     # Gets all the listings.
-    listing = Listings.objects.all()
+    #May need to refine this further so that  it only returns listings that are active.
+    listing = Listings.objects.filter(active=True)
 
     # This loops through all listings and returns unique categories.  Then pass these to the page for categories.
     category = listing.order_by().values('category').distinct()
 
     # Cast it to a list although this is not necessary.
     categories = list(category)
+
+    # Need to make sure that the listings that have the categories are active.  This is
+    # currently not the case
 
     # In the HTML need a for loop where you do "for category in categories"  Create the hyperlinks.
     return render(request, "auctions/categories.html", {"categories": categories})

@@ -19,19 +19,14 @@ sudo fuser -k 5000/tcp
 
 heroku git:remote -a python-django-commerce
 
-
 **Push the changes to the remote repository on Heroku:**
 
 git push heroku master
 
 Note: the branch could also be called "main" in Git.
 
-**Can also use this command on Linux Ubuntu:**
-
-git push heroku master
-
 * Whitenoise should be installed at the latest version.
 
-**Also sometimes need to run collectstatic locally:**
+**Also sometimes need to run collectstatic locally before pushing to Heroku:**
 
 python ./manage.py collectstatic
