@@ -12,28 +12,36 @@
 
 {% for x in listingsForWatcher %}
 
-<div>
-    <p>
-        <img src="{{ x.url }}" alt="" width="200" height="200" />
-    </p>
+<div id="container_card">
 
+    <div class="card">
+
+        <a href="{% url 'listings' x.id %}" class="card-link">
+            <img src="{{ x.url }}" alt="" class="card-img-top" />
+        </a>
+
+        <div class="card-body">
+
+            <ul class="list-group list-group-flush">
+                <!-- "listings" is the queryset that you return.  "listing" is just one object in the queryset. -->
+                <li>
+                    <h5>{{ x.title}}/h5>
+                </li>
+                <li>Description: {{ x.description}}</li>
+                <li>Price: ${{ x.startingBid}}</li>
+                <li>Created: {{ x.createdDate}}</li>
+                <!-- listing.id is passed to the listings method in views.py -->
+                <li><a class="btn btn-primary" href="{% url 'listings' x.id %}">More Info</a></li>
+            </ul>
+
+        </div>
+
+    </div>
 </div>
-<div>
-    <ul>
-        <!-- "allListings" is the queryset that you return.  "listing" is just one object in the queryset. -->
-        <li>
-            <h5>{{ x.title}}</h5>
-        </li>
-        <li>Description: {{ x.description}}</li>
-        <li>Price: ${{ x.startingBid}}</li>
-        <li>Created: {{ x.createdDate}}</li>
-        <!-- listing.id is passed to the listings method in views.py -->
-        <li><a class="btn btn-primary" href="{% url 'listings' x.id %}">More Info</a></li>
-    </ul>
 </div>
 
 {% empty %}
-    <p>There are currently no items in your watchlist.</p>
+<p>There are currently no items in your watchlist.</p>
 
 
 {% endfor %}
