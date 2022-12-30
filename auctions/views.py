@@ -29,9 +29,9 @@ def activeListings(request):
 @login_required
 def listings(request, listing_id):
 
-    # TODO: The creation of the form with the base values could be sent to a different function since the saveComment method
+    # The creation of the form with the base values could be sent to a different function since the saveComment method
     # also uses much of the same functionality.
-    # TODO: For Submitting the Bid, closing the auction, Adding to watchlist?, you could display the listing again and
+    # For Submitting the Bid, closing the auction, Adding to watchlist?, you could display the listing again and
     # just display the message above as I do now.
 
     # Get all the listings and add to context.
@@ -167,7 +167,7 @@ def submitBid(request, listing_id):
             commentForm, bidForm, commentsForListing, watcher, currentBidForContext = prepareListing(
                 request, listing_id)
 
-            # TODO: Owner of listing cannot submit a bid.
+            # Owner of listing cannot submit a bid.
 
             # Current Listings object.
             creator = listing.creator
@@ -323,7 +323,7 @@ def removeFromWatchlist(request, listing_id):
 @login_required
 def closeAuction(request, listing_id):
 
-    # TODO: Use the prepare listing page here as well.
+    # Use the prepare listing page here as well.
 
     # user = request.user.username
     user_id = request.user.id
@@ -380,11 +380,13 @@ def closeAuction(request, listing_id):
 
     # If the current bid is higher than the initial price, then the auction can be closed and the listing can be made inactive.
 
-    messages.error(
-        request, 'You cannot close this auction since you are not the owner of the listing.')
+    #TODO: remove this eventually
 
-    return render(request, "auctions/listing.html", {"listing": currentListingsObject, "commentForm": commentForm, "bidForm": bidForm, "commentsForListing":
-                                                     commentsForListing, "watcher": watcher, "currentBidForContext": currentBidForContext})
+    # messages.error(
+    #     request, 'You cannot close this auction since you are not the owner of the listing.')
+
+    # return render(request, "auctions/listing.html", {"listing": currentListingsObject, "commentForm": commentForm, "bidForm": bidForm, "commentsForListing":
+    #                                                  commentsForListing, "watcher": watcher, "currentBidForContext": currentBidForContext})
 
 
 def login_view(request):
@@ -443,7 +445,7 @@ def register(request):
 @login_required
 def prepareListing(request, listing_id):
 
-    # TODO: Prepares the listing for many different functions.
+    # Prepares the listing for many different functions.
     # Create the comment form from the forms.py file
     commentForm = forms.CommentForm()
 
