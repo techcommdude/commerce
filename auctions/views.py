@@ -365,15 +365,15 @@ def closeAuction(request, listing_id):
             return render(request, "auctions/listing.html", {"listing": currentListingsObject, "commentForm": commentForm, "bidForm": bidForm, "commentsForListing":
                                                              commentsForListing, "watcher": watcher, "currentBidForContext": currentBidForContext})
 
-        else:
+    else:
 
-            commentForm, bidForm, commentsForListing, watcher, currentBidForContext = prepareListing(
+        commentForm, bidForm, commentsForListing, watcher, currentBidForContext = prepareListing(
                 request, listing_id)
 
-            messages.error(
+        messages.error(
                 request, 'You cannot close the auction since you are not the owner of this listing.')
 
-            return render(request, "auctions/listing.html", {"listing": currentListingsObject, "commentForm": commentForm, "bidForm": bidForm, "commentsForListing":
+        return render(request, "auctions/listing.html", {"listing": currentListingsObject, "commentForm": commentForm, "bidForm": bidForm, "commentsForListing":
                                                              commentsForListing, "watcher": watcher, "currentBidForContext": currentBidForContext})
 
     # Only display button if the current user is the user that created the listing.
