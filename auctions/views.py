@@ -160,6 +160,13 @@ def submitBid(request, listing_id):
             # currentObject.currentBid = bidAmount
             curentBid = currentObject.currentBid
 
+            # Get the ID for the Listings object that has the bid.
+            listing = Listings.objects.get(id=listing_id)
+
+            # Get the information to display on the form from this reusable function.
+            commentForm, bidForm, commentsForListing, watcher, currentBidForContext = prepareListing(
+                request, listing_id)
+
             # The currently bidded value must be greater than the last stored bid in currentBid.
             # CurrentBid is set when the listing is created.
             if float(bidAmount) >= curentBid:
@@ -175,17 +182,18 @@ def submitBid(request, listing_id):
                 # Pass a flag to a method for bid success or failure.
 
                 messages.success(request, 'Your bid was successful.')
-                # Redirect to activeListings page.
-                return HttpResponseRedirect(reverse("activeListings"))
+
+                return render(request, "auctions/listing.html", {"listing": listing, "commentForm": commentForm, "bidForm": bidForm, "commentsForListing":
+                                                         commentsForListing, "watcher": watcher, "currentBidForContext": currentBidForContext})
+
 
             else:
                 # Need to issue an error message here per requirements.
-                # Redirect to activeListings page.  Need to pass the currentBid somehow.
 
-                # return render(request, "auctions/listing.html", {"listing": listing, "commentForm": commentForm, "bidForm": bidForm, "commentsForListing":
-                #                                      commentsForListing, "watcher": watcher, "currentBidForContext": currentBidForContext})
-                messages.error(request, 'Your bid was not successful.')
-                return HttpResponseRedirect(reverse("activeListings"))
+                messages.error(request, 'Your bid was not successful. Your bid must be at least as high as the minimum bid.')
+
+                return render(request, "auctions/listing.html", {"listing": listing, "commentForm": commentForm, "bidForm": bidForm, "commentsForListing":
+                                                         commentsForListing, "watcher": watcher, "currentBidForContext": currentBidForContext})
 
 
 @login_required
