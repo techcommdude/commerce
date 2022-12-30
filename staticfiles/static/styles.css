@@ -24,6 +24,15 @@ a.btn.btn-primary.watchlist:visited {
 
 }
 
+#container_card {
+
+    width: 25rem;
+}
+
+#container_card_listing {
+
+    width: 40rem;
+}
 input.btn.btn-primary.test {
 
     width: 132px;
@@ -47,6 +56,7 @@ input.btn.btn-primary {
 #formCreateListing {
     display: flex;
     flex-direction: column;
+    width: 70%
 
 }
 
