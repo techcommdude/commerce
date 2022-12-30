@@ -131,6 +131,8 @@ def saveComment(request, listing_id):
         commentForm, bidForm, commentsForListing, watcher, currentBidForContext = prepareListing(
             request, listing_id)
 
+        messages.success(request, 'Your comment has been posted.')
+
         return render(request, "auctions/listing.html", {"listing": listing, "commentForm": commentForm, "bidForm": bidForm, "commentsForListing":
                                                          commentsForListing, "watcher": watcher, "currentBidForContext": currentBidForContext})
 
@@ -164,6 +166,20 @@ def submitBid(request, listing_id):
             # Get the information to display on the form from this reusable function.
             commentForm, bidForm, commentsForListing, watcher, currentBidForContext = prepareListing(
                 request, listing_id)
+
+            # TODO: Owner of listing cannot submit a bid.
+
+            # Current Listings object.
+            creator = listing.creator
+            # user = request.user.username
+            user_id = request.user.id
+            userName = User.objects.get(id=user_id)
+
+            if userName == creator:
+                messages.error(
+                    request, 'You cannot submit a bid if you are the owner of the listing.')
+                return render(request, "auctions/listing.html", {"listing": listing, "commentForm": commentForm, "bidForm": bidForm, "commentsForListing":
+                                                                 commentsForListing, "watcher": watcher, "currentBidForContext": currentBidForContext})
 
             # The currently bidded value must be greater than the last stored bid in currentBid.
             # CurrentBid is set when the listing is created.
@@ -262,7 +278,7 @@ def watchlist(request, listing_id):
     # Need to update the instance of the object and just add the user as a watcher to the object.
     # Get the user ID of the logged in user for the User object
 
-    #TODO: Display the same page again here by using prepareListing.
+    # TODO: Display the same page again here by using prepareListing.
     user_id = request.user.id
     userName = User.objects.get(id=user_id)
     currentObject = Listings.objects.get(id=listing_id)
@@ -307,7 +323,7 @@ def removeFromWatchlist(request, listing_id):
 @login_required
 def closeAuction(request, listing_id):
 
-    #TODO: Use the prepare listing page here as well.
+    # TODO: Use the prepare listing page here as well.
 
     # user = request.user.username
     user_id = request.user.id
@@ -339,28 +355,26 @@ def closeAuction(request, listing_id):
             currentListingsObject.buyer = userName
             currentListingsObject.save()
 
-
         # Get the information to display on the form from this reusable function.
             commentForm, bidForm, commentsForListing, watcher, currentBidForContext = prepareListing(
-            request, listing_id)
+                request, listing_id)
 
             messages.success(
                 request, 'You have accepted the highest bid and successfully closed the auction.')
 
             return render(request, "auctions/listing.html", {"listing": currentListingsObject, "commentForm": commentForm, "bidForm": bidForm, "commentsForListing":
-                                                         commentsForListing, "watcher": watcher, "currentBidForContext": currentBidForContext})
-
+                                                             commentsForListing, "watcher": watcher, "currentBidForContext": currentBidForContext})
 
         else:
 
             commentForm, bidForm, commentsForListing, watcher, currentBidForContext = prepareListing(
-            request, listing_id)
+                request, listing_id)
 
             messages.error(
                 request, 'You cannot close the auction since you are not the owner of this listing.')
 
             return render(request, "auctions/listing.html", {"listing": currentListingsObject, "commentForm": commentForm, "bidForm": bidForm, "commentsForListing":
-                                                         commentsForListing, "watcher": watcher, "currentBidForContext": currentBidForContext})
+                                                             commentsForListing, "watcher": watcher, "currentBidForContext": currentBidForContext})
 
     # Only display button if the current user is the user that created the listing.
 
@@ -370,7 +384,7 @@ def closeAuction(request, listing_id):
         request, 'You cannot close this auction since you are not the owner of the listing.')
 
     return render(request, "auctions/listing.html", {"listing": currentListingsObject, "commentForm": commentForm, "bidForm": bidForm, "commentsForListing":
-                                                         commentsForListing, "watcher": watcher, "currentBidForContext": currentBidForContext})
+                                                     commentsForListing, "watcher": watcher, "currentBidForContext": currentBidForContext})
 
 
 def login_view(request):
