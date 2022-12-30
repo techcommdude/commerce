@@ -162,7 +162,8 @@ def saveComment(request, listing_id):
     # Returns all comments from all users for a specific listing when displaying that listing.
     # Just display this in the template.  Do this in the 'listings' view.
     # Add all of the comments to the context as well.
-        commentsForListing = Comments.objects.filter(listing=listing_id).order_by('-createdDate')
+        commentsForListing = Comments.objects.filter(
+            listing=listing_id).order_by('-createdDate')
 
         returnedBids = Bids.objects.get(auction=listing_id)
         currentBidForContext = returnedBids.currentBid
@@ -443,6 +444,43 @@ def register(request):
         return HttpResponseRedirect(reverse("activeListings"))
     else:
         return render(request, "auctions/register.html")
+
+
+def prepareListing(request, listing_id):
+    pass
+    # TODO: Alot of this could be put into another method since the comment is already saved.
+    # Create the comment form from the forms.py file
+    commentForm = forms.CommentForm()
+
+    # Create the bid form
+    bidForm = forms.BidForm()
+
+                    # Get the user ID of the logged in user for the User object
+    user_id = request.user.id
+    userName = User.objects.get(id=user_id)
+
+    # Returns all comments from all users for a specific listing when displaying that listing.
+    # Just display this in the template.  Do this in the 'listings' view.
+    # Add all of the comments to the context as well.
+    commentsForListing = Comments.objects.filter(
+        listing=listing_id).order_by('-createdDate')
+
+    returnedBids = Bids.objects.get(auction=listing_id)
+    currentBidForContext = returnedBids.currentBid
+
+      # Tests if the watcher is already in the queryset for watchers on the current object.
+    currentObject = Listings.objects.get(id=listing_id)
+    if userName in currentObject.watchers.all():
+            print("Watcher is already in the list!")
+            # Send this in context and do not  display the Add to Watchlist button
+            watcher = True
+
+    else:
+            print("Watcher is not in the list!")
+            # Send this in context and display the REmove from Watchlist button.
+            watcher = False
+
+
 
 
 def handler404(request, exception, template_name="404.html"):

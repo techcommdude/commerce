@@ -16,13 +16,12 @@ a {
     text-decoration: none;
 }
 
-a.btn.btn-primary.watchlist:visited {
+/* a.btn.btn-primary.watchlist:visited { */
 
     /* color:grey; */
     /* background-color: grey; */
     /* content: "Unwatch"; */
 
-}
 
 a.btn.btn-primary.watchlist {
     margin-bottom: 10px;
