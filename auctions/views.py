@@ -34,39 +34,14 @@ def listings(request, listing_id):
     # TODO: For Submitting the Bid, closing the auction, Adding to watchlist?, you could display the listing again and
     # just display the message above as I do now.
 
-    # Create the comment form from the forms.py file
-    commentForm = forms.CommentForm()
-
-    # Create the bid form
-    bidForm = forms.BidForm()
-
-    # Returns all comments from all users for a specific listing when displaying that listing.
-    # Just display this in the template.  Do this in the 'listings' view.
-    # Add all of the comments to the context as well.
-    commentsForListing = Comments.objects.filter(
-        listing=listing_id)
-
-    # Get the user ID of the logged in user for the User object
-    user_id = request.user.id
-    userName = User.objects.get(id=user_id)
-    currentObject = Listings.objects.get(id=listing_id)
-
-    # Tests if the watcher is already in the queryset for watchers on the current object.
-    if userName in currentObject.watchers.all():
-        print("Watcher is already in the list!")
-        # Send this in context and do not  display the Add to Watchlist button
-        watcher = True
-
-    else:
-        print("Watcher is not in the list!")
-        # Send this in context and display the REmove from Watchlist button.
-        watcher = False
-
-    returnedBids = Bids.objects.get(auction=listing_id)
-    currentBidForContext = returnedBids.currentBid
-
     # Get all the listings and add to context.
     listing = Listings.objects.get(id=listing_id)
+
+    # Get the information to display on the form from this reusable function.
+    commentForm, bidForm, commentsForListing, watcher, currentBidForContext = prepareListing(
+            request, listing_id)
+
+
     # This returns objects and Querysets.
     return render(request, "auctions/listing.html", {"listing": listing, "commentForm": commentForm, "bidForm": bidForm, "commentsForListing":
                                                      commentsForListing, "watcher": watcher, "currentBidForContext": currentBidForContext})
@@ -154,7 +129,7 @@ def saveComment(request, listing_id):
                 savedComment.save()
 
 
-# Get the information to display on the form from this reusable function.
+    # Get the information to display on the form from this reusable function.
         commentForm, bidForm, commentsForListing, watcher, currentBidForContext = prepareListing(
             request, listing_id)
 
