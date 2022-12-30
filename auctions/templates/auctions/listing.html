@@ -15,14 +15,15 @@
 
                 <li>
 
+
                 </li>
                 <li><img src="{{ listing.url}}" alt="" width="" height="" /></li>
                 <h5>{{ listing.title}}</h5>
-                <li>Item Description: {{ listing.description}}</li>
-                <li>Starting Price: ${{ listing.startingBid}}</li>
-                <li>Current minimum bid: ${{ currentBidForContext }}</li>
-                <li>Created: {{ listing.createdDate}}</li>
-                <li>Buyer: {{ listing.buyer}}</li>
+                <li><b>Description:</b> {{ listing.description}}</li>
+                <li><b>Starting Price:</b> ${{ listing.startingBid}}</li>
+                <li><b>Current minimum bid:</b> ${{ currentBidForContext }}</li>
+                <li><b>Created:</b> {{ listing.createdDate}}</li>
+                <li><b>Buyer:</b> {{ listing.buyer}}</li>
 
 
 
@@ -33,7 +34,7 @@
 
     </div>
 
-    <div class="test">
+    <div class="container4">
 
         <ul> {% if listing.active == True%}
             <li><a class="btn btn-primary watchlist" href="{% url 'closeAuction' listing.id %}">Close
@@ -91,7 +92,7 @@
     {% for x in commentsForListing %}
 
     <p> <b>{{x.user}}</b> on {{x.createdDate}}</p>
-    <p> {{x.comment}}</p>
+    <p class="paragraphComment"> {{x.comment}}</p>
 
     {% endfor %}
 

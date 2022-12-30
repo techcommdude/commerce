@@ -31,9 +31,9 @@
                     <li>
                         <h5>{{ listing.title}}</h5>
                     </li>
-                    <li>Description: {{ listing.description}}</li>
-                    <li>Price: ${{ listing.startingBid}}</li>
-                    <li>Created: {{ listing.createdDate}}</li>
+                    <li><b>Description:</b> {{ listing.description}}</li>
+                    <li><b>Price:</b> ${{ listing.startingBid}}</li>
+                    <li><b>Created:</b> {{ listing.createdDate}}</li>
                     <!-- listing.id is passed to the listings method in views.py -->
                     <li><a class="btn btn-primary" href="{% url 'listings' listing.id %}">More Info</a></li>
                 </ul>
