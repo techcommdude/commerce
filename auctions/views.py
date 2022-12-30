@@ -152,33 +152,11 @@ def saveComment(request, listing_id):
                 savedComment = Comments(
                     comment=newComment, user=userName, listing=listing)
                 savedComment.save()
-# TODO: Alot of this could be put into another method since the comment is already saved.
-        # Create the comment form from the forms.py file
-        commentForm = forms.CommentForm()
 
-    # Create the bid form
-        bidForm = forms.BidForm()
 
-    # Returns all comments from all users for a specific listing when displaying that listing.
-    # Just display this in the template.  Do this in the 'listings' view.
-    # Add all of the comments to the context as well.
-        commentsForListing = Comments.objects.filter(
-            listing=listing_id).order_by('-createdDate')
-
-        returnedBids = Bids.objects.get(auction=listing_id)
-        currentBidForContext = returnedBids.currentBid
-
-        # Tests if the watcher is already in the queryset for watchers on the current object.
-        currentObject = Listings.objects.get(id=listing_id)
-        if userName in currentObject.watchers.all():
-            print("Watcher is already in the list!")
-            # Send this in context and do not  display the Add to Watchlist button
-            watcher = True
-
-        else:
-            print("Watcher is not in the list!")
-            # Send this in context and display the REmove from Watchlist button.
-            watcher = False
+# Get the information to display on the form from this reusable function.
+        commentForm, bidForm, commentsForListing, watcher, currentBidForContext = prepareListing(
+            request, listing_id)
 
         return render(request, "auctions/listing.html", {"listing": listing, "commentForm": commentForm, "bidForm": bidForm, "commentsForListing":
                                                          commentsForListing, "watcher": watcher, "currentBidForContext": currentBidForContext})
@@ -447,7 +425,7 @@ def register(request):
 
 
 def prepareListing(request, listing_id):
-    pass
+
     # TODO: Alot of this could be put into another method since the comment is already saved.
     # Create the comment form from the forms.py file
     commentForm = forms.CommentForm()
@@ -455,7 +433,7 @@ def prepareListing(request, listing_id):
     # Create the bid form
     bidForm = forms.BidForm()
 
-                    # Get the user ID of the logged in user for the User object
+    # Get the user ID of the logged in user for the User object
     user_id = request.user.id
     userName = User.objects.get(id=user_id)
 
@@ -468,19 +446,19 @@ def prepareListing(request, listing_id):
     returnedBids = Bids.objects.get(auction=listing_id)
     currentBidForContext = returnedBids.currentBid
 
-      # Tests if the watcher is already in the queryset for watchers on the current object.
+    # Tests if the watcher is already in the queryset for watchers on the current object.
     currentObject = Listings.objects.get(id=listing_id)
     if userName in currentObject.watchers.all():
-            print("Watcher is already in the list!")
-            # Send this in context and do not  display the Add to Watchlist button
-            watcher = True
+        print("Watcher is already in the list!")
+        # Send this in context and do not  display the Add to Watchlist button
+        watcher = True
 
     else:
-            print("Watcher is not in the list!")
-            # Send this in context and display the REmove from Watchlist button.
-            watcher = False
+        print("Watcher is not in the list!")
+        # Send this in context and display the REmove from Watchlist button.
+        watcher = False
 
-
+    return commentForm, bidForm, commentsForListing, watcher, currentBidForContext
 
 
 def handler404(request, exception, template_name="404.html"):
