@@ -29,6 +29,8 @@ def activeListings(request):
 @login_required
 def listings(request, listing_id):
 
+    #TODO: The creation of the form with the base values could be sent to a different function since the saveComment method
+    # also uses much of the same functionality.
     # Create the comment form from the forms.py file
     commentForm = forms.CommentForm()
 
@@ -146,22 +148,42 @@ def saveComment(request, listing_id):
                 userName = User.objects.get(id=user_id)
 
                 # Get the ID for the Listings object that has the comment.
-                listingObject = Listings.objects.get(id=listing_id)
+                listing = Listings.objects.get(id=listing_id)
 
                 # 'user' must be a User object.  'listing' must be a Listings object.  Save
                 # the comment that the user entered.
                 savedComment = Comments(
-                    comment=newComment, user=userName, listing=listingObject)
+                    comment=newComment, user=userName, listing=listing)
                 savedComment.save()
 
-                # this returns a queryset for all users and all comments on all listings.
-                # commentObject = Comfments.objects.all()
+            # Create the comment form from the forms.py file
+        commentForm = forms.CommentForm()
 
-                # Only need to save the comment here and redirect to the active listings page.  Next
-                # time when you display the listing you can get the comments. as we've done here.
+    # Create the bid form
+        bidForm = forms.BidForm()
 
-                # Redirect to activeListings page.
-                return HttpResponseRedirect(reverse("activeListings"))
+    # Returns all comments from all users for a specific listing when displaying that listing.
+    # Just display this in the template.  Do this in the 'listings' view.
+    # Add all of the comments to the context as well.
+        commentsForListing = Comments.objects.filter(listing=listing_id)
+
+        returnedBids = Bids.objects.get(auction=listing_id)
+        currentBidForContext = returnedBids.currentBid
+
+        # Tests if the watcher is already in the queryset for watchers on the current object.
+        currentObject = Listings.objects.get(id=listing_id)
+        if userName in currentObject.watchers.all():
+            print("Watcher is already in the list!")
+            # Send this in context and do not  display the Add to Watchlist button
+            watcher = True
+
+        else:
+            print("Watcher is not in the list!")
+            # Send this in context and display the REmove from Watchlist button.
+            watcher = False
+
+        return render(request, "auctions/listing.html", {"listing": listing, "commentForm": commentForm, "bidForm": bidForm, "commentsForListing":
+                                                        commentsForListing, "watcher": watcher, "currentBidForContext": currentBidForContext})
 
 
 @login_required
