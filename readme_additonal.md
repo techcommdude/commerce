@@ -5,7 +5,7 @@
 
  http://127.0.0.1:5000/
 
-**Run this command:**
+**Run this command.  Will likely need to run the collectstatic command before this one to have the latest css files:**
 
 heroku local
 
