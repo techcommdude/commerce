@@ -261,6 +261,8 @@ def watchlist(request, listing_id):
     # This adds a listing to the watchlist for a particular listing ID.
     # Need to update the instance of the object and just add the user as a watcher to the object.
     # Get the user ID of the logged in user for the User object
+
+    #TODO: Display the same page again here by using prepareListing.
     user_id = request.user.id
     userName = User.objects.get(id=user_id)
     currentObject = Listings.objects.get(id=listing_id)
@@ -305,6 +307,8 @@ def removeFromWatchlist(request, listing_id):
 @login_required
 def closeAuction(request, listing_id):
 
+    #TODO: Use the prepare listing page here as well.
+
     # user = request.user.username
     user_id = request.user.id
     userName = User.objects.get(id=user_id)
@@ -317,6 +321,9 @@ def closeAuction(request, listing_id):
     currentBid = currentBidObject.currentBid
 
     # bidAmount = currentBidObject.bidAmount
+
+    # Get the ID for the Listings object that has the comment.
+    # listing = Listings.objects.get(id=listing_id)
 
     # Current Listings object.
     currentListingsObject = Listings.objects.get(id=listing_id)
@@ -332,16 +339,28 @@ def closeAuction(request, listing_id):
             currentListingsObject.buyer = userName
             currentListingsObject.save()
 
-        # TODO: Pass a flag to a central method and redisplay the same page again with the message below.
+
+        # Get the information to display on the form from this reusable function.
+            commentForm, bidForm, commentsForListing, watcher, currentBidForContext = prepareListing(
+            request, listing_id)
 
             messages.success(
                 request, 'You have accepted the highest bid and successfully closed the auction.')
-            return HttpResponseRedirect(reverse("activeListings"))
+
+            return render(request, "auctions/listing.html", {"listing": currentListingsObject, "commentForm": commentForm, "bidForm": bidForm, "commentsForListing":
+                                                         commentsForListing, "watcher": watcher, "currentBidForContext": currentBidForContext})
+
+
         else:
+
+            commentForm, bidForm, commentsForListing, watcher, currentBidForContext = prepareListing(
+            request, listing_id)
 
             messages.error(
                 request, 'You cannot close the auction since you are not the owner of this listing.')
-            return HttpResponseRedirect(reverse("activeListings"))
+
+            return render(request, "auctions/listing.html", {"listing": currentListingsObject, "commentForm": commentForm, "bidForm": bidForm, "commentsForListing":
+                                                         commentsForListing, "watcher": watcher, "currentBidForContext": currentBidForContext})
 
     # Only display button if the current user is the user that created the listing.
 
@@ -350,7 +369,8 @@ def closeAuction(request, listing_id):
     messages.error(
         request, 'You cannot close this auction since you are not the owner of the listing.')
 
-    return HttpResponseRedirect(reverse("activeListings"))
+    return render(request, "auctions/listing.html", {"listing": currentListingsObject, "commentForm": commentForm, "bidForm": bidForm, "commentsForListing":
+                                                         commentsForListing, "watcher": watcher, "currentBidForContext": currentBidForContext})
 
 
 def login_view(request):
@@ -409,7 +429,7 @@ def register(request):
 @login_required
 def prepareListing(request, listing_id):
 
-    # TODO: Alot of this could be put into another method since the comment is already saved.
+    # TODO: Prepares the listing for many different functions.
     # Create the comment form from the forms.py file
     commentForm = forms.CommentForm()
 
