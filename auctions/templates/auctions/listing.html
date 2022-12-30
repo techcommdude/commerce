@@ -24,6 +24,12 @@
             <li>Buyer: {{ listing.buyer}}</li>
 
 
+            <ul> {% if listing.active == True%}
+                <li><a class="btn btn-primary watchlist" href="{% url 'closeAuction' listing.id %}">Close auction</a>
+                </li>
+                {% endif %}
+            </ul>
+
             {% if watcher == False %}
             <li><a class="btn btn-primary watchlist" href="{% url 'watchlist' listing.id %}">Add to watchlist</a>
             </li>
@@ -35,62 +41,50 @@
                     watchlist</a></li>
             {% endif %}
 
-
-
-
         </ul>
 
 
-        <!-- Call the submit bid method. -->
-        <div>
-            <form action="{% url 'submitBid' listing.id %}" method="post" enctype="multipart/form-data">
-                {% csrf_token %}
-
-                {{bidForm}}
-
-                <input class="btn btn-primary" type="submit" value="Submit Bid">
-
-            </form>
-
-        </div>
-
-        <div>
-            <ul> {% if listing.active == True%}
-                <li><a class="btn btn-primary watchlist" href="{% url 'closeAuction' listing.id %}">Close auction</a>
-                </li>
-                {% endif %}
-            </ul>
-        </div>
 
 
-        <!-- Call the submit comment method. -->
-        <div>
-            <form action="{% url 'saveComment' listing.id %}" method="post" enctype="multipart/form-data">
-                {% csrf_token %}
+    </div>
+    <!-- Call the submit bid method. -->
+    <div>
+        <form action="{% url 'submitBid' listing.id %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
 
-                {{commentForm}}
+            {{bidForm}}
 
-                <input class="btn btn-primary" type="submit" value="Submit Comment">
+            <input class="btn btn-primary" type="submit" value="Submit Bid">
 
-            </form>
-        </div>
-
-        <h5 class="UserComments">User comments</h5>
-
-        <div>
-
-            {% for x in commentsForListing %}
-
-            <p> <b>{{x.user}}</b> on {{x.createdDate}}</p>
-            <p> {{x.comment}}</p>
-
-            {% endfor %}
-
-        </div>
+        </form>
 
     </div>
 
 </div>
 
+<!-- Call the submit comment method. -->
+<div>
+    <form action="{% url 'saveComment' listing.id %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {{commentForm}}
+
+        <input class="btn btn-primary" type="submit" value="Submit Comment">
+
+    </form>
+</div>
+
+<h5 class="UserComments">User comments</h5>
+
+<div>
+
+    {% for x in commentsForListing %}
+
+    <p> <b>{{x.user}}</b> on {{x.createdDate}}</p>
+    <p> {{x.comment}}</p>
+
+    {% endfor %}
+
+</div>
 
 {% endblock %}
