@@ -31,6 +31,10 @@ def listings(request, listing_id):
 
     #TODO: The creation of the form with the base values could be sent to a different function since the saveComment method
     # also uses much of the same functionality.
+    #TODO: For Submitting the Bid, closing the auction, Adding to watchlist, you could display the listing again and
+    # just display the message above as I do now.
+
+
     # Create the comment form from the forms.py file
     commentForm = forms.CommentForm()
 
