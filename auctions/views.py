@@ -162,7 +162,7 @@ def saveComment(request, listing_id):
     # Returns all comments from all users for a specific listing when displaying that listing.
     # Just display this in the template.  Do this in the 'listings' view.
     # Add all of the comments to the context as well.
-        commentsForListing = Comments.objects.filter(listing=listing_id)
+        commentsForListing = Comments.objects.filter(listing=listing_id).order_by('-createdDate')
 
         returnedBids = Bids.objects.get(auction=listing_id)
         currentBidForContext = returnedBids.currentBid
