@@ -13,7 +13,7 @@ heroku local
 
 sudo fuser -k 5000/tcp
 
-* Will likely need to run "heroku login" in order to connect to Heroku.
+* **Note:** Will likely need to run "heroku login" in order to connect to Heroku.  Log in to Heroku before you do this.
 
 **Connect to the remote repository:**
 
