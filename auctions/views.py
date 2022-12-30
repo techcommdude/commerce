@@ -22,18 +22,17 @@ def activeListings(request):
     returned_listing = Listings.objects.all()
 
     return render(request, "auctions/index.html", {
-        "listings": Listings.objects.all()
+        "listings": Listings.objects.all().order_by('-createdDate')
     })
 
 
 @login_required
 def listings(request, listing_id):
 
-    #TODO: The creation of the form with the base values could be sent to a different function since the saveComment method
+    # TODO: The creation of the form with the base values could be sent to a different function since the saveComment method
     # also uses much of the same functionality.
-    #TODO: For Submitting the Bid, closing the auction, Adding to watchlist, you could display the listing again and
+    # TODO: For Submitting the Bid, closing the auction, Adding to watchlist, you could display the listing again and
     # just display the message above as I do now.
-
 
     # Create the comment form from the forms.py file
     commentForm = forms.CommentForm()
@@ -100,12 +99,6 @@ def saveListing(request):
             description = form.cleaned_data.get('description')
             price = form.cleaned_data.get('price')
             category = form.cleaned_data.get('category')
-
-            # Case for when users do not specify a category
-            category = category.lower()
-            if category == '':
-                category = 'No Category'
-
             image_url = form.cleaned_data.get('image_url')
 
             # Get the user ID of the logged in user for the User object
@@ -187,7 +180,7 @@ def saveComment(request, listing_id):
             watcher = False
 
         return render(request, "auctions/listing.html", {"listing": listing, "commentForm": commentForm, "bidForm": bidForm, "commentsForListing":
-                                                        commentsForListing, "watcher": watcher, "currentBidForContext": currentBidForContext})
+                                                         commentsForListing, "watcher": watcher, "currentBidForContext": currentBidForContext})
 
 
 @login_required
@@ -247,7 +240,7 @@ def categories(request):
     # Go to another view to display the active listings for the category.
 
     # Gets all the listings.
-    #May need to refine this further so that  it only returns listings that are active.
+    # May need to refine this further so that  it only returns listings that are active.
     listing = Listings.objects.filter(active=True)
 
     # This loops through all listings and returns unique categories.  Then pass these to the page for categories.
@@ -342,7 +335,7 @@ def removeFromWatchlist(request, listing_id):
 
     # Go back to the active listings page.
     messages.success(
-            request, 'Listing has been removed from your watchlist.')
+        request, 'Listing has been removed from your watchlist.')
     return HttpResponseRedirect(reverse("activeListings"))
 
 
