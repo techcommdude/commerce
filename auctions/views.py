@@ -39,8 +39,7 @@ def listings(request, listing_id):
 
     # Get the information to display on the form from this reusable function.
     commentForm, bidForm, commentsForListing, watcher, currentBidForContext = prepareListing(
-            request, listing_id)
-
+        request, listing_id)
 
     # This returns objects and Querysets.
     return render(request, "auctions/listing.html", {"listing": listing, "commentForm": commentForm, "bidForm": bidForm, "commentsForListing":
@@ -128,7 +127,6 @@ def saveComment(request, listing_id):
                     comment=newComment, user=userName, listing=listing)
                 savedComment.save()
 
-
     # Get the information to display on the form from this reusable function.
         commentForm, bidForm, commentsForListing, watcher, currentBidForContext = prepareListing(
             request, listing_id)
@@ -178,22 +176,22 @@ def submitBid(request, listing_id):
                 currentObject.currentBid = bidAmount
                 currentObject.save()
 
-                # TODO: recreate the form and display it again with the message.
+                # recreate the form and display it again with the message.
                 # Pass a flag to a method for bid success or failure.
 
                 messages.success(request, 'Your bid was successful.')
 
                 return render(request, "auctions/listing.html", {"listing": listing, "commentForm": commentForm, "bidForm": bidForm, "commentsForListing":
-                                                         commentsForListing, "watcher": watcher, "currentBidForContext": currentBidForContext})
-
+                                                                 commentsForListing, "watcher": watcher, "currentBidForContext": currentBidForContext})
 
             else:
                 # Need to issue an error message here per requirements.
 
-                messages.error(request, 'Your bid was not successful. Your bid must be at least as high as the minimum bid.')
+                messages.error(
+                    request, 'Your bid was not successful. Your bid must be at least as high as the minimum bid.')
 
                 return render(request, "auctions/listing.html", {"listing": listing, "commentForm": commentForm, "bidForm": bidForm, "commentsForListing":
-                                                         commentsForListing, "watcher": watcher, "currentBidForContext": currentBidForContext})
+                                                                 commentsForListing, "watcher": watcher, "currentBidForContext": currentBidForContext})
 
 
 @login_required
@@ -337,11 +335,12 @@ def closeAuction(request, listing_id):
         # TODO: Pass a flag to a central method and redisplay the same page again with the message below.
 
             messages.success(
-                request, 'You have successfully closed the auction.')
+                request, 'You have accepted the highest bid and successfully closed the auction.')
             return HttpResponseRedirect(reverse("activeListings"))
         else:
 
-            messages.error(request, 'You cannot close the auction.')
+            messages.error(
+                request, 'You cannot close the auction since you are not the owner of this listing.')
             return HttpResponseRedirect(reverse("activeListings"))
 
     # Only display button if the current user is the user that created the listing.
@@ -407,6 +406,7 @@ def register(request):
         return render(request, "auctions/register.html")
 
 
+@login_required
 def prepareListing(request, listing_id):
 
     # TODO: Alot of this could be put into another method since the comment is already saved.
