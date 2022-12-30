@@ -27,6 +27,6 @@ Note: the branch could also be called "main" in Git.
 
 * Whitenoise should be installed at the latest version.
 
-**Also sometimes need to run collectstatic locally before pushing to Heroku:**
+**Also sometimes need to run collectstatic locally in the Python command line before pushing to Heroku:**
 
 python ./manage.py collectstatic
