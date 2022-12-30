@@ -301,6 +301,9 @@ def watchlist(request, listing_id):
         currentObject.watchers.add(userName)
         print(currentObject.watchers.all())
 
+        #Need to set the watcher to True here since the user is not in the watchlist.
+        watcher = True
+
         # The item has been added to the watchlist, so display the items on the user's watchlist.
         messages.success(
             request, 'Listing has been added to your watchlist.')
