@@ -18,7 +18,7 @@
                 <h5>{{ listing.title}}</h5>
                 <li><b>Description:</b> {{ listing.description}}</li>
                 <li><b>Starting Price:</b> ${{ listing.startingBid}}</li>
-                <li><b>Current minimum bid:</b> ${{ currentBidForContext }}</li>
+                <li><b>Current bid (Must be >= Starting Price):</b> ${{ currentBidForContext }}</li>
                 <li><b>Created:</b> {{ listing.createdDate}}</li>
                 <li><b>Category of listing:</b> {{ listing.category}}</li>
                 <li><b>Owner of listing:</b> {{ listing.creator}}</li>

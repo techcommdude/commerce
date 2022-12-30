@@ -194,7 +194,6 @@ def submitBid(request, listing_id):
 
                 # recreate the form and display it again with the message.
                 # Pass a flag to a method for bid success or failure.
-
                 messages.success(request, 'Your bid was successful.')
 
                 return render(request, "auctions/listing.html", {"listing": listing, "commentForm": commentForm, "bidForm": bidForm, "commentsForListing":
@@ -202,7 +201,6 @@ def submitBid(request, listing_id):
 
             else:
                 # Need to issue an error message here per requirements.
-
                 messages.error(
                     request, 'Your bid was not successful. Your bid must be at least as high as the minimum bid.')
 
@@ -278,10 +276,14 @@ def watchlist(request, listing_id):
     # Need to update the instance of the object and just add the user as a watcher to the object.
     # Get the user ID of the logged in user for the User object
 
-    # TODO: Display the same page again here by using prepareListing.
+    # Display the same page again here by using prepareListing.
     user_id = request.user.id
     userName = User.objects.get(id=user_id)
     currentObject = Listings.objects.get(id=listing_id)
+
+    # Get the information to display on the form from this reusable function.
+    commentForm, bidForm, commentsForListing, watcher, currentBidForContext = prepareListing(
+        request, listing_id)
 
     # Tests if the watcher is already in the queryset for watchers on the current object.
     if userName in currentObject.watchers.all():
@@ -290,7 +292,8 @@ def watchlist(request, listing_id):
         # May want to issue an error message as well.
         messages.error(
             request, 'Listing is already in your watchlist.')
-        return HttpResponseRedirect(reverse("displayWatchlist"))
+        return render(request, "auctions/listing.html", {"listing": currentObject, "commentForm": commentForm, "bidForm": bidForm, "commentsForListing":
+                                                         commentsForListing, "watcher": watcher, "currentBidForContext": currentBidForContext})
     else:
         print("Watcher is not in the list!")
         # Add the watcher to the list.  Get the current object and add the userName to the watchers
@@ -301,7 +304,8 @@ def watchlist(request, listing_id):
         # The item has been added to the watchlist, so display the items on the user's watchlist.
         messages.success(
             request, 'Listing has been added to your watchlist.')
-        return HttpResponseRedirect(reverse("displayWatchlist"))
+        return render(request, "auctions/listing.html", {"listing": currentObject, "commentForm": commentForm, "bidForm": bidForm, "commentsForListing":
+                                                         commentsForListing, "watcher": watcher, "currentBidForContext": currentBidForContext})
 
 
 @login_required
@@ -314,10 +318,15 @@ def removeFromWatchlist(request, listing_id):
     # Remvoe the object from the instance.
     currentObject.watchers.remove(userName)
 
+    # Get the information to display on the form from this reusable function.
+    commentForm, bidForm, commentsForListing, watcher, currentBidForContext = prepareListing(
+        request, listing_id)
+
     # Go back to the active listings page.
     messages.success(
         request, 'Listing has been removed from your watchlist.')
-    return HttpResponseRedirect(reverse("activeListings"))
+    return render(request, "auctions/listing.html", {"listing": currentObject, "commentForm": commentForm, "bidForm": bidForm, "commentsForListing":
+                                                     commentsForListing, "watcher": watcher, "currentBidForContext": currentBidForContext})
 
 
 @login_required
@@ -368,25 +377,13 @@ def closeAuction(request, listing_id):
     else:
 
         commentForm, bidForm, commentsForListing, watcher, currentBidForContext = prepareListing(
-                request, listing_id)
+            request, listing_id)
 
         messages.error(
-                request, 'You cannot close the auction since you are not the owner of this listing.')
+            request, 'You cannot close the auction since you are not the owner of this listing.')
 
         return render(request, "auctions/listing.html", {"listing": currentListingsObject, "commentForm": commentForm, "bidForm": bidForm, "commentsForListing":
-                                                             commentsForListing, "watcher": watcher, "currentBidForContext": currentBidForContext})
-
-    # Only display button if the current user is the user that created the listing.
-
-    # If the current bid is higher than the initial price, then the auction can be closed and the listing can be made inactive.
-
-    #TODO: remove this eventually
-
-    # messages.error(
-    #     request, 'You cannot close this auction since you are not the owner of the listing.')
-
-    # return render(request, "auctions/listing.html", {"listing": currentListingsObject, "commentForm": commentForm, "bidForm": bidForm, "commentsForListing":
-    #                                                  commentsForListing, "watcher": watcher, "currentBidForContext": currentBidForContext})
+                                                         commentsForListing, "watcher": watcher, "currentBidForContext": currentBidForContext})
 
 
 def login_view(request):
