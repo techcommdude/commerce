@@ -6,7 +6,7 @@ This project is deployed on Heroku (have patience since the instance is likely s
 
 A screencast of the project can be found here: <a href="https://youtu.be/kAhUsQOpvNY">https://youtu.be/kAhUsQOpvNY</a>
 
-You can log in to the app with this account:
+You can log in to the Heroku app above with this account:
 
 * username: **guest**
 * password: **123**
