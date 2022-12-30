@@ -24,14 +24,25 @@ a.btn.btn-primary.watchlist:visited {
 
 }
 
+a.btn.btn-primary.watchlist {
+    margin-bottom: 10px;
+
+}
+
 #container_card {
 
     width: 25rem;
 }
 
+.container3 {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+}
+
 #container_card_listing {
 
-    width: 40rem;
+    width: 25rem;
 }
 input.btn.btn-primary.test {
 
