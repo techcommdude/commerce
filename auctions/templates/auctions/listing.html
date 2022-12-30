@@ -13,10 +13,7 @@
             <ul>
                 <!-- "listings" is the queryset that you return.  "listing" is just one object in the queryset. -->
 
-                <li>
 
-
-                </li>
                 <li><img src="{{ listing.url}}" alt="" width="200" height="150" /></li>
                 <h5>{{ listing.title}}</h5>
                 <li><b>Description:</b> {{ listing.description}}</li>
@@ -36,25 +33,29 @@
 
     <div class="container4">
 
-        <ul> {% if listing.active == True%}
+        <ul>
+
+            {% if watcher == True %}
+            <!-- Send to the remove from watchlist view. -->
+            <li><a class="btn btn-primary watchlist" href="{% url 'removeFromWatchlist' listing.id %}">Remove from
+                    watchlist</a></li>
+            {% endif %}
+
+
+            {% if watcher == False %}
+            <li><a class="btn btn-primary watchlist" href="{% url 'watchlist' listing.id %}">Add to watchlist</a>
+            </li>
+            {% endif %}
+
+            {% if listing.active == True%}
             <li><a class="btn btn-primary watchlist" href="{% url 'closeAuction' listing.id %}">Close
                     auction</a>
             </li>
             {% endif %}
 
 
-        {% if watcher == False %}
-        <li><a class="btn btn-primary watchlist" href="{% url 'watchlist' listing.id %}">Add to watchlist</a>
-        </li>
-        {% endif %}
 
-        {% if watcher == True %}
-        <!-- Send to the remove from watchlist view. -->
-        <li><a class="btn btn-primary watchlist" href="{% url 'removeFromWatchlist' listing.id %}">Remove from
-                watchlist</a></li>
-        {% endif %}
-
-    </ul>
+        </ul>
 
         <!-- Call the submit bid method. -->
         <div>
