@@ -31,7 +31,7 @@ def listings(request, listing_id):
 
     # TODO: The creation of the form with the base values could be sent to a different function since the saveComment method
     # also uses much of the same functionality.
-    # TODO: For Submitting the Bid, closing the auction, Adding to watchlist, you could display the listing again and
+    # TODO: For Submitting the Bid, closing the auction, Adding to watchlist?, you could display the listing again and
     # just display the message above as I do now.
 
     # Create the comment form from the forms.py file
@@ -152,8 +152,8 @@ def saveComment(request, listing_id):
                 savedComment = Comments(
                     comment=newComment, user=userName, listing=listing)
                 savedComment.save()
-
-            # Create the comment form from the forms.py file
+# TODO: Alot of this could be put into another method since the comment is already saved.
+        # Create the comment form from the forms.py file
         commentForm = forms.CommentForm()
 
     # Create the bid form
@@ -216,6 +216,9 @@ def submitBid(request, listing_id):
                 # Update the current bid to the latest value
                 currentObject.currentBid = bidAmount
                 currentObject.save()
+
+                # TODO: recreate the form and display it again with the message.
+                # Pass a flag to a method for bid success or failure.
 
                 messages.success(request, 'Your bid was successful.')
                 # Redirect to activeListings page.
@@ -368,6 +371,8 @@ def closeAuction(request, listing_id):
             currentListingsObject.save()
             currentListingsObject.buyer = userName
             currentListingsObject.save()
+
+        # TODO: Pass a flag to a central method and redisplay the same page again with the message below.
 
             messages.success(
                 request, 'You have successfully closed the auction.')
