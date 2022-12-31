@@ -23,6 +23,9 @@ class Listings(models.Model):
     # Person who won the auction and bought it.  Cannot be the person who created it.
     buyer = models.ForeignKey(
         User, blank=True, null=True, on_delete=models.PROTECT, related_name="get_buyer_listings")
+    #TODO: This is the current highest bidder, must update this everytime someone has a successful bid.
+    currentHighestBidder = models.ForeignKey(
+        User, blank=True, null=True, on_delete=models.PROTECT, related_name="get_current_highest_bidder")
     watchers = models.ManyToManyField(
         User, blank=True, related_name="get_watched_listings")
     title = models.CharField(max_length=64)

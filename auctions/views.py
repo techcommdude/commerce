@@ -192,6 +192,10 @@ def submitBid(request, listing_id):
                 currentObject.currentBid = bidAmount
                 currentObject.save()
 
+                #TODO: Updating the user of the current highest bidder.
+                listing.currentHighestBidder = userName
+                listing.save()
+
                 # recreate the form and display it again with the message.
                 # Pass a flag to a method for bid success or failure.
                 messages.success(request, 'Your bid was successful.')
@@ -364,7 +368,10 @@ def closeAuction(request, listing_id):
 
             currentListingsObject.active = False
             currentListingsObject.save()
-            currentListingsObject.buyer = userName
+            #TODO: This is incorrect.  The buyer is the highest bidder.
+            #Need to get the currentHighestBidder.
+            winner = currentListingsObject.currentHighestBidder
+            currentListingsObject.buyer = winner
             currentListingsObject.save()
 
         # Get the information to display on the form from this reusable function.
