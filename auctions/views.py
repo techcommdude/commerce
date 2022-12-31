@@ -163,18 +163,17 @@ def submitBid(request, listing_id):
             # Get the ID for the Listings object that has the bid.
             listing = Listings.objects.get(id=listing_id)
 
-            # Get the information to display on the form from this reusable function.
-            commentForm, bidForm, commentsForListing, watcher, currentBidForContext = prepareListing(
-                request, listing_id)
-
-            # Owner of listing cannot submit a bid.
-
             # Current Listings object.
             creator = listing.creator
             # user = request.user.username
             user_id = request.user.id
             userName = User.objects.get(id=user_id)
 
+            # Get the information to display on the form from this reusable function.
+            commentForm, bidForm, commentsForListing, watcher, currentBidForContext = prepareListing(
+                request, listing_id)
+
+            # Owner of listing cannot submit a bid.
             if userName == creator:
                 messages.error(
                     request, 'You cannot submit a bid if you are the owner of the listing.')
@@ -192,9 +191,13 @@ def submitBid(request, listing_id):
                 currentObject.currentBid = bidAmount
                 currentObject.save()
 
-                #TODO: Updating the user of the current highest bidder.
+                # Updating the user of the current highest bidder.
                 listing.currentHighestBidder = userName
                 listing.save()
+
+                            # Get the information to display on the form from this reusable function.
+                commentForm, bidForm, commentsForListing, watcher, currentBidForContext = prepareListing(
+                request, listing_id)
 
                 # recreate the form and display it again with the message.
                 # Pass a flag to a method for bid success or failure.
@@ -368,8 +371,8 @@ def closeAuction(request, listing_id):
 
             currentListingsObject.active = False
             currentListingsObject.save()
-            #TODO: This is incorrect.  The buyer is the highest bidder.
-            #Need to get the currentHighestBidder.
+
+            #Need to get the currentHighestBidder, not the current user.
             winner = currentListingsObject.currentHighestBidder
             currentListingsObject.buyer = winner
             currentListingsObject.save()
