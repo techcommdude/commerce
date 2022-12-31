@@ -19,6 +19,10 @@ sudo fuser -k 5000/tcp
 
 heroku git:remote -a python-django-commerce
 
+**Perhaps do this and make sure everything is committed to Git:**
+
+git add .
+
 **Push the changes to the remote repository on Heroku:**
 
 git push heroku master
