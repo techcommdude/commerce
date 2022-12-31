@@ -1,6 +1,6 @@
 # e-Commerce website using Django framework and Python
 
-This simple app is an eBay-like e-commerce auction site that will allow users to post auction listings, place bids on listings, comment on those listings, and add listings to a “watchlist.”
+This simple app is an eBay-like e-commerce auction site that will allow users to post auction listings, place bids on listings, comment on listings, and add listings to a “watchlist.”
 
 This project is deployed on Heroku (have patience since the instance is likely sleeping): <a href="https://python-django-commerce.herokuapp.com/">https://python-django-commerce.herokuapp.com/</a>
 
@@ -11,7 +11,7 @@ You can log in to the Heroku app above with this account:
 * username: **guest**
 * password: **123**
 
-Some of the technologies used:
+Some of the technologies I used when building this demo application:
 
 * Visual Studio Code
 * Django web framework
