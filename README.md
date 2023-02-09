@@ -6,7 +6,7 @@ This project is deployed on Heroku (please have patience since the instance is l
 
 A screencast of the project can be found here: <a href="https://youtu.be/6WfF_JHMtnU">https://youtu.be/6WfF_JHMtnU</a>
 
-You can log in to the Heroku app above with this account. No registration is required (although you can register):
+You can log in to the Heroku app above with this account that is already entered by default. No registration is required (although you can register):
 
 * username: **guest**
 * password: **123**
