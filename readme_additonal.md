@@ -17,6 +17,8 @@ sudo fuser -k 5000/tcp
 
 **Connect to the remote repository:**
 
+heroku login
+
 heroku git:remote -a python-django-commerce
 
 **Perhaps do this and make sure everything is committed to Git:**
@@ -38,3 +40,5 @@ Note: the branch could also be called "main" in Git.
 **Also sometimes need to run collectstatic locally in the Python command line before pushing to Heroku:**
 
 python ./manage.py collectstatic
+
+To quit Ubuntu: exit
