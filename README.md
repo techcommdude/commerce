@@ -4,8 +4,6 @@ This simple app is an eBay-like e-commerce auction site that will allow users to
 
 This project is deployed on Heroku (please have patience since the instance is likely sleeping but will wake up after a few seconds): <a href="https://python-django-commerce.herokuapp.com/">https://python-django-commerce.herokuapp.com/</a>
 
-A screencast of the project can be found here: <a href="https://youtu.be/6WfF_JHMtnU">https://youtu.be/6WfF_JHMtnU</a>
-
 A screencast of the project is available on YouTube:
 
 <a href="http://www.youtube.com/watch?feature=player_embedded&v=6WfF_JHMtnU
