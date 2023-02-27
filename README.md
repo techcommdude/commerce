@@ -6,6 +6,12 @@ This project is deployed on Heroku (please have patience since the instance is l
 
 A screencast of the project can be found here: <a href="https://youtu.be/6WfF_JHMtnU">https://youtu.be/6WfF_JHMtnU</a>
 
+A screencast of the project is available on YouTube:
+
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=6WfF_JHMtnU
+" target="_blank"><img src="auctions/static/static/Commerce3.gif"
+alt="Commerce by Geoff Farnell" width="600" height="360" /></a>
+
 You can log in to the Heroku app above with this account that is already entered by default. No registration is required (although you can register):
 
 * username: **guest**
