@@ -1,9 +1,11 @@
 
-# Some of the commands necessary to set it up:
+# Local and Heroku configuration
 
-**Test it on local first found here:**
+## Test it on local first found here
 
  http://127.0.0.1:5000/
+
+# Heroku configuration
 
 **Run this command.  Will likely need to run the collectstatic command before this one to have the latest css files:**
 
@@ -42,3 +44,6 @@ Note: the branch could also be called "main" in Git.
 python ./manage.py collectstatic
 
 To quit Ubuntu: exit
+
+
+# Google Cloud Setup
