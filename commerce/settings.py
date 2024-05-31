@@ -30,7 +30,7 @@ SECRET_KEY = '6ps8j!crjgrxt34cqbqn7x&b3y%(fny8k8nh21+qa)%ws3fh!q'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['https://django-commerce-406118.uk.r.appspot.com/']
+ALLOWED_HOSTS = ['django-commerce-406118.uk.r.appspot.com']
 
 DEFAULT_AUTO_FIELD='django.db.models.AutoField'
 
