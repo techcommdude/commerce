@@ -1,0 +1,94 @@
+body {
+    padding: 10px;
+}
+
+ul {
+    list-style: none;
+    padding-left: 0px;
+}
+
+label {
+    margin-top: 15px;
+}
+
+a {
+
+    text-decoration: none;
+}
+
+/* a.btn.btn-primary.watchlist:visited { */
+
+/* color:grey; */
+/* background-color: grey; */
+/* content: "Unwatch"; */
+
+
+a.btn.btn-primary.watchlist.test2 {
+    margin-bottom: 10px;
+    background: grey;
+
+}
+
+a.btn.btn-primary.watchlist.test1 {
+    margin-bottom: 10px;
+    /* background: grey; */
+
+}
+
+#container_card {
+
+    width: 25rem;
+}
+
+.container3 {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+.container4 {
+    margin-left: 1rem;
+}
+
+#container_card_listing {
+
+    width: 25rem;
+}
+
+input.btn.btn-primary.test {
+
+    width: 132px;
+    margin-top: 10px;
+}
+
+input.btn.btn-primary {
+
+    display: flex;
+}
+
+#id_text {
+    margin-top: 10px;
+}
+
+#id_bid {
+
+    margin-bottom: 10px;
+}
+
+#formCreateListing {
+    display: flex;
+    flex-direction: column;
+    width: 70%
+}
+
+.UserComments {
+
+    padding-top: 20px;
+    color: darkgreen;
+
+}
+
+.paragraphComment {
+
+    color: blue;
+}
