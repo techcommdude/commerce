@@ -140,9 +140,6 @@ STATIC_URL = "/static/"
 # Enable WhiteNoise's GZip compression of static assets.
 # STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
-
-
-
 # SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 # SESSION_SAVE_EVERY_REQUEST = True
 # SESSION_COOKIE_AGE = 86400 # sec

@@ -82,3 +82,7 @@ Creating the remote repository:
 C:\Users\geoff\OneDrive\Desktop\Git_Repositories\commerce>gcloud source repos create commerce
 Created [commerce].
 WARNING: You may be billed for this repository. See https://cloud.google.com/source-repositories/docs/pricing for details.
+
+# ChatGPT instructions for Google Cloud
+
+* [](https://chatgpt.com/share/63f267c4-a0d9-4342-b64b-a03dbe4607d0)
