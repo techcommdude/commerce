@@ -30,7 +30,8 @@ SECRET_KEY = '6ps8j!crjgrxt34cqbqn7x&b3y%(fny8k8nh21+qa)%ws3fh!q'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['django-commerce-406118.uk.r.appspot.com']
+#ALLOWED_HOSTS = ['django-commerce-406118.uk.r.appspot.com']
+ALLOWED_HOSTS = ['*']
 
 DEFAULT_AUTO_FIELD='django.db.models.AutoField'
 
@@ -83,12 +84,35 @@ WSGI_APPLICATION = 'commerce.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'tmp/db.sqlite3',  # Use /tmp for write access'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': os.path.join(BASE_DIR,'tmp/db.sqlite3'),  # Use /tmp for write access
     }
 }
+
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR,'tmp/db.sqlite3'),  # Use /tmp for write access
+#     }
+# }
+
+# DB_PATH = os.path.join(BASE_DIR, 'db.sqlite3')
+# try:
+#     from shutil import copyfile
+#     DB_PATH = "/tmp/db.sqlite3"
+#     copyfile(os.path.join(BASE_DIR, 'db.sqlite3'), DB_PATH)
+# except:
+#     pass
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': DB_PATH,
+#     }
+# }
 
 AUTH_USER_MODEL = 'auctions.User'
 
