@@ -90,3 +90,13 @@ WARNING: You may be billed for this repository. See https://cloud.google.com/sou
 # General tips for deploying to Google Cloud
 
 * [](https://medium.com/@muhammad-haseeb/how-to-deploy-a-django-project-on-google-cloud-for-free-a-step-by-step-tutorial-45d10fbb844d)
+
+Run these commands in PS or Ubuntu:
+
+`gcloud init`
+
+`gcloud app deploy`
+
+`gcloud app browse` to view the site.
+
+This is the site: [https://django-commerce-406118.uk.r.appspot.com](https://django-commerce-406118.uk.r.appspot.com)
