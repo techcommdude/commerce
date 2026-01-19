@@ -2,15 +2,13 @@
 
 This simple app is an eBay-like e-commerce auction site that will allow users to post auction listings, place bids on listings, comment on listings, and add listings to a “watchlist.”
 
-This project is deployed on Heroku (please have patience since the instance is likely sleeping but will wake up after a few seconds): <a href="https://python-django-commerce.herokuapp.com/">https://python-django-commerce.herokuapp.com/</a>
-
 A screencast of the project is available on YouTube:
 
 <a href="http://www.youtube.com/watch?feature=player_embedded&v=6WfF_JHMtnU
 " target="_blank"><img src="auctions/static/static/Commerce3.gif"
 alt="Commerce by Geoff Farnell" width="600" height="360" /></a>
 
-You can log in to the Heroku app above with this account that is already entered by default. No registration is required (although you can register):
+You can log in to the app with this account that is already entered by default. No registration is required (although you can register):
 
 * username: **guest**
 * password: **123**
@@ -23,7 +21,6 @@ Some of the technologies I used when building this demo application:
 * Git
 * HTML
 * CSS
-* Heroku hosting
 
 -----------
 ## Project overview
@@ -45,4 +42,5 @@ Some of the technologies I used when building this demo application:
 * **Django Admin Interface**: Via the Django admin interface, as a site administrator you can view, add, edit, and delete any listings, comments, and bids made on the site.
 
 ## Screen capture of the application:
+
 ![Auction site](Auction_site.png)
