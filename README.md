@@ -2,7 +2,7 @@
 
 This simple app is an eBay-like e-commerce auction site that will allow users to post auction listings, place bids on listings, comment on listings, and add listings to a “watchlist.”
 
-A screencast of the project is available on YouTube:
+A screencast of the project is available on [YouTube](https://www.youtube.com/watch?v=6WfF_JHMtnU):
 
 <a href="http://www.youtube.com/watch?feature=player_embedded&v=6WfF_JHMtnU
 " target="_blank"><img src="auctions/static/static/Commerce3.gif"
@@ -44,3 +44,4 @@ Some of the technologies I used when building this demo application:
 ## Screen capture of the application:
 
 ![Auction site](Auction_site.png)
+
