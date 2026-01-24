@@ -93,10 +93,24 @@ WARNING: You may be billed for this repository. See https://cloud.google.com/sou
 
 Run these commands in PS or Ubuntu:
 
-`gcloud init`
+`gcloud init`: set it up
+
+`gcloud auth login`: authorize
 
 `gcloud app deploy`
 
+`gcloud app deploy --verbosity=debug` to view the logs
+
 `gcloud app browse` to view the site.
 
+
 This is the site: [https://django-commerce-406118.uk.r.appspot.com](https://django-commerce-406118.uk.r.appspot.com)
+
+# Windows virtual environment that I have installed
+
+`venv\Scripts\activate`
+
+
+# Run the server in the virtual env
+
+`python manage.py runserver`

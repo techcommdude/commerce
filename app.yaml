@@ -1,11 +1,11 @@
-runtime: python39
+runtime: python311
 
 entrypoint: gunicorn -b :$PORT commerce.wsgi
 
-
 env_variables:
     DJANGO_SETTINGS_MODULE: "commerce.settings"
-    DATABASE_NAME: "/tmp/db.sqlite3"
+    DATABASE_URL: "sqlite:////tmp/db.sqlite3"
+    ENV: "production"
 
 instance_class: F1
 automatic_scaling:

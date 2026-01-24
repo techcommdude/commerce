@@ -30,8 +30,13 @@ SECRET_KEY = '6ps8j!crjgrxt34cqbqn7x&b3y%(fny8k8nh21+qa)%ws3fh!q'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-#ALLOWED_HOSTS = ['django-commerce-406118.uk.r.appspot.com']
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = [
+    'django-commerce-406118.uk.r.appspot.com',  # GAE default hostname
+    'django-commerce-406118.appspot.com',     # Custom domain
+    'localhost',                    # Local development
+    '127.0.0.1',                    # Local development IP
+]
+
 
 DEFAULT_AUTO_FIELD='django.db.models.AutoField'
 
@@ -84,13 +89,32 @@ WSGI_APPLICATION = 'commerce.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
+# Get the environment variable 'ENV'
+ENV = os.getenv('ENV')
+
+if ENV == 'production':
+    # In production, store the database in the /tmp directory
+    DB_PATH = '/tmp/db.sqlite3'
+else:
+    # In development, store the database in the root directory
+    DB_PATH = os.path.join(BASE_DIR, 'db.sqlite3')
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR,'tmp/db.sqlite3'),  # Use /tmp for write access
+        'NAME': DB_PATH
     }
 }
+
+
+
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR,'tmp/db.sqlite3'),  # Use /tmp for write access
+#     }
+# }
 
 
 # DATABASES = {

@@ -15,13 +15,13 @@ from django.core.management import call_command
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'commerce.settings')
 
 #Initialize the database in /tmp if it does not exist
-db_path = '/tmp/db.sqlite3'
-if not os.path.exists(db_path):
-    try:
-        call_command('migrate')
-    except Exception as e:
-        import sys
-        sys.stderr.write(f"Error running migrations: {e}\n")
+# db_path = '/tmp/db.sqlite3'
+# if not os.path.exists(db_path):
+#     try:
+#         call_command('migrate')
+#     except Exception as e:
+#         import sys
+#         sys.stderr.write(f"Error running migrations: {e}\n")
 
 # Initialize database in /tmp if it does not exist
 # db_path = '/tmp/db.sqlite3'
